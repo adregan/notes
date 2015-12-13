@@ -20,7 +20,9 @@ class Sidebar extends React.Component {
   handleSearch(searchTerm) {
     let results = Immutable.List(
       this.state.data.filter(
-        note => note.get('title').indexOf(searchTerm) !== -1
+        note => note.get('title')
+                    .toLowerCase()
+                    .indexOf(searchTerm.toLowerCase()) !== -1
     ));
 
     this.setState(
