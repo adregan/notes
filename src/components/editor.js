@@ -6,18 +6,26 @@ import FancyInput from './fancyInput';
 class Editor extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleChange = this.handleChange.bind(this);
+
     this.state = {
-      text: 'Hello'
+      title: '',
+      body: ''
     }
   }
-  handleChange(newText) {
+  handleChange(newText, title) {
+    let key = title ? 'title' : 'body';
     this.setState({
-      text: newText
+      [key]: newText
     });
   }
   render() {
-    let options = {}
+    let options = {
+      readOnly: false,
+      mode: 'markdown',
+      indentUnit: 10
+    };
     return (
       <section ref="editor">
         <FancyInput
