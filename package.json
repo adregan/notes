@@ -31,9 +31,11 @@
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "classnames": "^2.2.1",
+    "codemirror": "^5.9.0",
     "history": "^1.13.1",
     "immutable": "^3.7.5",
     "react": "^0.14.3",
+    "react-codemirror": "^0.2.2",
     "react-dom": "^0.14.3",
     "react-router": "^1.0.2"
   }
