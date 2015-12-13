@@ -11,10 +11,10 @@
     "build:browser": "browserify -t [ babelify --presets [es2015 react ] ] src/browser.js > dist/static/index.js",
     "build:html": "cp src/index.html dist/index.html",
     "build": "npm run build:browser; npm run build:html",
-    "server": "cd dist; http-server -p 7777",
+    "start": "cd dist; http-server -p 7777",
     "dev:watch": "watchify -v -t [ babelify --presets [es2015 react ] ] src/browser.js -o dist/static/index.js",
-    "dev": "npm run build; npm run dev:watch & npm run server",
-    "serve": "npm run build & npm run server"
+    "dev": "npm run build; npm run dev:watch & npm run start",
+    "serve": "npm run build & npm run start"
   },
   "repository": {
     "type": "git",
