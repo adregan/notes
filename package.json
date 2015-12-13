@@ -13,7 +13,7 @@
     "build": "npm run build:browser; npm run build:html",
     "server": "cd dist; http-server -p 7777",
     "dev:watch": "watchify -v -t [ babelify --presets [es2015 react ] ] src/browser.js -o dist/static/index.js",
-    "dev": "npm run dev:watch & npm run server",
+    "dev": "npm run build; npm run dev:watch & npm run server",
     "serve": "npm run build & npm run server"
   },
   "repository": {
