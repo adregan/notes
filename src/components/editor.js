@@ -1,5 +1,7 @@
 import React from 'react';
 import Codemirror from 'react-codemirror';
+import 'codemirror/mode/markdown/markdown';
+import FancyInput from './fancyInput';
 
 class Editor extends React.Component {
   constructor(props) {
@@ -17,10 +19,16 @@ class Editor extends React.Component {
   render() {
     let options = {}
     return (
-      <Codemirror
-        value={this.state.text}
-        onChange={this.handleChange}
-        options={options} />
+      <section ref="editor">
+        <FancyInput
+          data={this.state.title}
+          onChange={this.handleChange} 
+          limit={100} />
+        <Codemirror
+          value={this.state.body}
+          onChange={this.handleChange}
+          options={options} />
+      </section>
     );
   }
 }
