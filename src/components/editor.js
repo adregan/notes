@@ -14,8 +14,8 @@ class Editor extends React.Component {
       body: ''
     }
   }
-  handleChange(newText, title) {
-    let key = title ? 'title' : 'body';
+  handleChange(newText, options={}) {
+    let key = options.type || 'body';
     this.setState({
       [key]: newText
     });

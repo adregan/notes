@@ -12,14 +12,13 @@ class FancyInput extends React.Component {
                         .replace(/(\r\n|\n|\r)/gm, '')
                         .substring(0, this.props.limit);
 
-    this.props.onChange(newText, true)
+    this.props.onChange(newText, {type: 'title'})
   }
   handleInput(event) {
-    console.log('yo')
     event.preventDefault();
     let newText = event.target.textContent;
     if (newText.length < this.props.limit) {
-      this.props.onChange(newText, true)
+      this.props.onChange(newText, {type: 'title'})
     }
   }
   render() {
