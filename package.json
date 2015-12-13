@@ -1,0 +1,22 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "description": "A simple notes app that encrypts your data before heading to the server",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adregan/notes.git"
+  },
+  "author": "Duncan Regan",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/adregan/notes/issues"
+  },
+  "homepage": "https://github.com/adregan/notes#readme",
+  "dependencies": {
+    "react": "^0.14.3"
+  }
+}
