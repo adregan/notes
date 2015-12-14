@@ -3,12 +3,12 @@ import 'babel-register';
 import express from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-// import { Router } from 'react-router';
-// import routes from './route;s';
+// import {Router} from 'react-router';
+// import routes from '../src/routes';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import ejs from 'ejs';
-import Login from '../src/components/login';
+import Login from '../src/handlers/login'
 
 const server = express();
 server.use(cookieParser())
@@ -20,7 +20,7 @@ server.get('/?', (req, res) => {
   // TODO: Check for cookie from Keybase and forward to app if found
   // if (cookie) => loading.html else => login.html
   let login = ReactDOMServer.renderToString(<Login />);
-  return res.render('index.html', {content: login});
+  return res.render('index.html', {content: login, script: 'login.js'});
 });
 server.post('/?', (req, res) => {
   // LOGIN
