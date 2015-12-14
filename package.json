@@ -10,13 +10,13 @@
     "predev": "npm run directories",
     "build:server": "babel src/server.js > dist/server.js",
     "build:browser": "browserify -t babelify src/browser.js > dist/static/index.js",
-    "build:html": "cp src/index.html dist/index.html",
+    "build:html": "cp src/index.html dist/index.html; cp -r src/views dist",
     "build:css": "cp node_modules/codemirror/lib/codemirror.css dist/static/codemirror.css",
-    "build": "npm run build:browser; npm run build:html; npm run build:css",
-    "start": "cd dist; node server.js",
+    "build": "npm run build:server; npm run build:browser; npm run build:html; npm run build:css",
+    "serve": "cd dist; node server.js",
     "dev:watch": "watchify -v -t babelify src/browser.js -o dist/static/index.js",
     "dev": "npm run build; npm run dev:watch & npm run start",
-    "serve": "npm run build & npm run start"
+    "start": "npm run build; npm run serve"
   },
   "repository": {
     "type": "git",
