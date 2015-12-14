@@ -13,7 +13,7 @@
     "build:html": "cp src/index.html dist/index.html",
     "build:css": "cp node_modules/codemirror/lib/codemirror.css dist/static/codemirror.css",
     "build": "npm run build:browser; npm run build:html; npm run build:css",
-    "start": "cd dist; http-server -p 7777",
+    "start": "cd dist; node server.js",
     "dev:watch": "watchify -v -t babelify src/browser.js -o dist/static/index.js",
     "dev": "npm run build; npm run dev:watch & npm run start",
     "serve": "npm run build & npm run start"
