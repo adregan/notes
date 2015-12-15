@@ -1,6 +1,7 @@
 import requests from 'superagent';
 import scrypt from 'scrypt';
 import {createHmac} from 'crypto';
+import createCookieDict from './utils/cookies';
 
 export function getSalt(username, password) {
   let saltURL = 'https://keybase.io/_/api/1.0/getsalt.json';
@@ -57,13 +58,20 @@ export function login(options = {}) {
           reject(err);
         }
         if (res.body.me) {
-          // TODO: Also return private and public keys
           let privateKey = res.body.me.private_keys.primary;
           let publicKey = res.body.me.public_keys.primary;
           let cookies = res.headers['set-cookie'];
-          resolve({privateKey, publicKey, cookies})
+          let sessionCookie = cookies
+            .map(cookie => createCookieDict(cookie))
+            .filter(cookie => cookie.name === 'session');
+
+          resolve({privateKey, publicKey, sessionCookie})
         }
-        reject(Error('Login unsuccessful.'))
+        reject(Error('Login unsuccessful. Please ensure your username and passphrase are correct.'))
       })
   })
+}
+
+export function KeybaseLogin(username, password) {
+  return getSalt(username, password).then(login);
 }
