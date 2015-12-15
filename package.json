@@ -13,6 +13,7 @@
     "build:login": "browserify -t babelify src/login.js | uglifyjs > dist/static/login.js",
     "build:html": "cp -r src/views dist",
     "build:css": " sassc --sourcemap --style compressed src/scss/index.scss | postcss --use autoprefixer > dist/static/index.css",
+    "build:assets": "cp src/assets/* dist/static",
     "build": "npm run build:server; npm run build:browser; npm run build:login; npm run build:html; npm run build:css",
     "serve": "cd dist; node server.js",
     "dev:watch": "watchify -v -t babelify src/browser.js -o dist/static/index.js & babel src/server.js --watch --out-file dist/server.js & watchify -v -t babelify src/login.js -o dist/static/login.js",
