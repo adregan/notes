@@ -12,7 +12,10 @@
       <img src="logo.png" alt="Notes">
     </object>
     <article class="login">
-      <p>You must have a Keybase.io account to use this app</p>
+        <p>You must have a Keybase.io account to use this app</p>
+        <%if (typeof error !== 'undefined') { %>
+          <p class="error"><%= error %></p>
+        <% } %>
         <form class="login-form" action="/" method="post">
           <input type="hidden" name="_csrf" value=<%= csrfToken %>>
           <label class="login-form__label" for="username">Email or username</label>

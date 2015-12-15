@@ -10,7 +10,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import csrf from 'csurf';
 import ejs from 'ejs';
-import { getSalt, login } from '../src/keybase';
+import { KeybaseLogin } from '../src/keybase';
 import createCookieDict from '../src/utils/cookies';
 
 let csrfProtection = csrf({ cookie: true })
@@ -31,21 +31,17 @@ server.get('/?', csrfProtection, (req, res) => {
 server.post('/?', parseForm, csrfProtection, (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
-
-  getSalt(username, password)
-    .then(login)
-    .then(opt => {
-      let sessionCookie = opt.cookies
-        .map(cookie => createCookieDict(cookie))
-        .filter(cookie => cookie.name === 'session');
-
-      res.cookie(sessionCookie.name, sessionCookie.value, sessionCookie.options);
-      res.cookie('keybaseSession', sessionCookie.value);
-
-      return res.render('app.html',
-        {privateKey: opt.privateKey, publicKey: opt.publicKey});
+  KeybaseLogin(username, password)
+    .then(resp => {
+      console.log(resp.privateKey.bundle)
     })
-    .catch(err => console.error(err))
+    .catch(err => res.render('login.html', 
+      {csrfToken: req.csrfToken(), 'error': err})
+    );
 });
+
+server.get('/app/?', (req, res) => {
+  return res.send('hihihih')
+})
 
 server.listen(7777);
