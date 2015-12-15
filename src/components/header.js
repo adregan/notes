@@ -24,9 +24,13 @@ class Header extends React.Component {
   }
   render() {
     return (
-      <header>
-        <h1>Notes</h1>
-        <input type="text" 
+      <header className="sidebar-header">
+        <object type="image/svg+xml" data="/logo.svg" className="sidebar-header__logo">
+          <img src="logo.png" alt="Notes" />
+        </object>
+        <input 
+          className="sidebar-header__input"
+          type="text" 
           value={this.state.value}
           onChange={this.handleChange}
           onKeyDown={this.handleKey} />
