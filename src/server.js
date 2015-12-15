@@ -8,29 +8,44 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import compression from 'compression';
+import csrf from 'csurf';
 import ejs from 'ejs';
+import { getSalt, login } from '../src/keybase';
+import createCookieDict from '../src/utils/cookies';
+
+let csrfProtection = csrf({ cookie: true })
+let parseForm = bodyParser.urlencoded({ extended: false })
 
 const server = express();
 server.use(cookieParser());
 server.use(express.static('static'));
 server.use(compression());
-server.use(bodyParser.urlencoded({extended: true}));
 server.engine('html', require('ejs').renderFile);
 
-server.get('/?', (req, res) => {
+server.get('/?', csrfProtection, (req, res) => {
   // TODO: Check for cookie from Keybase and forward to app if found
   // if (cookie) => /app else => login.html
-  return res.render('login.html');
-});
-server.get('/login/?', (req, res) => {
-  return res.redirect(303, '/');
-});
-server.post('/login/?', (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
-  
-  return res.sendStatus(200);
+  return res.render('login.html', {csrfToken: req.csrfToken()});
 });
 
+server.post('/?', parseForm, csrfProtection, (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+
+  getSalt(username, password)
+    .then(login)
+    .then(opt => {
+      let sessionCookie = opt.cookies
+        .map(cookie => createCookieDict(cookie))
+        .filter(cookie => cookie.name === 'session');
+
+      res.cookie(sessionCookie.name, sessionCookie.value, sessionCookie.options);
+      res.cookie('keybaseSession', sessionCookie.value);
+
+      return res.render('app.html',
+        {privateKey: opt.privateKey, publicKey: opt.publicKey});
+    })
+    .catch(err => console.error(err))
+});
 
 server.listen(7777);
