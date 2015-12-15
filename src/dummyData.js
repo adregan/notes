@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-const notes = Immutable.List(Immutable.Range(1, 10).map(i => {
+const notes = Immutable.List(Immutable.Range(1, 100).map(i => {
   return Immutable.Map(
     {
       id: i,
