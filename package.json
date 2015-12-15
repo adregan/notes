@@ -16,8 +16,8 @@
     "build:assets": "cp src/assets/* dist/static",
     "build": "npm run build:server; npm run build:browser; npm run build:login; npm run build:html; npm run build:css",
     "serve": "cd dist; node server.js",
-    "dev:watch": "watchify -v -t babelify src/browser.js -o dist/static/index.js & babel src/server.js --watch --out-file dist/server.js & watchify -v -t babelify src/login.js -o dist/static/login.js",
-    "dev": "npm run build; npm run dev:watch & npm run start",
+    "watch": "watchify -v -t babelify src/browser.js -o dist/static/index.js & babel src/server.js --watch --out-file dist/server.js & watchify -v -t babelify src/login.js -o dist/static/login.js",
+    "dev": "npm run build; npm run watch & npm run start",
     "start": "npm run build; npm run serve"
   },
   "repository": {
