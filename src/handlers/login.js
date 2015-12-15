@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import LoginForm from '../components/loginForm';
 import fetch from '../utils/fetch';
 
@@ -37,8 +38,8 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <object type="image/svg+xml" data="logo.svg" className="login-logo">
-          <img src="logo.png" alt="Notes" />
+        <object type="image/svg+xml" data="logolight.svg" className="login-logo">
+          <img src="logolight.png" alt="Notes" />
         </object>
         <article className="login">
           <p>You must have a Keybase.io account to use this app</p>
