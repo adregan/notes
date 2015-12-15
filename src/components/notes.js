@@ -1,12 +1,12 @@
 import React from 'react';
 
-class Notes extends React.Component {
+class NotesList extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
-      <ul>
+      <ul className="notes-list">
         {this.props.data.map((note, i) => {
           return (
             <li key={i}>{note.get('title', 'Untitled')}</li>
@@ -17,4 +17,4 @@ class Notes extends React.Component {
   }
 }
 
-export default Notes; 
+export default NotesList; 

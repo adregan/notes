@@ -1,7 +1,7 @@
 import React from 'react';
 import Immutable from 'immutable';
 import data from '../dummyData';
-import Notes from './notes';
+import NotesList from './notes';
 import Header from './header';
 
 class Sidebar extends React.Component {
