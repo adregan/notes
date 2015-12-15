@@ -23,9 +23,6 @@ export function getSalt(username, password) {
 }
 
 export function login(options = {}) {
-  if (!Object.keys(options).length) {
-    throw Error('Missing options obj containing salt and session');
-  }
   let session = options.session;
   let params = {
     N: Math.pow(2, 15),
@@ -49,13 +46,15 @@ export function login(options = {}) {
     hmac_pwh: hmacPWH,
     login_session: session
   }
+  let loginError = 'Login unsuccessful. Please ensure your username and passphrase are correct.'
   return new Promise((resolve, reject) => {
     requests
       .post(loginURL)
       .query(query)
       .end((err, res) => {
         if (err) {
-          reject(err);
+          console.error(err);
+          reject(loginError);
         }
         if (res.body.me) {
           let privateKey = res.body.me.private_keys.primary;
@@ -67,7 +66,7 @@ export function login(options = {}) {
 
           resolve({privateKey, publicKey, sessionCookie})
         }
-        reject(Error('Login unsuccessful. Please ensure your username and passphrase are correct.'))
+        reject(loginError);
       })
   })
 }
