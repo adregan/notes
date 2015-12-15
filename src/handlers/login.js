@@ -8,6 +8,7 @@ class Login extends React.Component {
     this.state = {
       username: this.props.username,
       password: this.props.password,
+      error: false
     }
   }
   handleChange(options) {
@@ -18,23 +19,39 @@ class Login extends React.Component {
   handleSubmit(options) {
     event.preventDefault();
     let { username, password } = options;
-    fetch('https://keybase.io/_/api/1.0/getsalt.json', {
-      query: {email_or_username: username}})
-      .then(resp => console.log(resp))
+    this.props.history.transitionTo('/notes')
+    // fetch('/login', {method: 'post', body: {username, password}})
+    //   .then(resp => {
+    //     let privateKey = resp.privateKey;
+    //     let publicKey = resp.publicKey;
+    //     sessionStorage.privateKey = JSON.stringify(privateKey);
+    //     sessionStorage.publicKey = JSON.stringify(publicKey);
+
+    //   })
+    //   .catch(err => {
+    //     let error = err.response.body.error
+    //     console.error(error);
+    //     this.setState({error});
+    //   })
   }
   render() {
     return (
-      <article className="login">
-        <p>You must have a Keybase.io account to use this app</p>
-        <LoginForm 
-          username={this.state.username} 
-          password={this.state.password}
-          onChange={this.handleChange.bind(this)}
-          onSubmit={this.handleSubmit.bind(this)} />
-      </article>
+      <div>
+        <object type="image/svg+xml" data="logo.svg" className="login-logo">
+          <img src="logo.png" alt="Notes" />
+        </object>
+        <article className="login">
+          <p>You must have a Keybase.io account to use this app</p>
+          {this.state.error ? <p className='login-error'>{this.state.error}</p> : null}
+          <LoginForm 
+            username={this.state.username} 
+            password={this.state.password}
+            onChange={this.handleChange.bind(this)}
+            onSubmit={this.handleSubmit.bind(this)} />
+        </article>
+      </div>
     );
   }
 }
-
 
 export default Login;
