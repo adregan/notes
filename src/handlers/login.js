@@ -1,12 +1,10 @@
 import React from 'react';
 import LoginForm from '../components/loginForm';
+import fetch from '../utils/fetch';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-
     this.state = {
       username: this.props.username,
       password: this.props.password,
@@ -20,7 +18,9 @@ class Login extends React.Component {
   handleSubmit(options) {
     event.preventDefault();
     let { username, password } = options;
-    console.log(username, password)
+    fetch('https://keybase.io/_/api/1.0/getsalt.json', {
+      query: {email_or_username: username}})
+      .then(resp => console.log(resp))
   }
   render() {
     return (
@@ -29,8 +29,8 @@ class Login extends React.Component {
         <LoginForm 
           username={this.state.username} 
           password={this.state.password}
-          onChange={this.handleChange}
-          onSubmit={this.handleSubmit} />
+          onChange={this.handleChange.bind(this)}
+          onSubmit={this.handleSubmit.bind(this)} />
       </article>
     );
   }
