@@ -20,7 +20,7 @@ class Login extends React.Component {
   handleSubmit(options) {
     event.preventDefault();
     let { username, password } = options;
-    this.props.history.transitionTo('/notes')
+    // this.props.history.transitionTo('/notes')
     // fetch('/login', {method: 'post', body: {username, password}})
     //   .then(resp => {
     //     let privateKey = resp.privateKey;
