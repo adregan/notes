@@ -44,7 +44,7 @@ class Sidebar extends React.Component {
     return (
       <section ref="sidebar" className="sidebar">
         <Header onSearch={this.handleSearch} onCreate={this.handleCreate} />
-        <Notes data={this.state.notes} />
+        <NotesList data={this.state.notes} />
       </section>
     );
   }
