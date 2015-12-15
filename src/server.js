@@ -1,31 +1,35 @@
 import 'babel-register';
 
 import express from 'express';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+// import React from 'react';
+// import ReactDOMServer from 'react-dom/server';
 // import {Router} from 'react-router';
 // import routes from '../src/routes';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import compression from 'compression';
 import ejs from 'ejs';
-import Login from '../src/handlers/login'
 
 const server = express();
-server.use(cookieParser())
+server.use(cookieParser());
 server.use(express.static('static'));
-server.use(compression())
-server.engine('html', require('ejs').renderFile)
+server.use(compression());
+server.use(bodyParser.urlencoded({extended: true}));
+server.engine('html', require('ejs').renderFile);
 
 server.get('/?', (req, res) => {
   // TODO: Check for cookie from Keybase and forward to app if found
-  // if (cookie) => loading.html else => login.html
-  let login = ReactDOMServer.renderToString(<Login />);
-  return res.render('index.html', {content: login, script: 'login.js'});
-});
-server.post('/?', (req, res) => {
-  // LOGIN
-  // TODO: Check for cookie from Keybase and forward to app if found
+  // if (cookie) => /app else => login.html
   return res.render('login.html');
+});
+server.get('/login/?', (req, res) => {
+  return res.redirect(303, '/');
+});
+server.post('/login/?', (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  
+  return res.sendStatus(200);
 });
 
 
