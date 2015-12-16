@@ -22,16 +22,17 @@ class Editor extends React.Component {
   render() {
     return (
       <section className="editor">
-        {/* CHANGE TO NORMAL INPUT */}
+        <div className="editor__header">
         <TitleEditor
           data={this.state.title}
           onChange={this.handleChange} 
           limit={100}
-          className="title-editor" />
+          className="editor__title" />
+        </div>
         <BodyEditor
           value={this.state.body}
           onChange={this.handleChange}
-          className="body-editor" />
+          className="editor__body" />
       </section>
     );
   }
