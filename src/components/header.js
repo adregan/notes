@@ -26,7 +26,7 @@ class Header extends React.Component {
     return (
       <header className="sidebar-header">
         <object type="image/svg+xml" data="/logo.svg" className="sidebar-header__logo">
-          <img src="logo.png" alt="Notes" />
+          <img src="/logo.png" alt="Notes" />
         </object>
         <input 
           className="sidebar-header__input"
