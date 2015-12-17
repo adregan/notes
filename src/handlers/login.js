@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import LoginForm from '../components/loginForm';
 import fetch from '../utils/fetch';
+import cookie from 'react-cookie';
 
 class Login extends React.Component {
   constructor(props) {
@@ -21,19 +22,26 @@ class Login extends React.Component {
     event.preventDefault();
     let { username, password } = options;
     // this.props.history.transitionTo('/notes')
-    // fetch('/login', {method: 'post', body: {username, password}})
-    //   .then(resp => {
-    //     let privateKey = resp.privateKey;
-    //     let publicKey = resp.publicKey;
-    //     sessionStorage.privateKey = JSON.stringify(privateKey);
-    //     sessionStorage.publicKey = JSON.stringify(publicKey);
-
-    //   })
-    //   .catch(err => {
-    //     let error = err.response.body.error
-    //     console.error(error);
-    //     this.setState({error});
-    //   })
+    fetch('/login', {method: 'post', body: {username, password}})
+      .then(resp => {
+        let privateKey = resp.privateKey;
+        let publicKey = resp.publicKey;
+        let sessionCookie = resp.sessionCookie;
+        sessionStorage.privateKey = JSON.stringify(privateKey);
+        sessionStorage.publicKey = JSON.stringify(publicKey);
+        cookie.save(
+          sessionCookie.name,
+          sessionCookie.value,
+          sessionCookie.options
+        );
+        cookie.save('notes', resp.notesCookie);
+      })
+      .catch(err => {
+        console.error(err);
+        // Assign this conditionally on err.response
+        let error = (!err.response) ? 'So sorry. Something went wrong.' : err.response.body.error;
+        this.setState({error});
+      })
   }
   render() {
     return (
