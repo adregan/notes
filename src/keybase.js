@@ -1,16 +1,19 @@
 import requests from 'superagent';
 import scrypt from 'scrypt';
 import {createHmac} from 'crypto';
-import createCookieDict from './utils/cookies';
+import {createCookieDict} from './utils/cookies';
+
+const saltURL = 'https://keybase.io/_/api/1.0/getsalt.json';
+const loginURL = 'https://keybase.io/_/api/1.0/login.json';
 
 export function getSalt(username, password) {
-  let saltURL = 'https://keybase.io/_/api/1.0/getsalt.json';
-  let query = {email_or_username: username};
-
   return new Promise((resolve, reject) => {
+    if (typeof username === 'undefined' || typeof password === 'undefined') {
+      reject('Please submit username and password.');
+    }
     requests
       .get(saltURL)
-      .query(query)
+      .query({email_or_username: username})
       .end((err, res) => {
         if (err) {
           reject(err);    
@@ -40,7 +43,6 @@ export function login(options = {}) {
   hmac.write(decodedSession);
   let hmacPWH = hmac.digest('hex');
 
-  let loginURL = 'https://keybase.io/_/api/1.0/login.json';
   let query = {
     email_or_username: options.username,
     hmac_pwh: hmacPWH,
