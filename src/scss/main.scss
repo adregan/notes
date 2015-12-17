@@ -92,43 +92,69 @@ body {
   border-right: .5rem solid $primary-color;
   height: 100%;
   overflow: hidden;
-  width: 20vw;
+  width: 25vw;
 }
 
 .editor {
   background-color: white;
   border-top-right-radius: $radius;
   border-bottom-right-radius: $radius;
+  display: flex;
+  flex-direction: column;
   width: 100%; height: 100%;
   &__header {
     border-bottom: .1rem solid $light-primary;
+    border-top-right-radius: $radius;
     background-color: white;
-    width: 100%;
-    height: 10%;
+    display: flex;
+    flex-direction: row;
+    width: 100%; 
   }
   &__title, &__body {
     display: block;
     max-width: 50rem;
     padding: 1rem;
-    width: 90%;
+    width: 70%;
   }
   &__title {
     border: none;
     font-weight: bold;
     font-size: 1.8rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding: 1rem;
     height: 100%;
   }
   &__body {
     border: none;
     border-right: .1rem solid $light-primary;
     font-size: 1.2rem;
+    flex-grow: 9;
     overflow: scroll;
     resize: none;
-    height: 90%;
+  }
+  &__button {
+    background: #B00;
+    border: none;
+    border-radius: .2rem;
+    color: white; 
+    display: block;
+    margin: .6rem auto;
+    width: 10rem;
   }
 }
+
+.no-note {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  p {
+    color: $light-primary;
+    font-size: 2rem;
+  }
+}
+
 
 .sidebar-header {
   align-items: center;
@@ -142,15 +168,32 @@ body {
     align-self: flex-end;
     width: 60%;
   }
+}
+
+.search {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  &__label, &__input {
+    display: inline-block;
+  }
   &__input {
-    align-self: flex-end;
     border-radius: $radius;
     border: .1rem solid $primary-color;
-    display: block;
-    margin: -1rem auto 1rem;
-    padding: .3rem;
-    width: 70%;
+    flex-grow: 2;
+    padding: .5rem;
+    margin-left: 1rem;
   }
+}
+
+.new-note {
+  background: none;
+  border: none;
+  display: inline-block;
+  flex-grow: 1;
+  font-size: 1.6rem;
 }
 
 .notes-list {
