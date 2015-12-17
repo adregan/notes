@@ -20,6 +20,9 @@ class LoginForm extends React.Component {
   render() {
     return (
       <form className='login-form' onSubmit={this.handleSubmit}>
+        <label
+          className="login-form__label"
+          htmlFor="username">Email or username</label>
         <input 
           className='login-form__input'
           value={this.props.username}
@@ -28,6 +31,9 @@ class LoginForm extends React.Component {
           type='text'
           required={true}
           onChange={this.handleChange} />
+        <label
+          className="login-form__label"
+          htmlFor="password">Passphrase</label>
         <input
           className='login-form__input'
           value={this.props.password}
