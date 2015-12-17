@@ -59,19 +59,21 @@ export function login(options = {}) {
           reject(loginError);
         }
         if (res.body.me) {
-          let privateKey = res.body.me.private_keys.primary;
-          let publicKey = res.body.me.public_keys.primary;
+          let privateBundle = res.body.me.private_keys.primary.bundle;
+          let publicKey = res.body.me.public_keys.primary.bundle;
+
           let uid = res.body.me.id;
           let cookies = res.headers['set-cookie'];
           let sessionCookie = cookies
             .map(cookie => createCookieDict(cookie))
             .filter(cookie => cookie.name === 'session');
 
-          resolve({privateKey, publicKey, sessionCookie, uid})
+          resolve({publicKey, sessionCookie, uid});
         }
         reject(loginError);
       })
   })
+
 }
 
 export function KeybaseLogin(username, password) {
