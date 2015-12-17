@@ -3,18 +3,12 @@ import React from 'react';
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKey = this.handleKey.bind(this);
     this.state = {
       value: ''
     }
   }
-  handleKey(event) {
-    if (event.keyCode === 13) {
-      this.props.onCreate(event.target.value);
-      this.setState({value: ''});
-      return false;
-    }
+  handleClick(event) {
+    this.props.onCreate('New Note');
   }
   handleChange(event) {
     event.preventDefault();
@@ -28,12 +22,18 @@ class Header extends React.Component {
         <object type="image/svg+xml" data="/logo.svg" className="sidebar-header__logo">
           <img src="/logo.png" alt="Notes" />
         </object>
-        <input 
-          className="sidebar-header__input"
-          type="text" 
-          value={this.state.value}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKey} />
+        <div className="search">
+          <input 
+            placeholder="Search"
+            className="search__input"
+            name="search"
+            type="text" 
+            value={this.state.value}
+            onChange={this.handleChange.bind(this)}/>
+          <button 
+            className="new-note"
+            onClick={this.handleClick.bind(this)}>＋</button>
+        </div>
       </header>
     );
   }
