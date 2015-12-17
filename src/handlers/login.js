@@ -21,7 +21,6 @@ class Login extends React.Component {
   handleSubmit(options) {
     event.preventDefault();
     let { username, password } = options;
-    // this.props.history.transitionTo('/notes')
     fetch('/login', {method: 'post', body: {username, password}})
       .then(resp => {
         let privateKey = resp.privateKey;
@@ -29,12 +28,9 @@ class Login extends React.Component {
         let sessionCookie = resp.sessionCookie;
         sessionStorage.privateKey = JSON.stringify(privateKey);
         sessionStorage.publicKey = JSON.stringify(publicKey);
-        cookie.save(
-          sessionCookie.name,
-          sessionCookie.value,
-          sessionCookie.options
-        );
         cookie.save('notes', resp.notesCookie);
+        
+        this.props.history.pushState(null, 'notes');
       })
       .catch(err => {
         console.error(err);
