@@ -44,6 +44,9 @@ server.use((req, res) => {
   if (!req.cookies.notes && req.url !== '/login') {
     return res.redirect('/login');
   }
+  else if(req.cookies.notes && req.url === '/') {
+    return res.redirect('/notes');
+  }
   // Note that req.url here should be the full URL path from
   // the original request, including the query string.
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
