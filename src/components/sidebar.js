@@ -7,11 +7,6 @@ import Header from './header';
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
-
-    // TODO: Look in to es7 features
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
-
     this.state = {
       data: data,
       notes: data
@@ -43,7 +38,9 @@ class Sidebar extends React.Component {
   render() {
     return (
       <section ref="sidebar" className="sidebar">
-        <Header onSearch={this.handleSearch} onCreate={this.handleCreate} />
+        <Header 
+          onSearch={this.handleSearch.bind(this)} 
+          onCreate={this.handleCreate.bind(this)} />
         <NotesList data={this.state.notes} />
       </section>
     );
