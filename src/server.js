@@ -8,13 +8,11 @@ import routes from '../src/routes';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import csrf from 'csurf';
 import ejs from 'ejs';
 import { KeybaseLogin } from '../src/keybase';
-import createCookieDict from '../src/utils/cookies';
+import {encryptedCookie} from '../src/utils/cookies';
+import { encryptionKey } from '../config.json'
 
-let csrfProtection = csrf({ cookie: true })
-let parseForm = bodyParser.urlencoded({ extended: false })
 let parseJSON = bodyParser.json()
 
 const server = express();
@@ -23,7 +21,29 @@ server.use(express.static('static'));
 server.use(compression());
 server.engine('html', require('ejs').renderFile);
 
+server.post('/login/?', parseJSON, (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+
+  KeybaseLogin(username, password)
+    .then(resp => {
+      let uid = resp.uid;
+      resp.notesCookie = encryptedCookie.encrypt(
+        JSON.stringify({username, uid}),
+        encryptionKey
+      );
+      return res.send(resp);
+    })
+    .catch(err => {
+      console.error(err)
+      return res.status(400).send({error: err});
+    });
+});
+
 server.use((req, res) => {
+  if (!req.cookies.notes && req.url !== '/login') {
+    return res.redirect('/login');
+  }
   // Note that req.url here should be the full URL path from
   // the original request, including the query string.
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
@@ -41,18 +61,6 @@ server.use((req, res) => {
       res.status(404).send('Not found')
     }
   })
-});
-
-server.post('/login/?', parseJSON, (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
-  KeybaseLogin(username, password)
-    .then(resp => {
-      return res.send(resp);
-    })
-    .catch(err => {
-      return res.status(400).send({error: err});
-    });
 });
 
 server.listen(7777);
