@@ -8,7 +8,7 @@ class Header extends React.Component {
     }
   }
   handleClick(event) {
-    this.props.onCreate('New Note');
+    this.props.onCreate('Untitled');
   }
   handleChange(event) {
     event.preventDefault();
