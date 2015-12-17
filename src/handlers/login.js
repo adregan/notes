@@ -26,10 +26,9 @@ class Login extends React.Component {
         let privateKey = resp.privateKey;
         let publicKey = resp.publicKey;
         let sessionCookie = resp.sessionCookie;
-        sessionStorage.privateKey = JSON.stringify(privateKey);
-        sessionStorage.publicKey = JSON.stringify(publicKey);
+        localStorage.privateKey = JSON.stringify(privateKey);
+        localStorage.publicKey = JSON.stringify(publicKey);
         cookie.save('notes', resp.notesCookie);
-        
         this.props.history.pushState(null, 'notes');
       })
       .catch(err => {
