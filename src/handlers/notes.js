@@ -12,7 +12,7 @@ class Notes extends React.Component {
     return (
       <article className="notes">
         <Sidebar />
-        {this.props.children}
+        {this.props.children || <div className="no-note"><p>No Note Selected</p></div>}
       </article>
     );
   }
