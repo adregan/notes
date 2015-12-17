@@ -15,6 +15,7 @@ class TitleEditor extends React.Component {
     return (
       <input
         type="text" 
+        placeholder={this.props.placeholder}
         className={this.props.className}
         onInput={this.handleInput.bind(this)}
         value={this.props.data}/>
