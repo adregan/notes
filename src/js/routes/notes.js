@@ -1,31 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Sidebar from '../components/sidebar';
+import Editor from '../components/editor';
 import { connect } from 'react-redux';
 import { addNote, search } from '../store/actions';
 
 const Notes = (props) => {
   let notes = props.notes;
   let searchTerm = props.searchTerm;
+  let currentNote = props.currentNote;
+  let dispatch = props.dispatch;
   return (
     <article className="notes">
       <Sidebar
-        onSearch={(term) => {props.dispatch(search(term))}}
-        notes={ (searchTerm) ? searchResults(notes, searchTerm) : notes } />
-      {props.children || <div className="no-note"><p>No Note Selected</p></div>}
+        onSearch={ term => dispatch(search(term)) }
+        onCreate={ title => dispatch(addNote(title)) }
+        searchTerm={ searchTerm }
+        notes={ notes } />
+      <Editor currentNote={currentNote} dispatch={dispatch} /> 
     </article>
   );
-}
-
-function searchResults(notes, searchTerm) {
-  return notes.filter(note => note.get('title')
-    .toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1)
 }
 
 function select(state) {
   return {
     notes: state.notes,
-    searchTerm: state.searchTerm
+    searchTerm: state.searchTerm,
+    currentNote: state.currentNote
   };
 }
 
