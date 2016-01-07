@@ -21,24 +21,19 @@ export const logIn = ({ name, publicKey, apiToken }) => {
 }
 
 export const logOut = () => {
-  return {type: LOG_OUT}
+  return dispatch => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('privateKey');
+    }
+    dispatch({type: LOG_OUT});
+  }
 }
 
 export const addPrivateKey = (privateKey) => {
-  return {type: ADD_PRIVATE_KEY, privateKey}
-}
-
-export const sideEffects = {
-  addPrivateKey(privateKey) {
-    return (
-      typeof localStorage !== 'undefined'
-      && localStorage.setItem('privateKey', privateKey)
-    );
-  },
-  logOut() {
-    return (
-      typeof localStorage !== 'undefined'
-      && localStorage.removeItem('privateKey')
-    );
+  return dispatch => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('privateKey', privateKey);
+    }
+    dispatch({type: ADD_PRIVATE_KEY, privateKey});
   }
 }
