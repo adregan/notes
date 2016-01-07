@@ -23,11 +23,9 @@ class Login extends React.Component {
     let { username, password } = options;
     fetch('/login', {method: 'post', body: {username, password}})
       .then(resp => {
-        let privateKey = resp.privateKey;
         let publicKey = resp.publicKey;
-        let sessionCookie = resp.sessionCookie;
-        localStorage.privateKey = JSON.stringify(privateKey);
-        localStorage.publicKey = JSON.stringify(publicKey);
+        let privateKey = resp.privateKey;
+
         cookie.save('notes', resp.notesCookie);
         this.props.history.pushState(null, 'notes');
       })

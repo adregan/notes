@@ -1,3 +1,235 @@
 @import 'normalize';
 @import 'codemirror';
-@import 'main';
+
+$primary-color: #333;
+$light-primary: lighten($primary-color, 50%);
+$font-stack: Georgia, Times, Times New Roman, serif;
+$radius: .4rem;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #load{
+  height: 100vh;
+  width: 100vw;
+}
+
+body {
+  align-items: center;
+  background-color: $primary-color;
+  color: $primary-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: $font-stack;
+}
+
+.app-window {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  width: 100vw;height: 100vh;
+}
+
+.login-logo {
+  display: block;
+  margin: 0 auto 2rem;
+  max-width: 14rem;
+  path {
+    fill: #FFFFFF;
+  }
+}
+
+.login {
+  background-color: white;
+  border-radius: $radius;
+  font-style: italic;
+  font-size: .9rem;
+  max-width: 18rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.login-form {
+  margin-top: 1rem;
+  font-size: 1rem;
+
+  &__input {
+    border-radius: $radius;
+    border: .1rem solid $primary-color;
+    display: block;
+    font-style: normal;
+    height: 2.5rem;
+    margin:0 auto .5rem;
+    padding: .5rem;
+    width: 90%;
+  }
+  &__submit {
+    background-color: $primary-color;
+    border: none;
+    color: white;
+    margin-top: 2rem;
+  }
+  &__label {
+    display: block;
+    font-style: normal;
+    margin: 0 auto .2rem;
+    text-align: left;
+    width: 85%;
+  }
+}
+
+.notes {
+  background-color: white;
+  border-radius: $radius;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  border-right: .5rem solid $primary-color;
+  height: 100%;
+  overflow: hidden;
+  width: 25vw;
+}
+
+.editor {
+  background-color: white;
+  border-top-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+  display: flex;
+  flex-direction: column;
+  width: 100%; height: 100%;
+  &__header {
+    border-bottom: .1rem solid $light-primary;
+    border-top-right-radius: $radius;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100%; 
+  }
+  &__title, &__body {
+    display: block;
+    max-width: 50rem;
+    padding: 1rem;
+    width: 70%;
+  }
+  &__title {
+    border: none;
+    font-size: 1.8rem;
+    padding: 1rem;
+    height: 100%;
+  }
+  &__body {
+    border: none;
+    border-right: .1rem solid $light-primary;
+    font-size: 1.2rem;
+    flex-grow: 9;
+    overflow: scroll;
+    resize: none;
+  }
+  &__button {
+    background: $primary-color;
+    border: none;
+    border-radius: .2rem;
+    color: white; 
+    display: block;
+    margin: .6rem auto;
+    padding: .7rem;
+    position: absolute; right: 1rem;
+    width: 10rem;
+  }
+}
+
+.no-note {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  p {
+    color: $light-primary;
+    font-size: 2rem;
+  }
+}
+
+.no-results {
+  color: $light-primary;
+}
+
+
+.sidebar-header {
+  align-items: center;
+  border-bottom: .15rem dashed $primary-color;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 20%;
+  justify-content: center;
+  min-height: 10rem;
+  &__logo {
+    align-self: flex-end;
+    width: 60%;
+  }
+}
+
+.search {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  &__input {
+    border-radius: $radius;
+    border: .1rem solid $primary-color;
+    padding: .3rem .5rem;
+    margin: 0 1rem;
+    width: 70%;
+  }
+}
+
+.new-note {
+  background: none;
+  border: none;
+  display: inline-block;
+  flex-grow: 1;
+  font-size: 1.6rem;
+}
+
+.notes-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  height: 80%;
+  overflow: scroll;
+  padding: 0 0 3rem 0;
+  &__note, li {
+    border-bottom: .1rem solid $light-primary;
+    cursor: pointer;
+    padding: 1rem;
+    position: relative;
+  }
+  &__note--unsaved:after {
+    content: '';
+    background: $light-primary;
+    border-radius: 50%;
+    margin-top: .3rem;
+    position: absolute; right: 1rem;
+    height: .7rem; width: .7rem;
+  }
+  &__note--unsaved:hover:after {
+    background: white;
+  }
+  &__note:hover {
+    background: $light-primary;
+  }
+  &__note:last-child, li:last-child {
+    border-bottom: none;
+  }
+}
