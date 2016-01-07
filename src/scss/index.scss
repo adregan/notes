@@ -208,11 +208,15 @@ body {
   height: 80%;
   overflow: scroll;
   padding: 0 0 3rem 0;
-  li {
+  &__note, li {
     border-bottom: .1rem solid $light-primary;
+    cursor: pointer;
     padding: 1rem;
   }
-  li:last-child {
+  &__note:hover {
+    color: #B00;
+  }
+  &__note:last-child, li:last-child {
     border-bottom: none;
   }
 }
