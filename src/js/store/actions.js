@@ -1,6 +1,11 @@
 import Immutable from 'immutable';
 import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY, SEARCH } from './actionTypes';
 
+export const addNote = (title) => {
+  let note = Immutable.Map({title, body: ''});
+  return { type: ADD_NOTE, note};
+}
+
 export const selectNote = (index, title, body) => {
   let currentNote = Immutable.Map({index, title, body});
   return {type: SELECT_NOTE, currentNote};
