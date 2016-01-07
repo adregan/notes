@@ -1,43 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Sidebar from '../components/sidebar';
-import Immutable from 'immutable';
-import notes from '../dummyData';
+import { connect } from 'react-redux';
+import { addNote, search } from '../store/actions';
 
-class Notes extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      notes: notes,
-      search: Immutable.List()
-    }
-  }
-  handleSearch(searchTerm) {
-    let search = Immutable.List(
-      this.state.notes.filter(
-        note => note.get('title')
-                    .toLowerCase()
-                    .indexOf(searchTerm.toLowerCase()) !== -1
-    ));
-
-    this.setState({search});
-  }
-  handleCreate(title) {
-    let newNote = Immutable.Map({title});
-    let notes = this.state.notes.unshift(newNote);
-    this.setState({notes});
-  }
-  render() {
-    return (
-      <article className="notes">
-        <Sidebar
-          notes={(!this.state.search.size) ? this.state.notes: this.state.search}
-          onSearch={this.handleSearch.bind(this)}
-          onCreate={this.handleCreate.bind(this)} />
-        {this.props.children || <div className="no-note"><p>No Note Selected</p></div>}
-      </article>
-    );
-  }
+const Notes = (props) => {
+  let notes = props.notes;
+  let searchTerm = props.searchTerm;
+  return (
+    <article className="notes">
+      <Sidebar
+        onSearch={(term) => {props.dispatch(search(term))}}
+        notes={ (searchTerm) ? searchResults(notes, searchTerm) : notes } />
+      {props.children || <div className="no-note"><p>No Note Selected</p></div>}
+    </article>
+  );
 }
 
-export default Notes;
+function searchResults(notes, searchTerm) {
+  return notes.filter(note => note.get('title')
+    .toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1)
+}
+
+function select(state) {
+  return {
+    notes: state.notes,
+    searchTerm: state.searchTerm
+  };
+}
+
+export default connect(select)(Notes);
