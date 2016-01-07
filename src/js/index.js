@@ -1,0 +1,14 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router } from 'react-router';
+import routes from './routes';
+import createBrowserHistory from 'history/lib/createBrowserHistory'
+import { Provider } from 'react-redux';
+import { store } from './store';
+
+ReactDOM.render(
+  <Provider store={store}>
+    <Router routes={routes} />
+  </Provider>,
+  document.getElementById('load')
+);
