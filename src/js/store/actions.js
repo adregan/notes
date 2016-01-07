@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY, SEARCH } from './actionTypes';
 
 export const addNote = (title) => {
-  let note = Immutable.Map({title, body: ''});
+  let note = Immutable.Map({title, body: '', unsaved: true});
   return { type: ADD_NOTE, note};
 }
 
@@ -12,8 +12,20 @@ export const selectNote = (index, title, body) => {
 }
 
 export const updateNote = (index, title, body) => {
-  let note = Immutable.Map({title, body});
+  let note = Immutable.Map({title, body, unsaved: true});
   return { type: UPDATE_NOTE, index, note };
+}
+
+export const saveNote = (index, title, body) => {
+  return dispatch => {
+    // TODO: Encrypt and save note to server
+    let note = Immutable.Map({title, body, unsaved: false});
+    dispatch({
+      type: UPDATE_NOTE,
+      index,
+      note
+    });
+  }
 }
 
 export const deleteNote = (index) => {

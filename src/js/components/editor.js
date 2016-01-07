@@ -1,7 +1,7 @@
 import React from 'react';
 import TitleEditor from './titleEditor';
 import BodyEditor from './bodyEditor';
-import { updateNote } from '../store/actions';
+import { updateNote, saveNote} from '../store/actions';
 
 const Editor = ({currentNote, dispatch}) => {
   if (currentNote.isEmpty()) {
@@ -18,7 +18,7 @@ const Editor = ({currentNote, dispatch}) => {
       onSubmit={(e) => {
         e.preventDefault();
         // TODO: Send Data to Server
-        console.log('FAKE SAVE')
+        dispatch(saveNote(index, title, body))
       }}>
       <div className="editor__header">
         <TitleEditor
