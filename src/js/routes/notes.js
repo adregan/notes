@@ -14,7 +14,7 @@ const Notes = (props) => {
     <article className="notes">
       <Sidebar
         onSearch={ term => dispatch(search(term)) }
-        onCreate={ title => dispatch(addNote(title)) }
+        onCreate={ title => dispatch(addNote(title || 'Untitled Note')) }
         onSelect={ (index, title, body) => dispatch(selectNote(index, title, body)) }
         searchTerm={ searchTerm }
         notes={ notes } />
