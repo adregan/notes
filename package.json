@@ -43,6 +43,7 @@
     "react-redux": "^4.0.1",
     "react-router": "^1.0.3",
     "redux": "^3.0.5",
+    "redux-thunk": "^1.0.3",
     "scrypt": "^5.4.1",
     "superagent": "^1.5.0"
   },
