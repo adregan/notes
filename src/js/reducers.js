@@ -1,4 +1,4 @@
-import { sideEffects, ADD_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY } from './actions';
+import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY } from './actionTypes';
 import { combineReducers } from 'redux'
 import Immutable from 'immutable';
 
@@ -29,10 +29,8 @@ function user(state = Immutable.Map(), action) {
     case LOG_IN:
       return action.user;
     case LOG_OUT:
-      sideEffects.logOut();
       return state.clear();
     case ADD_PRIVATE_KEY:
-      sideEffects.addPrivateKey(action.privateKey);
       return state.set('privateKey', action.privateKey);
     default:
       return state;
