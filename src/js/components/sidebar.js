@@ -1,12 +1,16 @@
 import React from 'react';
-import NotesList from './notes';
+import NotesList from './NotesList';
 import Header from './header';
 
-const Sidebar = ({onSearch, notes}) => {
+const search = (note, searchTerm) => {
+  return note.get('title').toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
+}
+
+const Sidebar = ({onSearch, onCreate, notes, searchTerm}) => {
   return (
     <section className="sidebar">
-      <Header onSearch={onSearch} />
-      <NotesList data={notes} />
+      <Header searchTerm={searchTerm} onCreate={onCreate} onSearch={onSearch} />
+      <NotesList data={ notes.filter(note => search(note, searchTerm)) } />
     </section>
   );
 }
