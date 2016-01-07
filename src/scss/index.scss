@@ -135,7 +135,7 @@ body {
     resize: none;
   }
   &__button {
-    background: #B00;
+    background: $primary-color;
     border: none;
     border-radius: .2rem;
     color: white; 
@@ -173,6 +173,7 @@ body {
   flex-wrap: wrap;
   height: 20%;
   justify-content: center;
+  min-height: 10rem;
   &__logo {
     align-self: flex-end;
     width: 60%;
@@ -218,12 +219,15 @@ body {
     content: '';
     background: $light-primary;
     border-radius: 50%;
-    margin-top: .2rem;
+    margin-top: .3rem;
     position: absolute; right: 1rem;
     height: .7rem; width: .7rem;
   }
+  &__note--unsaved:hover:after {
+    background: white;
+  }
   &__note:hover {
-    color: #B00;
+    background: $light-primary;
   }
   &__note:last-child, li:last-child {
     border-bottom: none;
