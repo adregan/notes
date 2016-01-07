@@ -6,11 +6,11 @@ const search = (note, searchTerm) => {
   return note.get('title').toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
 }
 
-const Sidebar = ({onSearch, onCreate, notes, searchTerm}) => {
+const Sidebar = ({onSearch, onSelect, onCreate, notes, searchTerm}) => {
   return (
     <section className="sidebar">
       <Header searchTerm={searchTerm} onCreate={onCreate} onSearch={onSearch} />
-      <NotesList data={ notes.filter(note => search(note, searchTerm)) } />
+      <NotesList onSelect={onSelect} notes={ notes.filter(note => search(note, searchTerm)) } />
     </section>
   );
 }
