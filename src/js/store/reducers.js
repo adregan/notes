@@ -1,4 +1,4 @@
-import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY } from './actionTypes';
+import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY, SEARCH } from './actionTypes';
 import { combineReducers } from 'redux'
 import Immutable from 'immutable';
 
@@ -37,4 +37,13 @@ function user(state = Immutable.Map(), action) {
   }
 }
 
-export const notesApp = combineReducers({notes, user});
+const searchTerm = (state = '', action) => {
+  switch (action.type) {
+    case SEARCH:
+      return action.searchTerm;
+    default:
+      return state;
+  }
+}
+
+export const notesApp = combineReducers({notes, user, searchTerm});
