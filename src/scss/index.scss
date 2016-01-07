@@ -160,6 +160,10 @@ body {
   }
 }
 
+.no-results {
+  color: $light-primary;
+}
+
 
 .sidebar-header {
   align-items: center;
@@ -181,15 +185,12 @@ body {
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  &__label, &__input {
-    display: inline-block;
-  }
   &__input {
     border-radius: $radius;
     border: .1rem solid $primary-color;
-    flex-grow: 2;
-    padding: .2rem .5rem;
+    padding: .3rem .5rem;
     margin: 0 1rem;
+    width: 70%;
   }
 }
 
