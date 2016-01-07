@@ -24,7 +24,7 @@ const notes = (state = Immutable.List(), action) => {
   }
 }
 
-function user(state = Immutable.Map(), action) {
+const user = (state = Immutable.Map(), action) => {
   switch (action.type) {
     case LOG_IN:
       return action.user;
