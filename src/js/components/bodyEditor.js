@@ -10,8 +10,4 @@ const BodyEditor = ({value, onChange, className}) => {
   );
 }
 
-  // componentDidMount() {
-  //   ReactDom.findDOMNode(this).focus();
-  // }
-
 export default BodyEditor;
