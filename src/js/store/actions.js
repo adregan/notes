@@ -13,16 +13,16 @@ export const selectNote = (index, title, body) => {
 
 export const updateNote = (index, title, body) => {
   let note = Immutable.Map({title, body});
-  return { type: UPDATE_NOTE, index, note }
+  return { type: UPDATE_NOTE, index, note };
 }
 
 export const deleteNote = (index) => {
-  return { type: DELETE_NOTE, index }
+  return { type: DELETE_NOTE, index };
 }
 
 export const logIn = ({ name, publicKey, apiToken }) => {
   let user = Immutable.Map({name, publicKey, apiToken});
-  return {type: LOG_IN, user}
+  return {type: LOG_IN, user};
 }
 
 export const logOut = () => {
