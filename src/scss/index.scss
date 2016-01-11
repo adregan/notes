@@ -82,7 +82,16 @@ body {
   }
 }
 
-.notes {
+.notes-app {
+  background-color: white;
+  border-radius: $radius;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.settings {
   background-color: white;
   border-radius: $radius;
   display: flex;
@@ -95,7 +104,7 @@ body {
   border-right: .5rem solid $primary-color;
   height: 100%;
   overflow: hidden;
-  width: 25vw;
+  width: 30vw;
 }
 
 .editor {
@@ -162,21 +171,32 @@ body {
 
 .no-results {
   color: $light-primary;
+  cursor: default;
 }
 
-
-.sidebar-header {
+.header {
   align-items: center;
-  border-bottom: .15rem dashed $primary-color;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  height: 20%;
-  justify-content: center;
-  min-height: 10rem;
+  justify-content: space-between;
+  height: 2rem;
+  margin: 1rem 1rem 2rem;
+  position: relative;
   &__logo {
-    align-self: flex-end;
-    width: 60%;
+    width: 25%;
+  }
+  &__button {
+    flex-basis: 10%;
+    background-color: transparent;
+    border: none;
+    background-size: 100% 100%;
+    text-indent: -9999rem;
+    &--settings {
+      background-image: url('settings.svg');
+    }
+    &--create {
+      background-image: url('create.svg');
+    }
   }
 }
 
@@ -191,7 +211,7 @@ body {
     border: .1rem solid $primary-color;
     padding: .3rem .5rem;
     margin: 0 1rem;
-    width: 70%;
+    width: 90%;
   }
 }
 
@@ -203,17 +223,24 @@ body {
   font-size: 1.6rem;
 }
 
+.notes {
+  height: 88%;
+}
+
+
 .notes-list {
+  border-top: .1rem dashed black;
+  height: 100%;
   list-style: none;
-  margin: 1rem 0 0;
-  height: 80%;
   overflow: scroll;
   padding: 0 0 3rem 0;
   &__note, li {
     border-bottom: .1rem solid $light-primary;
-    cursor: pointer;
     padding: 1rem;
     position: relative;
+  }
+  &__note {
+    cursor: pointer;
   }
   &__note--unsaved:after {
     content: '';

@@ -5,13 +5,13 @@ import Editor from '../components/editor';
 import { connect } from 'react-redux';
 import { addNote, selectNote, search } from '../store/actions';
 
-const Notes = (props) => {
+const NotesApp = (props) => {
   let notes = props.notes;
   let searchTerm = props.searchTerm;
   let currentNote = props.currentNote;
   let dispatch = props.dispatch;
   return (
-    <article className="notes">
+    <article className="notes-app">
       <Sidebar
         onSearch={ term => dispatch(search(term)) }
         onCreate={ title => dispatch(addNote(title || 'Untitled Note')) }
@@ -31,4 +31,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(Notes);
+export default connect(select)(NotesApp);

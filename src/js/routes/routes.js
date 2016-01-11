@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, IndexRoute } from 'react-router';
-import App from './app';
+import Root from './root';
 import Login from './login';
-import Notes from './notes';
+import NotesApp from './notesApp';
+import Settings from './settings';
 
 const routes = (
-  <Route path='/' component={App}>
+  <Route path='/' component={Root}>
     <IndexRoute component={Login} />
     <Route path='login' component={Login} />
-    <Route path='notes' component={Notes} />
+    <Route path='notes' component={NotesApp} />
+    <Route path='settings' component={Settings} />
   </Route>
 );
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-class App extends React.Component {
+class Root extends React.Component {
   componentDidMount() {
     window.onbeforeunload = () => {
       if (this.props.notes.filter(n => n.get('unsaved')).count()){
@@ -18,10 +18,4 @@ class App extends React.Component {
   }
 }
 
-function select(state) {
-  return {
-    notes: state.notes,
-  };
-}
-
-export default connect(select)(App);
+export default Root;

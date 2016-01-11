@@ -1,5 +1,5 @@
 import React from 'react';
-import NotesList from './NotesList';
+import Notes from './notes';
 import Header from './header';
 
 const search = (note, searchTerm) => {
@@ -9,8 +9,13 @@ const search = (note, searchTerm) => {
 const Sidebar = ({onSearch, onSelect, onCreate, notes, searchTerm}) => {
   return (
     <section className="sidebar">
-      <Header searchTerm={searchTerm} onCreate={onCreate} onSearch={onSearch} />
-      <NotesList onSelect={onSelect} notes={ notes.filter(note => search(note, searchTerm)) } />
+      <Header onCreate={onCreate} />
+      <Notes
+        onSelect={onSelect} 
+        onCreate={onCreate}
+        onSearch={onSearch} 
+        searchTerm={searchTerm} 
+        notes={ notes.filter(note => search(note, searchTerm)) } />
     </section>
   );
 }
