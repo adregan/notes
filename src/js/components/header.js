@@ -2,24 +2,16 @@ import React from 'react';
 
 const Header = ({onSearch, onCreate, searchTerm}) => {
   return (
-    <header className="sidebar-header">
-      <object type="image/svg+xml" data="/logo.svg" className="sidebar-header__logo">
+    <header className="header">
+      <button 
+        className="header__button header__button--settings" 
+        onClick={e => console.log('SETTINGS')}>Settings</button>
+      <object type="image/svg+xml" data="/logo.svg" className="header__logo">
         <img src="/logo.png" alt="Notes" />
       </object>
-      <form
-        className="search"
-        onSubmit={(e) => {
-          e.preventDefault();
-          onCreate(searchTerm);
-        }}>
-        <input 
-          placeholder="Search or Create"
-          className="search__input"
-          name="search"
-          type="text" 
-          value={searchTerm}
-          onChange={e => onSearch(e.target.value) }/>
-      </form>
+      <button 
+        className="header__button header__button--create" 
+        onClick={e => onCreate()}>Create</button>
     </header>
   );
 }
