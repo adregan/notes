@@ -1,53 +1,31 @@
 import React from 'react';
 
-class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleChange(event) {
-    event.preventDefault();
-    this.props.onChange(
-      {key: event.target.id, value: event.target.value});
-  }
-  handleSubmit(event) {
-    event.preventDefault();
-    let username = this.refs.username.value;
-    let password = this.refs.password.value;
-    this.props.onSubmit({username, password});
-  }
-  render() {
-    return (
-      <form className='login-form' onSubmit={this.handleSubmit}>
-        <label
-          className="login-form__label"
-          htmlFor="username">Email or username</label>
-        <input 
-          className='login-form__input'
-          value={this.props.username}
-          id='username'
-          ref='username' 
-          type='text'
-          required={true}
-          onChange={this.handleChange} />
-        <label
-          className="login-form__label"
-          htmlFor="password">Passphrase</label>
-        <input
-          className='login-form__input'
-          value={this.props.password}
-          id='password'
-          ref='password' 
-          type='password'
-          required={true}
-          onChange={this.handleChange} />
-        <button 
-          className='login-form__input login-form__submit'
-          type='submit'>Login</button>
-      </form>
-    );
-  }
+const LoginForm = ({username, password, onChange, onSubmit}) => {
+  return (
+    <form className='login-form' onSubmit={e => {e.preventDefault(); onSubmit();}}>
+      <label className="login-form__label" htmlFor="username">
+        Email or username
+      </label>
+      <input className='login-form__input'
+        value={username}
+        id='username'
+        required={true}
+        onChange={e => {onChange({'username': e.target.value})}} />
+      <label className="login-form__label" htmlFor="password">
+        Passphrase
+      </label>
+      <input className='login-form__input'
+        value={password}
+        id='password'
+        type='password'
+        required={true}
+        onChange={e => {onChange({'password': e.target.value})}} />
+      <button className='login-form__input login-form__submit' type='submit'>
+        Login
+      </button>
+    </form>
+
+  );
 }
 
 export default LoginForm;
