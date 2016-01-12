@@ -186,10 +186,12 @@ body {
     width: 25%;
   }
   &__button {
-    flex-basis: 10%;
     background-color: transparent;
-    border: none;
     background-size: 100% 100%;
+    border: none;
+    flex-basis: 10%;
+    height: 1rem;
+    padding: 0;
     text-indent: -9999rem;
     &--settings {
       background-image: url('settings.svg');
