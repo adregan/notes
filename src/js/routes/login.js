@@ -39,9 +39,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <object type="image/svg+xml" data="logolight.svg" className="login-logo">
-          <img src="logolight.png" alt="Notes" />
-        </object>
+        <Logo color="light" className="login-logo"/>
         <article className="login">
           <p>You must have a Keybase.io account to use this app</p>
           {this.state.error ? <p className='login-error'>{this.state.error}</p> : null}
