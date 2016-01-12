@@ -1,5 +1,4 @@
 @import 'normalize';
-@import 'codemirror';
 
 $primary-color: #333;
 $light-primary: lighten($primary-color, 50%);
@@ -72,6 +71,9 @@ body {
     border: none;
     color: white;
     margin-top: 2rem;
+  }
+  &__submit[disabled] {
+    background-color: lighten($primary-color, 30%);
   }
   &__label {
     display: block;
