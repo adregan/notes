@@ -10,6 +10,8 @@ const NotesApp = (props) => {
   let searchTerm = props.searchTerm;
   let currentNote = props.currentNote;
   let dispatch = props.dispatch;
+  let messages = props.messages;
+
   return (
     <article className="notes-app">
       <Sidebar
@@ -27,7 +29,8 @@ function select(state) {
   return {
     notes: state.notes,
     searchTerm: state.searchTerm,
-    currentNote: state.currentNote
+    currentNote: state.currentNote,
+    messages: state.messages
   };
 }
 

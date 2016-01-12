@@ -10,3 +10,5 @@ export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const ADD_PRIVATE_KEY = 'ADD_PRIVATE_KEY';
 export const SEARCH = 'SEARCH';
+export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const DISMISS_MESSAGE = 'DISMISS_MESSAGE';

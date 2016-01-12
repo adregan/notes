@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY, SEARCH } from './actionTypes';
+import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY, SEARCH, ADD_MESSAGE, DISMISS_MESSAGE} from './actionTypes';
 
 export const addNote = (title) => {
   let note = Immutable.Map({title, body: '', unsaved: true});
@@ -58,3 +58,12 @@ export const addPrivateKey = (privateKey) => {
 export const search = (searchTerm) => {
   return {type: SEARCH, searchTerm};
 }
+
+export const addMessage = (message) => {
+  return {type: ADD_MESSAGE, message: Immutable.Map(message)};
+}
+
+export const dismissMessage = () => {
+  return {type: DISMISS_MESSAGE};
+}
+

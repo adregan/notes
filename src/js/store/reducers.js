@@ -1,4 +1,4 @@
-import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY, SEARCH } from './actionTypes';
+import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY, SEARCH, ADD_MESSAGE, DISMISS_MESSAGE } from './actionTypes';
 import { combineReducers } from 'redux'
 import Immutable from 'immutable';
 
@@ -61,4 +61,15 @@ const currentNote = (state = Immutable.Map(), action) => {
   }
 }
 
-export const notesApp = combineReducers({notes, user, searchTerm, currentNote});
+const messages = (state = Immutable.List(), action) => {
+  switch (action.type) {
+    case ADD_MESSAGE:
+      return state.push(action.message)
+    case DISMISS_MESSAGE:
+      return state.shift();
+    default:
+      return state
+  }
+}
+
+export const notesApp = combineReducers({notes, user, searchTerm, currentNote, messages});
