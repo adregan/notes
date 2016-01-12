@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoginForm = ({username, password, onChange, onSubmit}) => {
+const LoginForm = ({username, password, onChange, onSubmit, loggingIn}) => {
   return (
     <form className='login-form' onSubmit={e => {e.preventDefault(); onSubmit();}}>
       <label className="login-form__label" htmlFor="username">
@@ -20,8 +20,10 @@ const LoginForm = ({username, password, onChange, onSubmit}) => {
         type='password'
         required={true}
         onChange={e => {onChange({'password': e.target.value})}} />
-      <button className='login-form__input login-form__submit' type='submit'>
-        Login
+      <button className='login-form__input login-form__submit' 
+        disabled={loggingIn} 
+        type='submit'>
+        {loggingIn ? 'Logging In' : 'Login'}
       </button>
     </form>
 
