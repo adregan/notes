@@ -1,28 +1,15 @@
 import React from 'react';
 
-const LoginForm = ({username, password, onChange, onSubmit, loggingIn}) => {
+const LoginForm = ({onSubmit, loggingIn}) => {
   return (
-    <form className='login-form' onSubmit={e => {e.preventDefault(); onSubmit();}}>
-      <label className="login-form__label" htmlFor="username">
-        Email or username
-      </label>
-      <input className='login-form__input'
-        value={username}
-        id='username'
-        required={true}
-        onChange={e => {onChange({'username': e.target.value})}} />
-      <label className="login-form__label" htmlFor="password">
-        Passphrase
-      </label>
-      <input className='login-form__input'
-        value={password}
-        id='password'
-        type='password'
-        required={true}
-        onChange={e => {onChange({'password': e.target.value})}} />
-      <button className='login-form__input login-form__submit' 
-        disabled={loggingIn} 
-        type='submit'>
+    <form className='login-form' onSubmit={e => {e.preventDefault(); onSubmit(e.target[0].value, e.target[1].value);}}>
+      <label className="login-form__label" htmlFor="username">Email or username</label>
+      <input className="login-form__input" id="username" required={true} />
+      
+      <label className="login-form__label" htmlFor="password">Passphrase</label>
+      <input className="login-form__input" type="password" id="password" required={true} />
+      
+      <button className="login-form__input login-form__submit" type="submit" disabled={loggingIn} >
         {loggingIn ? 'Logging In' : 'Login'}
       </button>
     </form>
