@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
-import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, LOG_OUT, ADD_PRIVATE_KEY, SEARCH, ADD_MESSAGE, DISMISS_MESSAGE} from './actionTypes';
+import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, STORE_USER, LOG_OUT, ADD_PRIVATE_KEY, SEARCH, ADD_MESSAGE, DISMISS_MESSAGE} from './actionTypes';
+import { api } from '../../../config';
 
 export const addNote = (title) => {
   let note = Immutable.Map({title, body: '', unsaved: true});
@@ -32,7 +33,21 @@ export const deleteNote = (index) => {
   return { type: DELETE_NOTE, index };
 }
 
-export const logIn = ({ name, publicKey, apiToken }) => {
+export const logIn = (username, password) => {
+  return dispatch => {
+    fetch(`${api}/login`, {method: 'post', body: {username, password}})
+      .then(resp => {
+        dispatch(storeUser(resp));
+      })
+      .catch(err => {        
+        let error = (!err.response) ? 'So sorry. Something went wrong.' : err.response.body.errorMessage;
+        dispatch({title: 'Error on log in', message: error, type: 'ERROR'})
+      })
+
+  }
+}
+
+export const storeUser = ({ name, publicKey, apiToken }) => {
   let user = Immutable.Map({name, publicKey, apiToken});
   return {type: LOG_IN, user};
 }
