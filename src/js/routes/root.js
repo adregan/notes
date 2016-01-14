@@ -18,4 +18,10 @@ class Root extends React.Component {
   }
 }
 
-export default Root;
+function select(state) {
+  return {
+    messages: state.messages
+  };
+}
+
+export default connect(select)(Root);
