@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import MessageCenter from '../components/MessageCenter'
 
 class Root extends React.Component {
   componentDidMount() {
@@ -13,6 +14,7 @@ class Root extends React.Component {
     return (
       <div className="app-window">
         {this.props.children}
+        <MessageCenter messages={this.props.messages} /> 
       </div>
     );
   }

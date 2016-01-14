@@ -264,3 +264,17 @@ body {
     border-bottom: none;
   }
 }
+
+.modal-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: fixed; top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.ERROR-popup {
+  background-color: white;
+  max-width: 35rem;
+  width: 90%;
+}
