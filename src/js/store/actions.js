@@ -74,8 +74,9 @@ export const search = (searchTerm) => {
   return {type: SEARCH, searchTerm};
 }
 
-export const addMessage = (message) => {
-  return {type: ADD_MESSAGE, message: Immutable.Map(message)};
+export const addMessage = ({title, body, type}) => {
+  let message = Immutable.Map({title, body, type})
+  return {type: ADD_MESSAGE, message: message};
 }
 
 export const dismissMessage = () => {
