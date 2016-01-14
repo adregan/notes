@@ -1,4 +1,4 @@
-import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOG_IN, STORE_USER, LOG_OUT, ADD_PRIVATE_KEY, SEARCH, ADD_MESSAGE, DISMISS_MESSAGE } from './actionTypes';
+import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOGGING_IN, STORE_USER, LOG_OUT, ADD_PRIVATE_KEY, SEARCH, ADD_MESSAGE, DISMISS_MESSAGE } from './actionTypes';
 import { combineReducers } from 'redux'
 import Immutable from 'immutable';
 
@@ -26,10 +26,10 @@ const notes = (state = Immutable.List(), action) => {
 
 const user = (state = Immutable.Map({loggingIn: false}), action) => {
   switch (action.type) {
-    case LOG_IN:
-      return state.set('loggingIn', true);
+    case LOGGING_IN:
+      return state.set('loggingIn', !state.get('loggingIn'));
     case STORE_USER:
-      return state.merge(action.user).set('loggingIn', false);
+      return state.merge(action.user);
     case LOG_OUT:
       return state.clear();
     case ADD_PRIVATE_KEY:

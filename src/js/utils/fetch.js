@@ -16,9 +16,11 @@ export default function fetch(url, options={}) {
       .end((err, res) => {
         // If there is an error or the res is not ok, return the error (reject it)
         if(err) {
-          var message = `Fetching ${url} returned a status ${err.status}. Detail: ${JSON.stringify(err)}`
+          let status = err.status || 'Unknown'
+          let error = (err.response) ? err.response.body : {title: 'Connection Error', detail: 'Please make sure you are connected to the internet.', status};
+          var message = `Fetching ${url} returned a status ${status}.\nDetail: ${JSON.stringify(error, null, 2)}`;
           console.error(message);
-          reject(err);
+          reject(error);
         }
         else {
           // If res.body is empty, try to parse the res.text
