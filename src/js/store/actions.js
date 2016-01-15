@@ -2,6 +2,7 @@ import Immutable from 'immutable';
 import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOGGING_IN, STORE_USER, LOG_OUT, ADD_PRIVATE_KEY, SEARCH, ADD_MESSAGE, DISMISS_MESSAGE} from './actionTypes';
 import { api } from '../../../config';
 import fetch from '../utils/fetch';
+import history from '../routes/history';
 
 export const addNote = (title) => {
   let note = Immutable.Map({title, body: '', unsaved: true});
