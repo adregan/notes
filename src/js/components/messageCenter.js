@@ -1,7 +1,6 @@
 import React from 'react';
 import Messages from './messages';
 import {dismissMessage} from '../store/actions';
-console.log(dismissMessage)
 
 const MessageCenter = ({messages, dispatch}) => {
   let classes = '';
