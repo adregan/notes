@@ -42,10 +42,11 @@ export const loggingIn = () => {
 export const logIn = (username, password) => {
   return dispatch => {
     dispatch(loggingIn());
-
-    return fetch(`${api}/logintest`, {method: 'post', body: {username, password}})
+    return fetch(`${api}/login`, {method: 'post', body: {username, password}})
       .then(resp => {
         dispatch(storeUser(resp));
+        // .push('notes') to retain back button to login
+        return history.replace('notes');
       })
       .catch(err => {
         let error = (!err.detail) ? 'So sorry. Something went wrong.' : err.detail;
@@ -58,6 +59,7 @@ export const logIn = (username, password) => {
 
 export const storeUser = ({ name, publicKey, apiToken }) => {
   let user = Immutable.Map({loggingIn: false, name, publicKey, apiToken});
+  // Store user in session storage
   return {type: STORE_USER, user};
 }
 
