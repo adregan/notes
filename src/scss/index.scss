@@ -4,6 +4,9 @@ $primary-color: #333;
 $light-primary: lighten($primary-color, 50%);
 $font-stack: Georgia, Times, Times New Roman, serif;
 $radius: .4rem;
+$ok-blue: rgb(23, 100, 240);
+$error-red: #ff0033;
+$ui-font: Helvetica;
 
 * {
   box-sizing: border-box;
@@ -273,8 +276,51 @@ body {
   position: fixed; top: 0; right: 0; bottom: 0; left: 0;
 }
 
-.ERROR-popup {
+.popup {
+  box-shadow: 0px .3rem 1.2rem -.125rem rgba(10,0,38,0.64);
   background-color: white;
-  max-width: 35rem;
+  max-width: 30rem;
   width: 90%;
+  &__title {
+    background-color: lighten($ok-blue, 40%);
+    border-bottom: .1rem solid $ok-blue;
+    font-size: 1.2rem;
+    font-style: italic;
+    margin: 0;
+    padding: 1rem;
+    text-align: center;
+    &--error {
+      background-color: lighten($error-red, 40%);
+      border-bottom-color: $error-red;
+    }
+  }
+  &__body {
+    margin: 0 auto;
+    padding: 2rem 0;
+    width: 75%;
+  }
+  &__buttons {
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    margin: 0 1.5rem 1.5rem;
+  }
+  &__button {
+    background-color: white;
+    border: .1rem solid $primary-color;
+    border-radius: .2rem;
+    display: block;
+    font-family: $ui-font;
+    padding: .4rem .75rem;
+    text-align: center;
+    width: 6rem;
+    &--ok {
+      background-color: $ok-blue; 
+      border-color: $ok-blue;
+      color: white;
+      margin-left: 1.5rem;
+    }
+  }
+
 }

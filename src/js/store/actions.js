@@ -50,7 +50,7 @@ export const logIn = (username, password) => {
         let error = (!err.detail) ? 'So sorry. Something went wrong.' : err.detail;
         dispatch(loggingIn());
         return dispatch(addMessage(
-          {title: 'Uh Oh. Error while logging in.', body: error, type: 'ERROR'}));
+          {title: 'Uh Oh. Error during login.', body: error, type: 'ERROR'}));
       })
   }
 }

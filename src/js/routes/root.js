@@ -14,7 +14,7 @@ class Root extends React.Component {
     return (
       <div className="app-window">
         {this.props.children}
-        <MessageCenter messages={this.props.messages} /> 
+        <MessageCenter messages={this.props.messages} dispatch={this.props.dispatch} /> 
       </div>
     );
   }
