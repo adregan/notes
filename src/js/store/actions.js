@@ -88,9 +88,9 @@ export const search = (searchTerm) => {
 export const addMessage = ({title, body, type, action}) => {
   type = type || 'message';
   action = action || {type: 'dismiss', label: 'OK'};
-  return dispatch => {
+  let message = Immutable.Map({title, body, type, action})
 
-    let message = Immutable.Map({title, body, type, action})
+  return dispatch => {
     return dispatch({type: ADD_MESSAGE, message: message});
   }
 }
