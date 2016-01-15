@@ -52,7 +52,7 @@ export const logIn = (username, password) => {
         let error = (!err.detail) ? 'So sorry. Something went wrong.' : err.detail;
         dispatch(loggingIn());
         return dispatch(addMessage(
-          {title: 'Uh Oh. Error during login.', body: error, type: 'ERROR'}));
+          {title: 'Uh Oh. Error during login.', body: error, type: 'error'}));
       })
   }
 }
@@ -85,13 +85,12 @@ export const search = (searchTerm) => {
   return {type: SEARCH, searchTerm};
 }
 
-export const addMessage = ({title, body, type, actionText, action}) => {
+export const addMessage = ({title, body, type, action}) => {
+  type = type || 'message';
+  action = action || {type: 'dismiss', label: 'OK'};
   return dispatch => {
-    let cancel = (action) ? true : false;
-    let action = action || dismissMessage;
-    let actionText = actionText || 'OK';
 
-    let message = Immutable.Map({title, body, type, cancel, action, actionText})
+    let message = Immutable.Map({title, body, type, action})
     return dispatch({type: ADD_MESSAGE, message: message});
   }
 }

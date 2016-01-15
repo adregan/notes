@@ -1,27 +1,17 @@
 import React from 'react';
-import Messages from './messages';
-import {dismissMessage} from '../store/actions';
+import Message from './message';
+import { dismissMessage } from '../store/actions';
+import classnames from 'classnames';
+
 
 const MessageCenter = ({messages, dispatch}) => {
-  let classes = '';
-  let message = false;
-  let onCancel = false;
-  if (messages.count()) {
-    classes = 'modal-container';
-    message = messages.first();
-    onCancel = message.get('cancel') && function(){dispatch(dismissMessage())}; 
-  }
+  const dismiss = () => dispatch(dismissMessage());
+  let message = messages.first();
+  let classes = classnames({'modal-container': message});
 
   return (
     <div className={classes}>
-      {message && 
-        <Messages title={message.get('title')}
-          body={message.get('body')}
-          type={message.get('type')}
-          actionText={message.get('actionText')}
-          hasCancel={message.get('hasCancel')}
-          onOK={() => dispatch(message.get('action')())}
-          onCancel={onCancel} /> }
+      {message ? <Message message={message} dismiss={dismiss} /> : null}
     </div>
   );
 }

@@ -296,10 +296,6 @@ button {
     margin: 0;
     padding: 1rem;
     text-align: center;
-    &--error {
-      background-color: lighten($error-red, 40%);
-      border-bottom-color: $error-red;
-    }
   }
   &__body {
     line-height: 1.618;
@@ -329,5 +325,12 @@ button {
       margin-left: 1.5rem;
     }
   }
+  &--error {
+    .popup__title{
+      background-color: lighten($error-red, 40%);
+      border-bottom-color: $error-red;
+    }
+  }
+
 
 }
