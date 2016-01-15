@@ -46,7 +46,7 @@ export const logIn = (username, password) => {
       .then(resp => {
         dispatch(storeUser(resp));
         // .push('notes') to retain back button to login
-        return history.replace('notes');
+        return history.replace('/notes');
       })
       .catch(err => {
         let error = (!err.detail) ? 'So sorry. Something went wrong.' : err.detail;
