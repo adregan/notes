@@ -6,7 +6,10 @@ $font-stack: Georgia, Times, Times New Roman, serif;
 $radius: .4rem;
 $ok-blue: rgb(23, 100, 240);
 $error-red: #ff0033;
-$ui-font: Helvetica;
+$ui-font: -apple-system, BlinkMacSystemFont, 
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", 
+    "Fira Sans", "Droid Sans", "Helvetica Neue", 
+    sans-serif;
 
 * {
   box-sizing: border-box;
@@ -25,6 +28,10 @@ body {
   flex-direction: column;
   justify-content: center;
   font-family: $font-stack;
+}
+
+button {
+  font-family: $ui-font;
 }
 
 .app-window {
@@ -295,6 +302,7 @@ body {
     }
   }
   &__body {
+    line-height: 1.618;
     margin: 0 auto;
     padding: 2rem 0;
     width: 75%;
@@ -311,13 +319,12 @@ body {
     border: .1rem solid $primary-color;
     border-radius: .2rem;
     display: block;
-    font-family: $ui-font;
     padding: .4rem .75rem;
     text-align: center;
     width: 6rem;
     &--ok {
-      background-color: $ok-blue; 
-      border-color: $ok-blue;
+      background-color: $primary-color; 
+      border-color: $primary-color;
       color: white;
       margin-left: 1.5rem;
     }
