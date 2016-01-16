@@ -41,9 +41,15 @@ export const logIn = (username, password) => {
     dispatch(loggingIn());
     return fetch(`${api}/login`, {method: 'post', body: {username, password}})
       .then(resp => {
+        // TODO: Needs a first time user welcome message/messages
         let user = {username, ...resp};
+
         dispatch(storeUser(user, []));
-        // .push('notes') to retain back button to login
+
+        // dispatch(addMessage({title: 'Welcome', body: 'Glad to have you', action: {type: 'dismiss', label: 'Next'}}))
+        
+        // dispatch(addMessage({title: 'How to', body: 'This is how to'}))
+
         return history.replace('/notes');
       })
       .catch(err => {
