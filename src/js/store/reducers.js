@@ -1,4 +1,4 @@
-import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOGGING_IN, STORE_USER, LOG_OUT, ADD_PRIVATE_KEY, SEARCH, ADD_MESSAGE, DISMISS_MESSAGE } from './actionTypes';
+import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOGGING_IN, STORE_USER, UPDATE_USER, LOG_OUT, DISCONNECT, ADD_PRIVATE_KEY, SEARCH, ADD_MESSAGE, DISMISS_MESSAGE } from './actionTypes';
 import { combineReducers } from 'redux'
 import Immutable from 'immutable';
 
@@ -17,6 +17,8 @@ const notes = (state = Immutable.List(), action) => {
       return state.set(action.index, action.note);
     case DELETE_NOTE:
       return state.delete(action.index);
+    case STORE_USER:
+      return state.push(...action.notes);
     case LOG_OUT:
       return state.clear();
     default:
@@ -24,12 +26,14 @@ const notes = (state = Immutable.List(), action) => {
   }
 }
 
-const user = (state = Immutable.Map({loggingIn: false}), action) => {
+const user = (state = Immutable.Map({loggingIn: false, username: ''}), action) => {
   switch (action.type) {
     case LOGGING_IN:
       return state.set('loggingIn', !state.get('loggingIn'));
     case STORE_USER:
       return state.merge(action.user);
+    case UPDATE_USER:
+      return state.merge(action.data);
     case LOG_OUT:
       return state.clear();
     case ADD_PRIVATE_KEY:
@@ -45,6 +49,8 @@ const searchTerm = (state = '', action) => {
       return action.searchTerm;
     case ADD_NOTE:
       return '';
+    case LOG_OUT:
+      return '';
     default:
       return state;
   }
@@ -58,6 +64,8 @@ const currentNote = (state = Immutable.Map(), action) => {
       return action.note.set('index', action.index);
     case SELECT_NOTE:
       return action.currentNote;
+    case LOG_OUT:
+      state.clear();
     default:
       return state;
   }
@@ -69,6 +77,8 @@ const messages = (state = Immutable.List(), action) => {
       return state.push(action.message)
     case DISMISS_MESSAGE:
       return state.shift();
+    case LOG_OUT:
+      state.clear();
     default:
       return state
   }
