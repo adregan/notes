@@ -8,7 +8,7 @@ import Settings from './settings';
 
 const routes = (
   <Route path='/' component={Root}>
-    <IndexRoute component={Login} />
+    <IndexRoute component={NotesApp} />
     <Route path='login' component={Login} />
     <Route path='notes' component={NotesApp} />
     <Route path='settings' component={Settings} />
