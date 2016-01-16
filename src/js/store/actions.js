@@ -70,7 +70,11 @@ export const checkForCurrentSession = () => {
       return history.replace('/login');
     }
 
-    return dispatch(storeUser(JSON.parse(user), JSON.parse(notes)));
+    dispatch(storeUser(JSON.parse(user), JSON.parse(notes)));
+
+    if (window.location.pathname.replace(/\//g, '') === 'login') {
+      return history.replace('/notes')
+    }
   } 
 }
 
