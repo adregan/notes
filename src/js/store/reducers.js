@@ -2,10 +2,15 @@ import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOGGING_IN, STORE_USER
 import { combineReducers } from 'redux'
 import Immutable from 'immutable';
 
+// TODO UPDATE THIS DIAGRAM
+
 /* Diagram of the store
 Store = {
   notes: [{title, body}...],
   user: {name, publicKey, privateKey, apiToken}
+  searchTerm: '',
+  currentNote: {title, body, index},
+  messages: [{title, body, type, action: {type, label}}]
 }
 */
 
