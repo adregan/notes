@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import MessageCenter from '../components/MessageCenter'
+import MessageCenter from '../components/MessageCenter';
+import { checkForCurrentSession } from '../store/actions';
 
 class Root extends React.Component {
+  componentWillMount() {
+    this.props.dispatch(checkForCurrentSession());
+  }
   componentDidMount() {
-    window.onbeforeunload = () => {
+    window.onbeforeunload = (e) => {
       if (this.props.notes.filter(n => n.get('unsaved')).count()){
-        return 'If you leave, your changes will be lost.';
+        return 'You have unsaved changes. If you leave, your changes will be lost.';
       }
     }
   }
@@ -22,6 +26,7 @@ class Root extends React.Component {
 
 function select(state) {
   return {
+    notes: state.notes,
     messages: state.messages
   };
 }
