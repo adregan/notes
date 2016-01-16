@@ -1,10 +1,10 @@
 import React from 'react';
 
-const LoginForm = ({onSubmit, loggingIn}) => {
+const LoginForm = ({username, onSubmit, loggingIn, onChange}) => {
   return (
     <form className='login-form' onSubmit={e => {e.preventDefault(); onSubmit(e.target[0].value, e.target[1].value);}}>
       <label className="login-form__label" htmlFor="username">Email or username</label>
-      <input className="login-form__input" id="username" required={true} />
+      <input className="login-form__input" onChange={e => onChange(e.target.value)} value={username} id="username" required={true} />
       
       <label className="login-form__label" htmlFor="password">Passphrase</label>
       <input className="login-form__input" type="password" id="password" required={true} />
