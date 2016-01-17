@@ -79,14 +79,24 @@ const currentNote = (state = Immutable.Map(), action) => {
 const messages = (state = Immutable.List(), action) => {
   switch (action.type) {
     case ADD_MESSAGE:
-      return state.push(action.message)
+      return state.push(action.message);
     case DISMISS_MESSAGE:
       return state.shift();
     case LOG_OUT:
       state.clear();
     default:
-      return state
+      return state;
   }
 }
 
-export const notesApp = combineReducers({notes, user, searchTerm, currentNote, messages});
+const key = (state = {}, action) => {
+  switch (action.type) {
+    case STORE_USER:
+      return action.key;
+    default:
+      return state;
+  }
+}
+
+
+export const notesApp = combineReducers({notes, user, searchTerm, currentNote, messages, key});

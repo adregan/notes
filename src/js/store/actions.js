@@ -4,6 +4,7 @@ import { api } from '../../../config';
 import fetch from '../utils/fetch';
 import history from '../routes/history';
 import localforage from 'localforage';
+import {createKeyManager} from '../utils/keybase';
 
 export const addNote = (title) => {
   let note = Immutable.Map({title, body: '', unsaved: true});
@@ -41,18 +42,29 @@ export const logIn = (username, password) => {
     dispatch(loggingIn());
     return fetch(`${api}/login`, {method: 'post', body: {username, password}})
       .then(resp => {
-        // TODO: Needs a first time user welcome message/messages
+        let {privateKey} = resp;
         let user = {username, ...resp};
-
-        dispatch(storeUser(user, []));
+        createKeyManager(privateKey, password)
+          .then(key => {
+            dispatch(storeUser(user, [], key));
+            return history.replace('/notes');
+          })
+          .catch(err => {
+            console.error(err);
+            dispatch(loggingIn())
+            return dispatch(addMessage({
+              title: 'So Sorry',
+              body: 'Something went wrong.',
+              type: 'error',
+              action: {type: 'dismiss', label: 'OK'}}))
+          })
 
         // dispatch(addMessage({title: 'Welcome', body: 'Glad to have you', action: {type: 'dismiss', label: 'Next'}}))
-        
         // dispatch(addMessage({title: 'How to', body: 'This is how to'}))
 
-        return history.replace('/notes');
       })
       .catch(err => {
+        console.log(err)
         let error = (!err.detail) ? 'So sorry. Something went wrong.' : err.detail;
         dispatch(loggingIn());
         return dispatch(addMessage(
@@ -92,12 +104,12 @@ export const updateUser = (data) => {
   return {type: UPDATE_USER, data: Immutable.Map(data)}
 }
 
-export const storeUser = (userData, notesData) => {
+export const storeUser = (userData, notesData, key) => {
   let { username } = userData;
   let user = Immutable.Map({loggingIn: false, ...userData});
   let notes = Immutable.List(notesData.map(note => Immutable.Map(note)));
 
-  const action = {type: STORE_USER, user, notes}
+  const action = {type: STORE_USER, user, notes, key}
   return dispatch => {
     sessionStorage.setItem('user', JSON.stringify(user));
     sessionStorage.setItem('notes', JSON.stringify(notes));
