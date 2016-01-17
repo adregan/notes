@@ -3,7 +3,9 @@ import Notes from './notes';
 import Header from './header';
 
 const search = (note, searchTerm) => {
-  return note.get('title').toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
+  let title = note.get('decrypted').get('title');
+  if (!title) {return false;}
+  return title.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
 }
 
 const Sidebar = ({onSearch, onSelect, onCreate, notes, searchTerm}) => {

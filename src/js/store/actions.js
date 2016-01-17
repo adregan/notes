@@ -4,7 +4,7 @@ import { api } from '../../../config';
 import fetch from '../utils/fetch';
 import history from '../routes/history';
 import localforage from 'localforage';
-import {createKeyManager} from '../utils/keybase';
+import Key from '../utils/keybase';
 
 export const addNote = (title) => {
   let note = Immutable.Map({title, body: '', unsaved: true});
@@ -42,12 +42,13 @@ export const logIn = (username, password) => {
     dispatch(loggingIn());
     return fetch(`${api}/login`, {method: 'post', body: {username, password}})
       .then(resp => {
-        let {privateKey} = resp;
+        let {armoredKey} = resp;
         let user = {username, ...resp};
-        createKeyManager(privateKey, password)
+
+        Key.create(armoredKey, password)
           .then(key => {
             dispatch(storeUser(user, [], key));
-            return history.replace('/notes');
+            return history.replace('/notes');            
           })
           .catch(err => {
             console.error(err);

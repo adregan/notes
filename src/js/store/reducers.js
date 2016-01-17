@@ -6,11 +6,12 @@ import Immutable from 'immutable';
 
 /* Diagram of the store
 Store = {
-  notes: [{title, body}...],
-  user: {name, apiToken, privateKey, photoUrl, loggingIn}
+  notes: [{id, contents, decrypted: {title, body, date}}...],
+  user: {name, apiToken, armoredKey, photoUrl, loggingIn}
   searchTerm: '',
   currentNote: {title, body, index},
-  messages: [{title, body, type, action: {type, label}}]
+  messages: [{title, body, type, action: {type, label}}...]
+  key: {manager, ring}
 }
 */
 
