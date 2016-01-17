@@ -135,18 +135,6 @@ export const disconnect = () => {
   }
 }
 
-export const addPrivateKey = (privateKey) => {
-  const action = {type: ADD_PRIVATE_KEY, privateKey};
-  return dispatch => {
-    localforage.setItem('privateKey', privateKey)
-      .then(() => dispatch(action))
-      .catch(err => {
-        console.error(err);
-        dispatch(action)
-      })
-  }
-}
-
 export const search = (searchTerm) => {
   return {type: SEARCH, searchTerm};
 }

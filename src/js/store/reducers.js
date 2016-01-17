@@ -7,7 +7,7 @@ import Immutable from 'immutable';
 /* Diagram of the store
 Store = {
   notes: [{title, body}...],
-  user: {name, publicKey, privateKey, apiToken}
+  user: {name, apiToken, privateKey, photoUrl, loggingIn}
   searchTerm: '',
   currentNote: {title, body, index},
   messages: [{title, body, type, action: {type, label}}]
@@ -41,8 +41,6 @@ const user = (state = Immutable.Map({loggingIn: false, username: ''}), action) =
       return state.merge(action.data);
     case LOG_OUT:
       return state.clear();
-    case ADD_PRIVATE_KEY:
-      return state.set('privateKey', action.privateKey);
     default:
       return state;
   }
