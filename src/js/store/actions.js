@@ -76,49 +76,54 @@ export const logIn = (username, password) => {
 
 export const checkForCurrentSession = () => {
   return dispatch => {
-    let user = sessionStorage.getItem('user');
-    let notes = sessionStorage.getItem('notes');
+    Promise.all([
+      localforage.getItem('user'),
+      localforage.getItem('notes')
+    ])
+      .then(resp => {
+        let [user, notes] = resp;
+        if (!user || !notes) {return history.replace('/login');}
 
-    if (!user || !notes) {
-      return history.replace('/login');
-    }
+        let { armoredKey } = user;
 
-    dispatch(storeUser(JSON.parse(user), JSON.parse(notes)));
-
-    if (window.location.pathname.replace(/\//g, '') === 'login') {
-      return history.replace('/notes')
-    }
-  } 
-}
-
-export const checkForReturningUser = () => {
-  return dispatch => {
-    localforage.getItem('username')
-      .then(username => {
-        username && dispatch(updateUser({username}));
+        Key.create(armoredKey)
+          .then(key => {
+            dispatch(storeUser(user, notes, key))
+            if (window.location.pathname.replace(/\//g, '') === 'login') {
+              return history.replace('/notes')
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            localforage.clear();
+            return history.replace('/login');})
       })
-      .catch(err => console.error(err))
-  }
+  } 
 }
 
 export const updateUser = (data) => {
   return {type: UPDATE_USER, data: Immutable.Map(data)}
 }
 
-export const storeUser = (userData, notesData, key) => {
-  let { username } = userData;
-  let user = Immutable.Map({loggingIn: false, ...userData});
-  let notes = Immutable.List(notesData.map(note => Immutable.Map(note)));
+export const storeUser = (user, notes, key) => {
+  const action = {
+    type: STORE_USER,
+    user: Immutable.Map({loggingIn: false, ...user}),
+    notes: Immutable.List(notes.map(note => {
+      return Immutable.Map({decrypted: Immutable.Map(), ...note})
+    })),
+    key
+  }
 
-  const action = {type: STORE_USER, user, notes, key}
   return dispatch => {
-    sessionStorage.setItem('user', JSON.stringify(user));
-    sessionStorage.setItem('notes', JSON.stringify(notes));
-    localforage.setItem('username', username)
+    Promise.all([
+      localforage.setItem('user', user),
+      localforage.setItem('notes', notes)
+    ])
       .then(() => dispatch(action))
       .catch(err => {
         console.error(err);
-        dispatch(action);
+        return dispatch(action);
       })
   }
 }
