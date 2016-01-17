@@ -125,6 +125,7 @@ export const storeUser = (userData, notesData, key) => {
 export const disconnect = () => {
   const action = {type: LOG_OUT};
   return dispatch => {
+    sessionStorage.clear();
     localforage.clear()
       .then(() => dispatch(action))
       .catch(err => {
