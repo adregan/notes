@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MessageCenter from '../components/MessageCenter';
-import { checkForCurrentSession } from '../store/actions';
+import { checkForCurrentSession } from '../actions/user';
 
 class Root extends React.Component {
   componentWillMount() {

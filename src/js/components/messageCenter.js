@@ -1,6 +1,6 @@
 import React from 'react';
 import Message from './message';
-import { dismissMessage } from '../store/actions';
+import { dismissMessage } from '../actions/messages';
 import classnames from 'classnames';
 
 

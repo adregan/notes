@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import Sidebar from '../components/sidebar';
 import Editor from '../components/editor';
 import { connect } from 'react-redux';
-import { addNote, selectNote, search } from '../store/actions';
+import { addNote, selectNote } from '../actions/notes';
+import { search } from '../actions/search';
 
 const NotesApp = (props) => {
   let notes = props.notes;

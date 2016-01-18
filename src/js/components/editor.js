@@ -1,7 +1,7 @@
 import React from 'react';
 import TitleEditor from './titleEditor';
 import BodyEditor from './bodyEditor';
-import { updateNote, saveNote} from '../store/actions';
+import { updateNote, saveNote} from '../actions/notes';
 
 const Editor = ({currentNote, dispatch}) => {
   if (currentNote.isEmpty()) {

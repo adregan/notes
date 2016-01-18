@@ -4,7 +4,7 @@ import LoginForm from '../components/loginForm';
 import Logo from '../components/logo';
 import fetch from '../utils/fetch';
 import { connect } from 'react-redux';
-import { logIn } from '../store/actions';
+import { logIn } from '../actions/user';
 
 const Login = ({user, dispatch}) => {
   return (
