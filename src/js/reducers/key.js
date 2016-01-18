@@ -1,4 +1,4 @@
-import {STORE_USER} from '../actions/user';
+import {STORE_USER, UNLOCK_KEY} from '../actions/user';
 
 
 /*
@@ -23,6 +23,8 @@ key = {
 const key = (state = {}, action) => {
   switch (action.type) {
     case STORE_USER:
+      return action.key;
+    case UNLOCK_KEY:
       return action.key;
     default:
       return state;

@@ -4,6 +4,7 @@ import fetch from '../utils/fetch';
 import history from '../routes/history';
 import localforage from 'localforage';
 import Key from '../utils/keybase';
+import {addMessage} from './messages';
 
 /*ACTION TYPES*/
 export const LOGGING_IN = 'LOGGING_IN'
@@ -108,6 +109,24 @@ export const storeUser = (user, notes, key) => {
       })
   }
 }
+
+export const unlock = (passphrase) => {
+  return (dispatch, getState) => {
+    let {key} = getState();
+    key.unlock(passphrase)
+      .then(key => {
+        return dispatch({type: UNLOCK_KEY, key});
+      })
+      .catch(err => {
+        console.error(err);
+        return dispatch(addMessage({
+          title: 'Couldn\'t unlock key.'
+          body: 'Check your passphrase and try again.',
+          type: 'error'
+        }))
+      })
+  }
+} 
 
 export const disconnect = () => {
   const action = {type: LOG_OUT};
