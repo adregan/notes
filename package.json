@@ -12,10 +12,11 @@
     "build:html": "echo dist dist/login dist/notes dist/settings | xargs -n 1 cp src/html/index.html",
     "build:css": " sassc --sourcemap --style compressed src/scss/index.scss | postcss --use autoprefixer > dist/static/index.css",
     "build:assets": "cp -r src/assets/* dist/static",
-    "build": "npm run build:js; npm run build:html; npm run build:css; npm run build:assets",
+    "build": "npm run dev:js; npm run build:html; npm run build:css; npm run build:assets",
     "serve": "cd dist; http-server -p 7777",
-    "watch": "watchify -v -t babelify src/js/index.js -o dist/static/index.js",
+    "watch": "watchify --debug -v -t babelify src/js/index.js -o dist/static/index.js",
     "dev": "npm run build; npm run watch & npm run start",
+    "dev:js": "browserify --debug -t babelify src/js/index.js > dist/static/index.js",
     "dev:css": " sassc --sourcemap --style compressed src/scss/index.scss > dist/static/index.css",
     "start": "npm run build; npm run serve"
   },
