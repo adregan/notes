@@ -8,7 +8,7 @@ import { search } from '../actions/search';
 
 const NotesApp = (props) => {
   let notes = props.notes;
-  let searchTerm = props.searchTerm;
+  let searchTerm = props.search.get('term');
   let currentNote = props.currentNote;
   let dispatch = props.dispatch;
   let messages = props.messages;
@@ -29,7 +29,7 @@ const NotesApp = (props) => {
 function select(state) {
   return {
     notes: state.notes,
-    searchTerm: state.searchTerm,
+    search: state.search,
     currentNote: state.currentNote,
     messages: state.messages
   };

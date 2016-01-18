@@ -1,7 +1,7 @@
 /*ACTION TYPES*/
 export const SEARCH = 'SEARCH';
 
-/*ACTIONS*/
-export const search = (searchTerm) => {
-  return {type: SEARCH, searchTerm};
+/*ACTION CREATORS*/
+export const search = (term) => {
+  return {type: SEARCH, term};
 }

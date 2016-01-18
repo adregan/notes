@@ -1,31 +1,29 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const Notes = ({ notes, onSelect, onCreate, onSearch, searchTerm}) => {
+const Notes = ({ notes, onSelect, onSearch, searchTerm}) => {
   return (
     <section className="notes">
-      <form className="search" onSubmit={e => {e.preventDefault(); onCreate(searchTerm);}}>
-        <input 
-          placeholder="Search or Create"
-          className="search__input"
-          name="search"
-          type="text" 
-          autoComplete="off"
-          value={searchTerm}
-          onChange={e => onSearch(e.target.value) }/>
-      </form>
+      <input 
+        placeholder="Search"
+        className="search__input"
+        name="search"
+        type="text"
+        autoComplete="off"
+        value={searchTerm}
+        onChange={e => onSearch(e.target.value) }/>
 
       <ul className="notes-list">
         {(!notes.count()) ? 
             <li className="no-results">{!searchTerm.length ? 'No Notes' : 'No Results'}</li> :
             notes.map((note, index) => {
-              let title = note.get('title');
+              let title = note.get('decrypted').get('title');
               let classes = classnames(
                 'notes-list__note',
-                {'notes-list__note--unsaved': note.get('unsaved')}
+                {'notes-list__note--unsaved': !note.get('saved')}
               );
               return (
-                <li className={classes} key={index} onClick={() => onSelect(index, title, note.get('body'))} >
+                <li className={classes} key={index} onClick={() => onSelect(index, note)} >
                   {title}
                 </li>
               )})

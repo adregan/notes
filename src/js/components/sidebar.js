@@ -14,7 +14,6 @@ const Sidebar = ({onSearch, onSelect, onCreate, notes, searchTerm}) => {
       <Header onCreate={onCreate} />
       <Notes
         onSelect={onSelect} 
-        onCreate={onCreate}
         onSearch={onSearch} 
         searchTerm={searchTerm} 
         notes={ notes.filter(note => search(note, searchTerm)) } />
