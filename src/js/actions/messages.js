@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const DISMISS_MESSAGE = 'DISMISS_MESSAGE';
 
-/*ACTIONS*/
+/*ACTION CREATORS*/
 export const addMessage = ({title, body, type, action}) => {
   type = type || 'message';
   action = action || {type: 'dismiss', label: 'OK'};

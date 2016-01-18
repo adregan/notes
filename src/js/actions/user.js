@@ -11,8 +11,9 @@ export const LOG_OUT = 'LOG_OUT';
 export const DISCONNECT = 'DISCONNECT';
 export const STORE_USER = 'STORE_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+export const UNLOCK_KEY = 'UNLOCK_KEY';
 
-/*ACTIONS*/
+/*ACTION CREATORS*/
 export const loggingIn = () => {
   return {type: LOGGING_IN}
 }
