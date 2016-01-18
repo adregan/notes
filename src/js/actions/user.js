@@ -1,38 +1,18 @@
 import Immutable from 'immutable';
-import { ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, LOGGING_IN, STORE_USER, UPDATE_USER, LOG_OUT, DISCONNECT, SEARCH, ADD_MESSAGE, DISMISS_MESSAGE} from './actionTypes';
 import { api } from '../../../config';
 import fetch from '../utils/fetch';
 import history from '../routes/history';
 import localforage from 'localforage';
 import Key from '../utils/keybase';
 
-export const addNote = (title) => {
-  let note = Immutable.Map({title, body: '', unsaved: true});
-  return { type: ADD_NOTE, note};
-}
+/*ACTION TYPES*/
+export const LOGGING_IN = 'LOGGING_IN'
+export const LOG_OUT = 'LOG_OUT';
+export const DISCONNECT = 'DISCONNECT';
+export const STORE_USER = 'STORE_USER';
+export const UPDATE_USER = 'UPDATE_USER';
 
-export const selectNote = (index, title, body) => {
-  let currentNote = Immutable.Map({index, title, body});
-  return {type: SELECT_NOTE, currentNote};
-}
-
-export const updateNote = (index, title, body) => {
-  let note = Immutable.Map({title, body, unsaved: true});
-  return { type: UPDATE_NOTE, index, note };
-}
-
-export const saveNote = (index, title, body) => {
-  return dispatch => {
-    // TODO: Encrypt and save note to server
-    let note = Immutable.Map({title, body, unsaved: false});
-    dispatch({type: UPDATE_NOTE, index, note});
-  }
-}
-
-export const deleteNote = (index) => {
-  return { type: DELETE_NOTE, index };
-}
-
+/*ACTIONS*/
 export const loggingIn = () => {
   return {type: LOGGING_IN}
 }
@@ -140,22 +120,3 @@ export const disconnect = () => {
       })
   }
 }
-
-export const search = (searchTerm) => {
-  return {type: SEARCH, searchTerm};
-}
-
-export const addMessage = ({title, body, type, action}) => {
-  type = type || 'message';
-  action = action || {type: 'dismiss', label: 'OK'};
-  let message = Immutable.Map({title, body, type, action})
-
-  return dispatch => {
-    return dispatch({type: ADD_MESSAGE, message: message});
-  }
-}
-
-export const dismissMessage = () => {
-  return {type: DISMISS_MESSAGE};
-}
-
