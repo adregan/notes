@@ -39,7 +39,28 @@ describe('Async Action Creators', () => {
     })
     describe('updateNote()', (done) => {
       it('should create an action to update a note', () => {
+        const index = 8;
+        const note = mockNotes.get(index);
+        const theID = note.get('id');
+        const newTitle = 'WOW Great Note';
+        const newBody = 'Certainly is';
 
+        const changes = {
+          decrypted: {
+            title: newTitle,
+            body: newBody
+          } 
+        }
+
+        const expectedActions = [{type: notes.UPDATE_NOTE, index, changes}]
+
+        const store = mockStore(
+          { notes: mockNotes },
+          expectedActions,
+          done
+        );
+
+        store.dispatch(notes.updateNote(theID, changes));
       })
     })
     describe('saveNote()', (done) => {

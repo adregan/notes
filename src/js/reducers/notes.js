@@ -5,11 +5,11 @@ import {STORE_USER, LOG_OUT} from '../actions/user';
 const notes = (state = Immutable.List(), action) => {
   switch (action.type) {
     case ADD_NOTE:
-      var note = makeImmutable(action.note);
+      let note = makeImmutable(action.note);
       return state.unshift(note);
     case UPDATE_NOTE:
-      var note = makeImmutable(action.note);
-      return state.set(action.index, state.get(action.index).merge(note));
+      let changes = makeImmutable(action.changes);
+      return state.set(action.index, state.get(action.index).merge(changes));
     case DELETE_NOTE:
       return state.delete(action.index);
     case STORE_USER:

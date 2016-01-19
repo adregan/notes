@@ -35,9 +35,8 @@ export const updateNote = (id, changes) => {
   return (dispatch, getState) => {
     let {notes} = getState();
     let note = {};
-    Object.keys(changes).forEach(key => note[key] = changes[key]);
     const index = notes.findIndex(note => note.get('id') === id);
-    return dispatch({ type: UPDATE_NOTE, index, note });
+    return dispatch({ type: UPDATE_NOTE, index, changes });
   }
 }
 
