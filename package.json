@@ -4,7 +4,8 @@
   "description": "A simple notes app that encrypts your data before heading to the server",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers js:babel-register --recursive",
+    "test:watch": "npm test -- --watch",
     "directories": "mkdir -p dist/static dist/notes dist/login dist/settings",
     "prebuild": "npm run directories",
     "predev": "npm run directories",
@@ -49,7 +50,11 @@
     "babel-plugin-transform-object-rest-spread": "^6.3.13",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
+    "babel-register": "^6.4.3",
     "babelify": "^7.2.0",
+    "expect": "^1.13.4",
+    "jsdom": "7.2.2",
+    "jsdom-global": "1.6.1",
     "mocha": "^2.3.4",
     "redux-devtools": "^3.0.0"
   }
