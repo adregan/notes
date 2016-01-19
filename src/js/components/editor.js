@@ -8,32 +8,25 @@ const Editor = ({currentNote, dispatch}) => {
     return <div className="no-note"><p>No Note Selected</p></div>;
   }
 
-  let index = currentNote.get('index');
-  let title = currentNote.get('title');
-  let body = currentNote.get('body');
+  let id = currentNote.get('id');
+  let title = currentNote.getIn(['decrypted', 'title']);
+  let body = currentNote.getIn(['decrypted', 'body']);
+  let encrypted = currentNote.get('contents');
 
   return (
-    <form
-      className="editor"
-      onSubmit={(e) => {
-        e.preventDefault();
-        // TODO: Send Data to Server
-        dispatch(saveNote(index, title, body))
-      }}>
+    <form className="editor"
+      onSubmit={(e) => {e.preventDefault(); dispatch(saveNote(index, currentNote))}}>
+      
       <div className="editor__header">
-        <TitleEditor
-          placeholder="Untitled"
-          value={title}
-          onChange={(newTitle) => dispatch(updateNote(index, newTitle, body))}
-          limit={100}
-          className="editor__title" />
-
-        <button type="submit" className="editor__button">Save</button>
+        <TitleEditor className="editor__title"  value={title} limit={50}
+          onChange={(newTitle) => dispatch(updateNote(id, {decrypted: {title: newTitle, body}}))}/>
       </div>
-      <BodyEditor
-        value={body}
-        onChange={(newBody) => dispatch(updateNote(index, title, newBody))}
-        className="editor__body" />
+
+      <BodyEditor className="editor__body" value={body}
+        onChange={(newBody) => dispatch(updateNote(id, {decrypted: {body: newBody, title}}))} />
+
+      <button type="submit" className="editor__button">Save</button>
+      <div className="encrypted">{encrypted}</div>
     </form>
   );
 }

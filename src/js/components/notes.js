@@ -23,7 +23,7 @@ const Notes = ({ notes, onSelect, onSearch, searchTerm}) => {
                 {'notes-list__note--unsaved': !note.get('saved')}
               );
               return (
-                <li className={classes} key={index} onClick={() => onSelect(index, note)} >
+                <li className={classes} key={index} onClick={() => onSelect(note.get('id'))} >
                   {title}
                 </li>
               )})
