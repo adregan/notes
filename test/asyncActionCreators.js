@@ -15,10 +15,10 @@ describe('Async Action Creators', () => {
       id: id,
       content: '',
       saved: false,
-      decrypted: {
+      decrypted: Immutable.Map({
         title: `Note ${i + 1}`,
         body: 'WOWOWOWOWOWOWWOWOOW'
-      }
+      })
     })));
 
     describe('selectNote()', (done) => {
