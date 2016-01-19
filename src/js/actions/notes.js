@@ -8,33 +8,37 @@ export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 
 /*ACTION CREATORS*/
-export const addNote = (title) => {
-  let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = crypto.getRandomValues(new Uint8Array(1))[0]%16|0, v = c == 'x' ? r : (r&0x3|0x8);
-    return v.toString(16);
-  });
+export const addNote = () => {
 
   const note = {
     id: uuid.v4(),
     saved: false,
     content: '',
-    decrypted: Immutable.Map({title, body: ''}),
-    id
-  });
+    decrypted: {
+      title: 'Untitled',
+      body: ''
+    }
+  }
 
-  return { type: ADD_NOTE, note};
+  return { type: ADD_NOTE, note };
 }
 
-export const selectNote = (index, note) => {
-  return {type: SELECT_NOTE, note: note.set('index', index)};
+export const selectNote = (id) => {
+  return (dispatch, getState) => {
+    const { notes } = getState();
+    const note = notes.find(note => note.get('id') === id);
+    return dispatch({type: SELECT_NOTE, note});
+  }
 }
 
-export const updateNote = (index, title, body) => {
-  let note = Immutable.Map({
-    saved: false,
-    decrypted: Immutable.Map({title, body})
-  });
-  return { type: UPDATE_NOTE, index, note };
+export const updateNote = (id, changes) => {
+  return (dispatch, getState) => {
+    let {notes} = getState();
+    let note = {};
+    Object.keys(changes).forEach(key => note[key] = changes[key]);
+    const index = notes.findIndex(note => note.get('id') === id);
+    return dispatch({ type: UPDATE_NOTE, index, note });
+  }
 }
 
 export const saveNote = (index, note) => {
@@ -55,6 +59,16 @@ export const saveNote = (index, note) => {
   }
 }
 
-export const deleteNote = (index) => {
-  return { type: DELETE_NOTE, index };
+export const deleteNote = (id) => {
+  return (dispatch, getState) => {
+    let {notes} = getState();
+    const index = notes.findIndex(note => note.get('id') === id);
+    return dispatch({ type: DELETE_NOTE, index, id });
+  }
+}
+
+/* UTILITIES */
+export const makeImmutable = (note) => {
+  const decrypted = Immutable.Map(note.decrypted)
+  return Immutable.Map(note).set('decrypted', decrypted)
 }

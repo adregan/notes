@@ -21,7 +21,7 @@ const user = (state = Immutable.Map(), action) => {
     case STORE_USER:
       return state.merge(action.user);
     case UPDATE_USER:
-      return state.merge(action.data);
+      return state.merge(Immutable.Map(action.data));
     case LOG_OUT:
       return state.clear();
     default:

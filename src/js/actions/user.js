@@ -84,7 +84,7 @@ export const checkForCurrentSession = () => {
 }
 
 export const updateUser = (data) => {
-  return {type: UPDATE_USER, data: Immutable.Map(data)}
+  return {type: UPDATE_USER, data}
 }
 
 export const storeUser = (user, notes, key) => {
@@ -120,7 +120,7 @@ export const unlock = (passphrase) => {
       .catch(err => {
         console.error(err);
         return dispatch(addMessage({
-          title: 'Couldn\'t unlock key.'
+          title: 'Couldn\'t unlock key.',
           body: 'Check your passphrase and try again.',
           type: 'error'
         }))
