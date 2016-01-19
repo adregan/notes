@@ -1,4 +1,5 @@
 import Immutable from 'immutable';
+import uuid from 'node-uuid';
 
 /*ACTION TYPES*/
 export const ADD_NOTE = 'ADD_NOTE';
@@ -13,7 +14,8 @@ export const addNote = (title) => {
     return v.toString(16);
   });
 
-  let note = Immutable.Map({
+  const note = {
+    id: uuid.v4(),
     saved: false,
     content: '',
     decrypted: Immutable.Map({title, body: ''}),
