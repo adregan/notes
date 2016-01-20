@@ -2,7 +2,7 @@ import React from 'react';
 import Logo from '../components/logo';
 import history from '../routes/history';
 
-const Header = ({onSearch, onCreate, searchTerm}) => {
+const Header = ({onCreate}) => {
   return (
     <header className="header">
       <button

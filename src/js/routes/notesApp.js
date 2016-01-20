@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Sidebar from '../components/sidebar';
 import Editor from '../components/editor';
 import { connect } from 'react-redux';
-import { addNote, selectNote } from '../actions/notes';
+import { addNote } from '../actions/notes';
 
 const NotesApp = (props) => {
   let currentNote = props.currentNote;
