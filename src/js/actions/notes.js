@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import uuid from 'node-uuid';
+import * as date from '../utils/date';
 
 /*ACTION TYPES*/
 export const ADD_NOTE = 'ADD_NOTE';
@@ -9,7 +10,7 @@ export const DELETE_NOTE = 'DELETE_NOTE';
 
 /*ACTION CREATORS*/
 export const addNote = () => {
-  const now = new Date().toISOString();
+  const now = date.now();
   const note = Immutable.Map({
     id: uuid.v4(),
     saved: false,
@@ -38,7 +39,7 @@ export const updateNote = (id, {title, body, saved, content, updated}) => {
     let {notes} = getState();
     const index = notes.findIndex(note => note.get('id') === id);
     const note = notes.get(index);
-    updated = updated || new Date().toISOString();
+    updated = updated || date.now();
 
     const changes = Immutable.Map({
       content: content,
@@ -69,7 +70,7 @@ export const saveNote = (id) => {
     const title = note.getIn(['decrypted', 'title']);
     const body = note.getIn(['decrypted', 'body']);
     const created = note.getIn(['decrypted', 'created']);
-    const updated = (new Date()).toISOString();
+    const updated = date.now();
 
     key.encrypt({title, body, created, updated})
       .then(content => {

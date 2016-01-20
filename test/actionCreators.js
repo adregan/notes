@@ -9,6 +9,7 @@ import jsdom from 'jsdom-global';
 import * as search from '../src/js/actions/search';
 import * as messages from '../src/js/actions/messages';
 import * as notes from '../src/js/actions/notes';
+import * as date from '../src/js/utils/date';
 
 describe('Action Creators', () => {
   describe('search', () => {
@@ -70,19 +71,14 @@ describe('Action Creators', () => {
   describe('notes', () => {
     before(function() {
       expect.spyOn(uuid, 'v4').andReturn(123456789);
-      let Date = {
-        toISOString: function() {'2016-01-19T23:54:19.937Z'}
-      }
-      expect.spyOn(Date, 'toISOString')
+      expect.spyOn(date, 'now').andReturn('1984-10-04T11:54:19.937Z')
     });
     after(function() {
       expect.restoreSpies();
     });
     describe('addNote()', () => {
       it('should create an action to add a note', () => {
-      
-
-        const now = new Date().toISOString();
+        const now = date.now();
 
         const note = Immutable.Map({
           id: uuid.v4(),
