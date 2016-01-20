@@ -111,27 +111,3 @@ describe('Action Creators', () => {
     })
   })
 })
-
-describe('Action Utilities', () => {
-  describe('notes', () => {
-    describe('makeImmutable()', () => {
-      it('should make a note immutable', () => {
-        const id = uuid.v4();
-        const note = {
-          id: id,
-          saved: false,
-          content: '',
-          decrypted: {
-            title: 'Untitled',
-            body: ''
-          }
-        }
-
-        let decrypted = Immutable.Map({title: 'Untitled', body: ''})
-        let immutableNote = Immutable.Map({id: id, saved: false, content: '', decrypted})
-
-        expect(notes.makeImmutable(note)).toEqual(immutableNote)
-      })
-    })
-  })
-})
