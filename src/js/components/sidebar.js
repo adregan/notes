@@ -13,7 +13,7 @@ const Sidebar = ({ dispatch, notesStatus, search }) => {
       <header className="header">
         <button
           className="header__button header__button--settings" 
-          onClick={e => history.push('/settings')}>Settings</button>
+          onClick={e => history.push('/settings/')}>Settings</button>
           <Logo color="dark" className="header__logo" />
         <button 
           className="header__button header__button--create" 
