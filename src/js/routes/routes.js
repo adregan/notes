@@ -5,13 +5,30 @@ import Root from './root';
 import Login from './login';
 import NotesApp from './notesApp';
 import Settings from './settings';
+import localforage from 'localforage';
+
+const checkForPreviousSession = (next, replace, callback) => {
+  let path = next.location.pathname.replace(/\//g, '');
+  localforage.getItem('user')
+    .then(user => {
+      if (!user) {
+        if (path !== 'login') {replace('/login')}
+        callback();
+      }
+      else {
+        if (path === 'login') {replace('/')}
+        callback();
+      }
+    })
+}
 
 const routes = (
   <Route path='/' component={Root}>
-    <IndexRoute component={NotesApp} />
-    <Route path='login' component={Login} />
-    <Route path='notes' component={NotesApp} />
-    <Route path='settings' component={Settings} />
+    <IndexRoute onEnter={checkForPreviousSession} component={NotesApp}/>
+    <Route path='login' onEnter={checkForPreviousSession} component={Login} />
+    <Route path='notes' onEnter={checkForPreviousSession} component={NotesApp}>
+      <Route path='/settings' component={Settings} />
+    </Route>
   </Route>
 );
 

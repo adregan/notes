@@ -11,8 +11,9 @@ const NotesApp = (props) => {
 
   return (
     <article className="notes-app">
-      <Sidebar onCreate={ title => dispatch(addNote(title || 'Untitled Note')) } />
+      <Sidebar />
       <Editor currentNote={currentNote} dispatch={dispatch} /> 
+      {props.children}
     </article>
   );
 }
