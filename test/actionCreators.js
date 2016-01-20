@@ -13,11 +13,11 @@ import * as date from '../src/js/utils/date';
 
 describe('Action Creators', () => {
   describe('search', () => {
-    describe('search()', () => {
+    describe('createSearch()', () => {
       it('should create an action to add search term', () => {
         const term = 'note 23'
         const expectedAction = {type: search.SEARCH, term}
-        expect(search.search(term)).toEqual(expectedAction)
+        expect(search.createSearch(term)).toEqual(expectedAction)
       })
     })
   })

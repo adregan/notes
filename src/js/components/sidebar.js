@@ -2,21 +2,11 @@ import React from 'react';
 import Notes from './notes';
 import Header from './header';
 
-const search = (note, searchTerm) => {
-  let title = note.get('decrypted').get('title');
-  if (!title) {return false;}
-  return title.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
-}
-
-const Sidebar = ({onSearch, onSelect, onCreate, notes, searchTerm}) => {
+const Sidebar = ({onCreate}) => {
   return (
     <section className="sidebar">
       <Header onCreate={onCreate} />
-      <Notes
-        onSelect={onSelect} 
-        onSearch={onSearch} 
-        searchTerm={searchTerm} 
-        notes={ notes.filter(note => search(note, searchTerm)) } />
+      <Notes />
     </section>
   );
 }

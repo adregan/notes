@@ -15,47 +15,6 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const UNLOCK_KEY = 'UNLOCK_KEY';
 
 /*ACTION CREATORS*/
-export const loggingIn = () => {
-  return {type: LOGGING_IN}
-}
-
-export const logIn = (username, password) => {
-  return dispatch => {
-    dispatch(loggingIn());
-    return fetch(`${api}/login`, {method: 'post', body: {username, password}})
-      .then(resp => {
-        let {armoredKey} = resp;
-        let user = {username, ...resp};
-
-        Key.create(armoredKey, password)
-          .then(key => {
-            dispatch(storeUser(user, [], key));
-            return history.replace('/notes');            
-          })
-          .catch(err => {
-            console.error(err);
-            dispatch(loggingIn())
-            return dispatch(addMessage({
-              title: 'So Sorry',
-              body: 'Something went wrong.',
-              type: 'error',
-              action: {type: 'dismiss', label: 'OK'}}))
-          })
-
-        // dispatch(addMessage({title: 'Welcome', body: 'Glad to have you', action: {type: 'dismiss', label: 'Next'}}))
-        // dispatch(addMessage({title: 'How to', body: 'This is how to'}))
-
-      })
-      .catch(err => {
-        console.log(err)
-        let error = (!err.detail) ? 'So sorry. Something went wrong.' : err.detail;
-        dispatch(loggingIn());
-        return dispatch(addMessage(
-          {title: 'Uh Oh. Error during login.', body: error, type: 'error'}));
-      })
-  }
-}
-
 export const checkForCurrentSession = () => {
   return dispatch => {
     Promise.all([
@@ -87,28 +46,36 @@ export const updateUser = (data) => {
   return {type: UPDATE_USER, data}
 }
 
-export const storeUser = (user, notes, key) => {
-  const action = {
-    type: STORE_USER,
-    user: Immutable.Map({loggingIn: false, ...user}),
-    notes: Immutable.List(notes.map(note => {
-      return Immutable.Map({decrypted: Immutable.Map(), ...note})
-    })),
-    key
-  }
-
+export const storeUser = (user) => {
   return dispatch => {
-    Promise.all([
-      localforage.setItem('user', user),
-      localforage.setItem('notes', notes)
-    ])
-      .then(() => dispatch(action))
-      .catch(err => {
-        console.error(err);
-        return dispatch(action);
-      })
+    localforage.setItem('user', user)
+      .then(() => console.log('User successfully stored.'))
+      .catch(err => console.error(`Error storing user: ${err}`))
   }
 }
+
+// export const storeUser = (user, notes, key) => {
+//   const action = {
+//     type: STORE_USER,
+//     user: Immutable.Map({loggingIn: false, ...user}),
+//     notes: Immutable.List(notes.map(note => {
+//       return Immutable.Map({decrypted: Immutable.Map(), ...note})
+//     })),
+//     key
+//   }
+
+//   return dispatch => {
+//     Promise.all([
+//       localforage.setItem('user', user),
+//       localforage.setItem('notes', notes)
+//     ])
+//       .then(() => dispatch(action))
+//       .catch(err => {
+//         console.error(err);
+//         return dispatch(action);
+//       })
+//   }
+// }
 
 export const unlock = (passphrase) => {
   return (dispatch, getState) => {

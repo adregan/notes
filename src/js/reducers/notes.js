@@ -1,17 +1,19 @@
 import Immutable from 'immutable';
-import {ADD_NOTE, UPDATE_NOTE, DELETE_NOTE} from '../actions/notes';
-import {STORE_USER, LOG_OUT} from '../actions/user';
+import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE, LOADED_NOTES, FETCHING_NOTES } from '../actions/notes';
+import { STORE_USER, LOG_OUT } from '../actions/user';
+import { LOGIN_SUCCESS } from '../actions/login';
+import localforage from 'localforage';
 
-const notes = (state = Immutable.List(), action) => {
+export const notes = (state = Immutable.List(), action) => {
   switch (action.type) {
+    case LOADED_NOTES:
+      return action.notes
     case ADD_NOTE:
       return state.unshift(action.note);
     case UPDATE_NOTE:
       return state.set(action.index, action.update);
     case DELETE_NOTE:
       return state.delete(action.index);
-    case STORE_USER:
-      return state.push(...action.notes);
     case LOG_OUT:
       return state.clear();
     default:
@@ -19,4 +21,22 @@ const notes = (state = Immutable.List(), action) => {
   }
 }
 
-export default notes;
+export const notesStatus = (state = 'NO_NOTES', action) => {
+  switch (action.type) {
+    case FETCHING_NOTES:
+      return FETCHING_NOTES
+    case LOADED_NOTES:
+      return LOADED_NOTES
+    default:
+      return state
+  }
+}
+
+export const notesStore = (state = localforage.createInstance({name: notes}), action) => {
+  switch (action.type) {
+    case LOADED_NOTES:
+      return action.store;
+    default:
+      return state
+  }
+}

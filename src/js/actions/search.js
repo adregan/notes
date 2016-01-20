@@ -2,6 +2,6 @@
 export const SEARCH = 'SEARCH';
 
 /*ACTION CREATORS*/
-export const search = (term) => {
+export const createSearch = (term) => {
   return {type: SEARCH, term};
 }

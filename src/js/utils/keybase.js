@@ -17,7 +17,7 @@ const Key = {
           .then((resp) => resolve(resp))
           .catch(err => {
             console.error(err);
-            return reject(this);
+            return resolve(this);
           });
       })
     })

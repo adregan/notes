@@ -1,5 +1,5 @@
 import {STORE_USER, UNLOCK_KEY} from '../actions/user';
-
+import {LOGIN_SUCCESS} from '../actions/login';
 
 /*
 =====================================
@@ -22,7 +22,7 @@ key = {
 
 const key = (state = {}, action) => {
   switch (action.type) {
-    case STORE_USER:
+    case LOGIN_SUCCESS:
       return action.key;
     case UNLOCK_KEY:
       return action.key;

@@ -1,7 +1,17 @@
 import React from 'react';
 import classnames from 'classnames';
+import { selectNote } from '../actions/notes';
+import { createSearch } from '../actions/search';
+import { connect } from 'react-redux';
 
-const Notes = ({ notes, onSelect, onSearch, searchTerm}) => {
+const filterSearch = (note, searchTerm) => {
+  let title = note.get('decrypted').get('title');
+  if (!title) {return false;}
+  return title.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
+}
+
+const Notes = ({ notes, notesStatus, dispatch, search}) => {  
+  let searchTerm = search.get('term');
   return (
     <section className="notes">
       <input 
@@ -11,26 +21,36 @@ const Notes = ({ notes, onSelect, onSearch, searchTerm}) => {
         type="text"
         autoComplete="off"
         value={searchTerm}
-        onChange={e => onSearch(e.target.value) }/>
+        onChange={e => dispatch(createSearch(e.target.value)) }/>
 
+      {(notesStatus === 'FETCHING_NOTES') ? <p>LOADING</p> :
       <ul className="notes-list">
         {(!notes.count()) ? 
             <li className="no-results">{!searchTerm.length ? 'No Notes' : 'No Results'}</li> :
-            notes.map((note, index) => {
-              let title = note.get('decrypted').get('title');
+            notes.filter(note => filterSearch(note, searchTerm)).map((note, index) => {
+              let title = note.getIn(['decrypted', 'title'], 'Encrypted');
               let classes = classnames(
                 'notes-list__note',
                 {'notes-list__note--unsaved': !note.get('saved')}
               );
               return (
-                <li className={classes} key={index} onClick={() => onSelect(note.get('id'))} >
+                <li className={classes} key={index} onClick={() => dispatch(selectNote(note.get('id')))} >
                   {title}
                 </li>
               )})
         }
       </ul>
+      }
     </section>
   );
 }
 
-export default Notes;
+function select(state) {
+  return {
+    notesStatus: state.notesStatus,
+    notes: state.notes,
+    search: state.search
+  };
+}
+
+export default connect(select)(Notes);

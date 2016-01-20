@@ -1,14 +1,57 @@
 import Immutable from 'immutable';
 import uuid from 'node-uuid';
 import * as date from '../utils/date';
+import localforage from 'localforage';
 
 /*ACTION TYPES*/
 export const ADD_NOTE = 'ADD_NOTE';
 export const SELECT_NOTE = 'SELECT_NOTE';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
+export const FETCHING_NOTES = 'FETCHING_NOTES';
+export const LOADED_NOTES = 'LOADED_NOTES';
 
 /*ACTION CREATORS*/
+export const fetchingNotes = () => {
+  return {type: FETCHING_NOTES}
+}
+export const fetchNotes = (username) => {
+  return dispatch => {
+    dispatch(fetchingNotes())
+    let notes = Immutable.List();
+    let decrypted = Immutable.Map();
+
+    const notesStore = localforage.createInstance({
+      name: username
+    });
+
+    notesStore.length((err, number) => {
+      if (!number) {
+        return dispatch({
+          type: LOADED_NOTES,
+          store: notesStore,
+          notes 
+        })
+      }
+      else {
+        notesStore.iterate((content, id, i) => {
+          let note = Immutable.Map({
+            saved: true, id, content, decrypted
+          })
+          notes = notes.push(note);
+        })
+        .then(() => {
+          return dispatch({
+            type: LOADED_NOTES,
+            store: notesStore,
+            notes 
+          })
+        })
+      }
+    })
+  }
+}
+
 export const addNote = () => {
   const now = date.now();
   const note = Immutable.Map({
@@ -64,7 +107,7 @@ export const updateNote = (id, {title, body, saved, content, updated}) => {
 
 export const saveNote = (id) => {
   return (dispatch, getState) => {
-    const {key, notes} = getState();
+    const {key, notes, notesStore} = getState();
     const note = notes.find(note => note.get('id') === id);
 
     const title = note.getIn(['decrypted', 'title']);
@@ -74,8 +117,10 @@ export const saveNote = (id) => {
 
     key.encrypt({title, body, created, updated})
       .then(content => {
-        // Send encrypted note to server
-        return dispatch(updateNote(id, {saved: true, content, updated}));
+        notesStore.setItem(id, content).then(() => {
+          console.log('Successfully Saved Note');
+          dispatch(updateNote(id, {saved: true, content, updated}));
+        })
       })
       .catch(err => console.error(err))
   }
