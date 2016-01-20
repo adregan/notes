@@ -10,6 +10,7 @@ $ui-font: -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", 
     "Fira Sans", "Droid Sans", "Helvetica Neue", 
     sans-serif;
+$shadow: 0px .3rem 1.2rem -.125rem rgba(10,0,38,0.64);
 
 * {
   box-sizing: border-box;
@@ -55,6 +56,7 @@ button {
 .login {
   background-color: white;
   border-radius: $radius;
+  box-shadow: $shadow;
   font-style: italic;
   font-size: .9rem;
   max-width: 18rem;
@@ -284,7 +286,7 @@ button {
 }
 
 .popup {
-  box-shadow: 0px .3rem 1.2rem -.125rem rgba(10,0,38,0.64);
+  box-shadow: $shadow;
   background-color: white;
   max-width: 30rem;
   width: 90%;
