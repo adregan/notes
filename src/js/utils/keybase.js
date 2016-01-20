@@ -37,8 +37,8 @@ const Key = {
       })
     })
   },
-  encrypt: function({title, body}) {
-    let msg = `${title}\n\n${(new Date()).toISOString()}\n\n${body}`;
+  encrypt: function({title, body, created, updated}) {
+    let msg = `${title}\n\n${body}\n\ncreated: ${created}\nupdated: ${updated}\n`;
     let encrypt_for = this.manager;
     return new Promise((resolve, reject) => {
       kbpgp.box({msg, encrypt_for}, (err, result_string, result_buffer) => {
