@@ -87,9 +87,3 @@ export const deleteNote = (id) => {
     return dispatch({ type: DELETE_NOTE, index });
   }
 }
-
-/* UTILITIES */
-export const makeImmutable = (note) => {
-  const decrypted = Immutable.Map(note.decrypted)
-  return Immutable.Map(note).set('decrypted', decrypted)
-}

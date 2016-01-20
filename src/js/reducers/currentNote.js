@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import {ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, makeImmutable} from '../actions/notes';
+import {ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE} from '../actions/notes';
 import {LOG_OUT} from '../actions/user';
 
 const currentNote = (state = Immutable.Map(), action) => {

@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import {ADD_NOTE, UPDATE_NOTE, DELETE_NOTE, makeImmutable} from '../actions/notes';
+import {ADD_NOTE, UPDATE_NOTE, DELETE_NOTE} from '../actions/notes';
 import {STORE_USER, LOG_OUT} from '../actions/user';
 
 const notes = (state = Immutable.List(), action) => {
