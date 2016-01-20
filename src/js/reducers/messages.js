@@ -22,9 +22,7 @@ messages: [{
 const messages = (state = Immutable.List(), action) => {
   switch (action.type) {
     case ADD_MESSAGE:
-      const message = Immutable.Map(action.message)
-                               .set('action', action.message.action);
-      return state.push(message);
+      return state.push(action.message);
     case DISMISS_MESSAGE:
       return state.shift();
     case LOG_OUT:

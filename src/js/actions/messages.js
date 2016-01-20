@@ -8,7 +8,12 @@ export const DISMISS_MESSAGE = 'DISMISS_MESSAGE';
 export const addMessage = ({title, body, type, action}) => {
   type = type || 'message';
   action = action || {type: 'dismiss', label: 'OK'};
-  let message = {title, body, type, action}
+  const message = Immutable.Map({
+    title: title,
+    body: body,
+    type: type,
+    action: Immutable.Map(action)
+  })
 
   return {type: ADD_MESSAGE, message};
 }

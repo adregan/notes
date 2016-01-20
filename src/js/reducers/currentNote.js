@@ -5,11 +5,9 @@ import {LOG_OUT} from '../actions/user';
 const currentNote = (state = Immutable.Map(), action) => {
   switch(action.type) {
     case ADD_NOTE:
-      let note = makeImmutable(action.note)
-      return note;
+      return action.note;
     case UPDATE_NOTE:
-      let changes = makeImmutable(action.changes);
-      return state.merge(changes);
+      return state.merge(action.update);
     case SELECT_NOTE:
       return action.note;
     case DELETE_NOTE:

@@ -11,22 +11,22 @@ const Editor = ({currentNote, dispatch}) => {
   let id = currentNote.get('id');
   let title = currentNote.getIn(['decrypted', 'title']);
   let body = currentNote.getIn(['decrypted', 'body']);
-  let encrypted = currentNote.get('contents');
+  let encrypted = currentNote.get('content');
 
   return (
     <form className="editor"
-      onSubmit={(e) => {e.preventDefault(); dispatch(saveNote(index, currentNote))}}>
+      onSubmit={(e) => {e.preventDefault(); dispatch(saveNote(id))}}>
       
       <div className="editor__header">
         <TitleEditor className="editor__title"  value={title} limit={50}
-          onChange={(newTitle) => dispatch(updateNote(id, {decrypted: {title: newTitle, body}}))}/>
+          onChange={(title) => dispatch(updateNote(id, {title}))}/>
       </div>
 
       <BodyEditor className="editor__body" value={body}
-        onChange={(newBody) => dispatch(updateNote(id, {decrypted: {body: newBody, title}}))} />
+        onChange={(body) => dispatch(updateNote(id, {body}))} />
 
       <button type="submit" className="editor__button">Save</button>
-      <div className="encrypted">{encrypted}</div>
+      <pre className="encrypted">{encrypted}</pre>
     </form>
   );
 }
