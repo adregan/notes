@@ -6,6 +6,7 @@ import fetch from '../utils/fetch';
 import {addMessage} from './messages';
 import { storeUser } from './user';
 import { fetchNotes } from './notes';
+import localforage from 'localforage';
 
 /*ACTION TYPES*/
 export const LOGIN_ATTEMPT = 'LOGIN_ATTEMPT';
@@ -18,16 +19,16 @@ export const loginAttempt = () => {
   return {type: LOGIN_ATTEMPT}
 }
 
-export const loginSuccess = (user, key) => {
+export const loginSuccess = (user, key, renew = false) => {
   return dispatch => {
-    dispatch(storeUser(user));
+    !renew && dispatch(storeUser(user));
     dispatch(fetchNotes(user.username));
     dispatch({
       type: LOGIN_SUCCESS,
-      user: Immutable.Map({user}),
+      user: Immutable.Map(user),
       key
     });
-    history.replace('/notes');
+    !renew && history.replace('/notes');
   }
 }
 
@@ -40,6 +41,22 @@ export const loginError = (error) => {
   return dispatch => {
     dispatch(addMessage(loginError));
     dispatch({type: LOGIN_FAILED})
+  }
+}
+
+export const renewSession = () => {
+  // You shouldn't be able to encounter this action
+  // without a user stored in localforage.
+  return dispatch => {
+    dispatch(loginAttempt());
+    localforage.getItem('user')
+      .then(user => {
+        const {armoredKey} = user;
+        Key.create(armoredKey).then(key => {
+          dispatch(loginSuccess(user, key, true));
+        })
+        .catch(err => console.error(err))
+      })
   }
 }
 
