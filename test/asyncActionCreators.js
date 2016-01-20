@@ -17,54 +17,50 @@ describe('Async Action Creators', () => {
       saved: false,
       decrypted: Immutable.Map({
         title: `Note ${i + 1}`,
-        body: 'WOWOWOWOWOWOWWOWOOW'
+        body: 'WOWOWOWOWOWOWWOWOOW',
+        created: now,
+        updated: now
       })
     })));
+
+    // kbpgp.KeyManager.generate_rsa({ userid : "Notes Test" }, (err, testUser) => {
+    //   console.log(testUser);
+    // });
+
+    // let mockKey = new Key();
 
     describe('selectNote()', (done) => {
       it('should create an action with the selected note', () => {
         const note = mockNotes.get(16);
-        const theID = note.get('id');
-
+        const id = note.get('id');
         const expectedActions = [{type: notes.SELECT_NOTE, note}];
 
-        const store = mockStore(
-          { notes: mockNotes },
-          expectedActions,
-          done
-        );
+        const store = mockStore({notes: mockNotes}, expectedActions, done);
         
-        store.dispatch(notes.selectNote(theID));
+        store.dispatch(notes.selectNote(id));
       })
     })
     describe('updateNote()', (done) => {
       it('should create an action to update a note', () => {
         const index = 8;
         const note = mockNotes.get(index);
-        const theID = note.get('id');
-        const newTitle = 'WOW Great Note';
-        const newBody = 'Certainly is';
+        const id = note.get('id');
 
-        const changes = {
-          decrypted: {
-            title: newTitle,
-            body: newBody
-          } 
-        }
+        const title = 'WOW Great Note';
+        const updated = new Date().toISOString();
+        const changes = {title, updated};
+        const update = note.setIn(['decrypted', 'title'], title)
+                           .setIn(['decrypted', 'updated'], updated)
 
-        const expectedActions = [{type: notes.UPDATE_NOTE, index, changes}]
+        const expectedActions = [{type: notes.UPDATE_NOTE, index, update}]
 
-        const store = mockStore(
-          { notes: mockNotes },
-          expectedActions,
-          done
-        );
+        const store = mockStore({notes: mockNotes}, expectedActions, done);
 
-        store.dispatch(notes.updateNote(theID, changes));
+        store.dispatch(notes.updateNote(id, changes));
       })
     })
     describe('saveNote()', (done) => {
-      it('should create an action to save a note', () => {
+      it('should create an action to update a note after creating encrypted version', () => {
 
       })
     })

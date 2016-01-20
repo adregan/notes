@@ -30,25 +30,30 @@ describe('Action Creators', () => {
 
         const expectedAction1 = {
           type: messages.ADD_MESSAGE,
-          message: {
+          message: Immutable.Map({
+            title: title,
+            body: body,
             type: 'message',
-            action: {type: 'dismiss', label: 'OK'},
-            title,
-            body
-          }
+            action: Immutable.Map({type: 'dismiss', label: 'OK'})
+          })
         }
         const expectedAction2 = {
           type: messages.ADD_MESSAGE,
-          message: {
-            action: {type: 'dismiss', label: 'OK'},
-            title,
-            body,
-            type
-          }
+          message: Immutable.Map({
+            title: title,
+            body: body,
+            type: type,
+            action: Immutable.Map({type: 'dismiss', label: 'OK'})
+          })
         }
         const expectedAction3 = {
           type: messages.ADD_MESSAGE, 
-          message: {title, body, type, action}
+          message: Immutable.Map({
+            title: title,
+            body: body,
+            type: type,
+            action: Immutable.Map(action)
+          })
         }
 
         expect(messages.addMessage({title, body})).toEqual(expectedAction1)
@@ -63,19 +68,33 @@ describe('Action Creators', () => {
     })
   })
   describe('notes', () => {
+    before(function() {
+      expect.spyOn(uuid, 'v4').andReturn(123456789);
+      let Date = {
+        toISOString: function() {'2016-01-19T23:54:19.937Z'}
+      }
+      expect.spyOn(Date, 'toISOString')
+    });
+    after(function() {
+      expect.restoreSpies();
+    });
     describe('addNote()', () => {
       it('should create an action to add a note', () => {
-        expect.spyOn(uuid, 'v4');
+      
 
-        const note = {
+        const now = new Date().toISOString();
+
+        const note = Immutable.Map({
           id: uuid.v4(),
           saved: false,
           content: '',
-          decrypted: {
+          decrypted: Immutable.Map({
             title: 'Untitled',
-            body: ''
-          }
-        }
+            body: '',
+            created: now,
+            updated: now
+          })
+        })
 
         expect(notes.addNote()).toEqual({'type': notes.ADD_NOTE, note})
       })
