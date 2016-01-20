@@ -4,9 +4,6 @@ import MessageCenter from '../components/MessageCenter';
 import { checkForCurrentSession } from '../actions/user';
 
 class Root extends React.Component {
-  componentWillMount() {
-    this.props.dispatch(checkForCurrentSession());
-  }
   componentDidMount() {
     window.onbeforeunload = (e) => {
       if (this.props.notes.filter(n => n.get('unsaved')).count()){
