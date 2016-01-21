@@ -15,7 +15,7 @@ class Root extends React.Component {
     return (
       <div className="app-window">
         {this.props.children}
-        <MessageCenter messages={this.props.messages} dispatch={this.props.dispatch} /> 
+        <MessageCenter /> 
       </div>
     );
   }
@@ -24,7 +24,6 @@ class Root extends React.Component {
 function select(state) {
   return {
     notes: state.notes,
-    messages: state.messages
   };
 }
 

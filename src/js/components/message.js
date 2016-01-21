@@ -1,13 +1,16 @@
 import React from 'react';
 
-const Message = ({message, dismiss}) => {
+const Message = ({message, dismiss, dispatch}) => {
   let {title, body, type, action} = message.toJS();
   let ok, hasCancel;
 
   switch (action.type) {
-    default:
-      ok = dismiss;
+    case 'dismiss':
+      ok = () => {dispatch(dismiss())}
       hasCancel = false;
+    case 'confirm':
+      ok = () => {dispatch(action.after()); dispatch(dismiss());}
+      hasCancel = true;
   }
 
   return (
@@ -16,7 +19,7 @@ const Message = ({message, dismiss}) => {
       <p className="popup__body">{body}</p>
       <div className="popup__buttons">
         <button onClick={ok} className="popup__button popup__button--ok">{action.label}</button>
-        {hasCancel ? <button onClick={dismiss} className="popup__button">Cancel</button> : null}
+        {hasCancel ? <button onClick={() => dispatch(dismiss())} className="popup__button">Cancel</button> : null}
       </div>
     </article>
   );
