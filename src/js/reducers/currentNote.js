@@ -7,7 +7,9 @@ const currentNote = (state = Immutable.Map(), action) => {
     case ADD_NOTE:
       return action.note;
     case UPDATE_NOTE:
-      return state.merge(action.update);
+      if (state.get('id') === action.update.get('id')) {
+        return state.merge(action.update);
+      }
     case SELECT_NOTE:
       return action.note;
     case CLOSE_NOTE:
