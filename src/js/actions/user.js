@@ -58,29 +58,6 @@ export const storeUser = (user) => {
   }
 }
 
-// export const storeUser = (user, notes, key) => {
-//   const action = {
-//     type: STORE_USER,
-//     user: Immutable.Map({loggingIn: false, ...user}),
-//     notes: Immutable.List(notes.map(note => {
-//       return Immutable.Map({decrypted: Immutable.Map(), ...note})
-//     })),
-//     key
-//   }
-
-//   return dispatch => {
-//     Promise.all([
-//       localforage.setItem('user', user),
-//       localforage.setItem('notes', notes)
-//     ])
-//       .then(() => dispatch(action))
-//       .catch(err => {
-//         console.error(err);
-//         return dispatch(action);
-//       })
-//   }
-// }
-
 export const unlock = (passphrase) => {
   return (dispatch, getState) => {
     let {key} = getState();
