@@ -63,8 +63,24 @@ export const logout = () => {
 export const deleteAccount = () => {
   return (dispatch, getState) => {
     let {notesStore} = getState();
-    console.log(notesStore)
-    dispatch(logout())
+    notesStore.clear()
+      .then(() => {
+        console.log('Notes have been deleted.')
+        dispatch(logout())
+        dispatch(addMessage({
+          title: 'Account Deleted',
+          body: 'Your account has been deleted.',
+          type: 'message'
+        }))
+      })
+      .catch(err => {
+        console.error(err)
+        dispatch(addMessage({
+          title: 'Uh Oh',
+          body: 'There was an error completing your request.',
+          type: 'error'
+        }))
+      })
   }
 }
 
