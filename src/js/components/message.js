@@ -4,13 +4,13 @@ const Message = ({message, dismiss, dispatch}) => {
   let {title, body, type, action} = message.toJS();
   let ok, hasCancel;
 
-  switch (action.type) {
-    case 'dismiss':
-      ok = () => {dispatch(dismiss())}
-      hasCancel = false;
-    case 'confirm':
-      ok = () => {dispatch(action.after()); dispatch(dismiss());}
-      hasCancel = true;
+  if (action.type === 'dismiss'){
+    ok = () => {dispatch(dismiss())}
+    hasCancel = false;
+  }
+  else {
+    ok = () => {dispatch(action.after()); dispatch(dismiss());}
+    hasCancel = true;    
   }
 
   return (
