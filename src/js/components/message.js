@@ -12,7 +12,7 @@ export class Message extends React.Component {
     let { title, body, type, action } = message.toJS();
     let ok = () => {dispatch(dismiss())};
     let hasCancel = false;
-    let hasPrompt, promptType;
+    let promptType = false;
 
     if (action.type === 'confirm'){
       ok = () => {
@@ -26,7 +26,6 @@ export class Message extends React.Component {
         dispatch(action.after(this.state.prompt));
         dispatch(dismiss());
       }
-      hasPrompt = true;
       promptType = (action.type === 'secretPrompt') ? 'password' : 'text';
       hasCancel = true;
     }
@@ -36,7 +35,10 @@ export class Message extends React.Component {
         <h1 className="popup__title">{title}</h1>
         <section className="popup__body">
           <p>{body}</p>
-          {hasPrompt && <input type={promptType} onChange={(e) => {this.setState({prompt: e.target.value})}} className="popup__prompt" />}
+          {promptType && 
+            <input className="popup__prompt"
+              type={promptType}
+              onChange={(e) => {this.setState({prompt: e.target.value})}} />}
         </section>
 
         <div className="popup__buttons">
