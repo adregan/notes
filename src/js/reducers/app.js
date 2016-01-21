@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { notes, notesStatus, notesStore } from './notes';
-import user from './user';
+import { user, userPanel} from './user';
 import search from './search';
 import currentNote from './currentNote';
 import messages from './messages';
@@ -12,6 +12,7 @@ const notesApp = combineReducers({
   notesStatus,
   notesStore,
   user,
+  userPanel,
   search,
   currentNote,
   messages,

@@ -13,6 +13,7 @@ export const DISCONNECT = 'DISCONNECT';
 export const STORE_USER = 'STORE_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const UNLOCK_KEY = 'UNLOCK_KEY';
+export const USER_PANEL_TOGGLE = 'USER_PANEL_TOGGLE';
 
 /*ACTION CREATORS*/
 export const checkForCurrentSession = () => {
@@ -107,4 +108,8 @@ export const disconnect = () => {
         dispatch({type: LOG_OUT});
       })
   }
+}
+
+export const userPanelToggle = () => {
+  return {type: USER_PANEL_TOGGLE}
 }

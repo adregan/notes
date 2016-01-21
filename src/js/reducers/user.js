@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import {STORE_USER, UPDATE_USER, LOG_OUT} from '../actions/user';
+import {STORE_USER, UPDATE_USER, USER_PANEL_TOGGLE, LOG_OUT} from '../actions/user';
 import {LOGIN_SUCCESS} from '../actions/login';
 /*
 =====================================
@@ -31,4 +31,13 @@ const user = (state = Immutable.Map(), action) => {
   }
 }
 
-export default user;
+export const userPanel = (state = false, action) => {
+  switch (action.type) {
+    case USER_PANEL_TOGGLE:
+      return !state
+    case LOG_OUT:
+      return false
+    default:
+      return state
+  }
+}
