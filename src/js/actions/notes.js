@@ -111,6 +111,16 @@ export const updateNote = (id, {title, body, saved, content, updated}) => {
   }
 }
 
+export const saveAll = () => {
+  return (dispatch, getState) => {
+    let { notes } = getState();
+    notes.filter(note => !note.get('saved'))
+         .forEach(note => {dispatch(saveNote(note.get('id')))})
+
+    console.log('Saved all the unsaved notes');
+  }
+}
+
 export const saveNote = (id) => {
   return (dispatch, getState) => {
     const {key, notes, notesStore} = getState();
