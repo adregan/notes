@@ -51,7 +51,7 @@ export const userPanelToggle = () => {
 
 export const logout = () => {
   return dispatch => {
-    localforage.setItem('user', undefined)
+    localforage.clear()
       .then(() => {
         console.log('User has been removed from local storage.')
         dispatch({type: LOG_OUT})
