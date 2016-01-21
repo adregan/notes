@@ -7,6 +7,7 @@ import localforage from 'localforage';
 export const ADD_NOTE = 'ADD_NOTE';
 export const SELECT_NOTE = 'SELECT_NOTE';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
+export const CLOSE_NOTE = 'CLOSE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const FETCHING_NOTES = 'FETCHING_NOTES';
 export const LOADED_NOTES = 'LOADED_NOTES';
@@ -75,6 +76,10 @@ export const selectNote = (id) => {
     const note = notes.find(note => note.get('id') === id);
     return dispatch({type: SELECT_NOTE, note});
   }
+}
+
+export const closeNote = () => {
+  return {type: CLOSE_NOTE}
 }
 
 export const updateNote = (id, {title, body, saved, content, updated}) => {
