@@ -1,7 +1,7 @@
 import React from 'react';
 import TitleEditor from './titleEditor';
 import BodyEditor from './bodyEditor';
-import { updateNote, saveNote} from '../actions/notes';
+import { updateNote, saveNote, closeNote} from '../actions/notes';
 
 const Editor = ({currentNote, dispatch}) => {
   if (currentNote.isEmpty()) {
@@ -20,6 +20,8 @@ const Editor = ({currentNote, dispatch}) => {
       <div className="editor__header">
         <TitleEditor className="editor__title"  value={title} limit={50}
           onChange={(title) => dispatch(updateNote(id, {title}))}/>
+        <button className="close-note" 
+          onClick={(e) => {e.preventDefault(); dispatch(closeNote())}}>Close Note</button>
       </div>
 
       <BodyEditor className="editor__body" value={body}
