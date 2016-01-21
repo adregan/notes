@@ -27,15 +27,19 @@ export const notesStatus = (state = 'NO_NOTES', action) => {
       return FETCHING_NOTES
     case LOADED_NOTES:
       return LOADED_NOTES
+    case LOG_OUT:
+      return 'NO_NOTES'
     default:
       return state
   }
 }
 
-export const notesStore = (state = localforage.createInstance({name: notes}), action) => {
+export const notesStore = (state = localforage.createInstance({name: 'notes'}), action) => {
   switch (action.type) {
     case LOADED_NOTES:
       return action.store;
+    case LOG_OUT:
+      return localforage.createInstance({name: 'notes'})
     default:
       return state
   }

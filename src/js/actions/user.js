@@ -90,3 +90,14 @@ export const disconnect = () => {
 export const userPanelToggle = () => {
   return {type: USER_PANEL_TOGGLE}
 }
+
+export const logout = () => {
+  return dispatch => {
+    localforage.setItem('user', undefined)
+      .then(() => {
+        console.log('User has been removed from local storage.')
+        dispatch({type: LOG_OUT})
+        history.push('/login/')
+      })
+  }
+}

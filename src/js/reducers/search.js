@@ -19,7 +19,7 @@ const search = (state = Immutable.Map({term: ''}), action) => {
     case SEARCH:
       return state.set('term', action.term);
     case LOG_OUT:
-      return state.clear();
+      return Immutable.Map({term: ''});
     default:
       return state;
   }

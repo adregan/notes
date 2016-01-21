@@ -1,4 +1,4 @@
-import {STORE_USER, UNLOCK_KEY} from '../actions/user';
+import {STORE_USER, UNLOCK_KEY, LOG_OUT} from '../actions/user';
 import {LOGIN_SUCCESS} from '../actions/login';
 
 /*
@@ -26,6 +26,8 @@ const key = (state = {}, action) => {
       return action.key;
     case UNLOCK_KEY:
       return action.key;
+    case LOG_OUT:
+      return {}
     default:
       return state;
   }

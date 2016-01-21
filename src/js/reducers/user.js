@@ -16,7 +16,7 @@ user: {
 
 */
 
-const user = (state = Immutable.Map(), action) => {
+export const user = (state = Immutable.Map(), action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return action.user
