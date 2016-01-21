@@ -17,7 +17,7 @@ const Settings = ({user, dispatch}) => {
       <section className="settings">
         <header className="settings__header">
           <h1 className="title">Settings</h1>
-          <CloseButton onClose={() => history.push('/notes/')} />
+          <CloseButton light={true} onClose={() => history.push('/notes/')} />
         </header>
         <dl className="settings__list">
           <dt>Sync Notes</dt>
