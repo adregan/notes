@@ -1,28 +1,48 @@
 import React from 'react';
 
-const Message = ({message, dismiss, dispatch}) => {
-  let {title, body, type, action} = message.toJS();
-  let ok, hasCancel;
-
-  if (action.type === 'dismiss'){
-    ok = () => {dispatch(dismiss())}
-    hasCancel = false;
+export class Message extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      prompt: ''
+    }
   }
-  else {
-    ok = () => {dispatch(action.after()); dispatch(dismiss());}
-    hasCancel = true;    
-  }
+  render() {
+    let { message, dismiss, dispatch } = this.props;
+    let { title, body, type, action } = message.toJS();
+    let ok = () => {dispatch(dismiss())};
+    let hasCancel = false;
+    let hasPrompt, promptType;
 
-  return (
-    <article className={`popup popup--${type}`}>
-      <h1 className="popup__title">{title}</h1>
-      <p className="popup__body">{body}</p>
-      <div className="popup__buttons">
-        <button onClick={ok} className="popup__button popup__button--ok">{action.label}</button>
-        {hasCancel ? <button onClick={() => dispatch(dismiss())} className="popup__button">Cancel</button> : null}
-      </div>
-    </article>
-  );
+    if (action.type === 'confirm'){
+      ok = () => {
+        dispatch(action.after());
+        dispatch(dismiss());
+      }
+      hasCancel = true;    
+    }
+    else if (action.type === 'prompt' || action.type === 'secretPrompt') {
+      ok = () => {
+        dispatch(action.after(this.state.prompt));
+        dispatch(dismiss());
+      }
+      hasPrompt = true;
+      promptType = (action.type === 'secretPrompt') ? 'password' : 'text';
+      hasCancel = true;
+    }
+
+    return (
+      <article className={`popup popup--${type}`}>
+        <h1 className="popup__title">{title}</h1>
+        <p className="popup__body">{body}</p>
+        {hasPrompt && <input type={promptType} onChange={(e) => {this.setState({prompt: e.target.value})}} className="popup__prompt" />}
+        <div className="popup__buttons">
+          <button onClick={ok} className="popup__button popup__button--ok">{action.label}</button>
+          {hasCancel && <button onClick={() => dispatch(dismiss())} className="popup__button">Cancel</button>}
+        </div>
+      </article>
+    );
+  }
 }
 
 export default Message;
