@@ -60,8 +60,15 @@ export const logout = () => {
   }
 }
 
-export const deleteAccount = () => {
+export const deleteAccount = (confirm) => {
   return (dispatch, getState) => {
+    if (confirm !== 'delete') {
+      return dispatch(addMessage({
+        title: 'Cannot Delete Account',
+        body: `Your confirmation must read: delete.`,
+        type: 'error'
+      }))
+    }
     let {notesStore} = getState();
     notesStore.clear()
       .then(() => {

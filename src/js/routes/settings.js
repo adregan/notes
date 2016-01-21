@@ -8,9 +8,9 @@ import { addMessage } from '../actions/messages';
 const Settings = ({user, dispatch}) => {
   let confirmDelete = {
     title: 'Are you sure?',
-    body: 'You are about to delete your account. Are you sure?',
+    body: 'You are about to delete your account. In order to confirm this action, please type \'delete\'.',
     type: 'error',
-    action: {type: 'confirm', label: 'Delete', after: deleteAccount}
+    action: {type: 'prompt', label: 'Delete', after: deleteAccount}
   }
   return (
     <article className="modal-container">
