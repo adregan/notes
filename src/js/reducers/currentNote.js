@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import {ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE} from '../actions/notes';
+import {ADD_NOTE, SELECT_NOTE, UPDATE_NOTE, DELETE_NOTE, CLOSE_NOTE} from '../actions/notes';
 import {LOG_OUT} from '../actions/user';
 
 const currentNote = (state = Immutable.Map(), action) => {
@@ -10,6 +10,8 @@ const currentNote = (state = Immutable.Map(), action) => {
       return state.merge(action.update);
     case SELECT_NOTE:
       return action.note;
+    case CLOSE_NOTE:
+      return Immutable.Map();
     case DELETE_NOTE:
       if (state.get('id') === action.id) {
         return Immutable.Map();
