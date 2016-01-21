@@ -87,6 +87,7 @@ export const updateNote = (id, {title, body, saved, content, updated}) => {
     let {notes} = getState();
     const index = notes.findIndex(note => note.get('id') === id);
     const note = notes.get(index);
+    saved = saved || false;
     updated = updated || date.now();
 
     const changes = Immutable.Map({
@@ -100,7 +101,7 @@ export const updateNote = (id, {title, body, saved, content, updated}) => {
     })
 
     const update = note.mergeDeepWith((prev, next) => {
-      if (!next) {
+      if (typeof next === 'undefined') {
         return prev;
       }
       return next;
