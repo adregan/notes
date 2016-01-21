@@ -10,6 +10,7 @@ const currentNote = (state = Immutable.Map(), action) => {
       if (state.get('id') === action.update.get('id')) {
         return state.merge(action.update);
       }
+      return state;
     case SELECT_NOTE:
       return action.note;
     case CLOSE_NOTE:
@@ -18,6 +19,7 @@ const currentNote = (state = Immutable.Map(), action) => {
       if (state.get('id') === action.id) {
         return Immutable.Map();
       }
+      return state;
     case LOG_OUT:
       return state.clear();
     default:
