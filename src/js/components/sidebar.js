@@ -12,8 +12,8 @@ const Sidebar = ({ dispatch, notesStatus, search }) => {
     <aside className="sidebar">
       <header className="header">
         <button
-          className="header__button header__button--settings" 
-          onClick={e => history.push('/settings/')}>Settings</button>
+          className="header__button header__button--decrypt" 
+          onClick={e => console.log('DECRYPT HERE')}>Decrypt</button>
           <Logo color="dark" className="header__logo" />
         <button 
           className="header__button header__button--create" 
