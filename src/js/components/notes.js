@@ -4,18 +4,18 @@ import { selectNote } from '../actions/notes';
 import { connect } from 'react-redux';
 
 const filterSearch = (note, searchTerm) => {
-  let title = note.getIn(['decrypted', 'title']);
+  let title = note.getIn(['decrypted', 'title']) || '';
   return title.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
 }
 
-const Note = ({note}) => {
+const Note = ({note, onClick}) => {
   let title = note.getIn(['decrypted', 'title'], 'Encrypted');
   let classes = classnames(
     'notes-list__note',
     {'notes-list__note--unsaved': !note.get('saved')}
   );
   return (
-    <li className={classes} onClick={() => dispatch(selectNote(note.get('id')))} >
+    <li className={classes} onClick={onClick} >
       {title}
     </li>
   )
@@ -29,7 +29,7 @@ const Notes = ({ dispatch, notes, searchTerm}) => {
     <ul className="notes-list">
       {(!notes.count()) ?
         <li className="no-results">{noResult}</li> :
-        notes.map((note, i) => <Note key={i} note={note} />)}
+        notes.map((note, i) => <Note key={i} note={note} onClick={() => dispatch(selectNote(note.get('id')))} />)}
     </ul>
   );
 }
