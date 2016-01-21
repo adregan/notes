@@ -1,16 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import history from './history';
+import CloseButton from '../components/closeButton'
 import { connect } from 'react-redux';
 
-const Settings = (props) => {
-  let user = props.user;
+const Settings = ({user, dispatch}) => {
   return (
-    <article className="settings">
-      <p>Hello {user.name}</p>
+    <article className="modal-container">
+      <section className="settings">
+        <header className="settings__header">
+          <h1 className="title">Settings</h1>
+          <CloseButton onClose={() => history.push('/notes/')} />
+        </header>
+      </section>
     </article>
   );
 }
-
 
 function select(state) {
   return {

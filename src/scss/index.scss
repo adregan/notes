@@ -106,15 +106,43 @@ button {
   height: 100%;
 }
 
+.close-button {
+  background-color: transparent;
+  background-image: url('/static/close.svg');
+  background-size: 100% 100%;
+  border: none;
+  height: 1.2rem;
+  width: 1.2rem;
+  font-size: 0;
+}
+
 .settings {
   background-color: white;
   box-shadow: $shadow;
-  display: flex;
-  flex-direction: row;
-  height: 90vh;
-  max-width: 50rem;
+  height: 80vh;
   overflow: scroll;
-  width: 90%;
+  width: 70%;
+  &__header {
+    align-items: center;
+    background-color: $primary-color;
+    color: white;
+    font-style: italic;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 2rem;
+    width: 100%;
+    .title {
+      flex-grow: 1;
+      font-size: 1.2rem;
+      font-weight: normal;
+      text-align: center;
+    }
+    .close-button {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
 }
 
 .sidebar {
@@ -225,8 +253,8 @@ button {
     width: 15rem;
 
     &__header {
-      background-color: $faint-primary;
-      border-bottom: $light-primary;
+      background-color: $primary-color;
+      color: white;
       font-size: 1rem;
       font-style: italic;
       font-weight: normal;
