@@ -49,7 +49,10 @@ export const updateUser = (data) => {
 export const storeUser = (user) => {
   return dispatch => {
     localforage.setItem('user', user)
-      .then(() => console.log('User successfully stored.'))
+      .then(() => {
+        console.log('User successfully stored. Forwarding.')
+        history.replace('/notes/')
+      })
       .catch(err => console.error(`Error storing user: ${err}`))
   }
 }

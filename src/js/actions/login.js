@@ -28,7 +28,6 @@ export const loginSuccess = (user, key, renew = false) => {
       user: Immutable.Map(user),
       key
     });
-    !renew && history.replace('/notes');
   }
 }
 
