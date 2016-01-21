@@ -16,37 +16,6 @@ export const UNLOCK_KEY = 'UNLOCK_KEY';
 export const USER_PANEL_TOGGLE = 'USER_PANEL_TOGGLE';
 
 /*ACTION CREATORS*/
-export const checkForCurrentSession = () => {
-  return dispatch => {
-    Promise.all([
-      localforage.getItem('user'),
-      localforage.getItem('notes')
-    ])
-      .then(resp => {
-        let [user, notes] = resp;
-        if (!user || !notes) {return history.replace('/login');}
-
-        let { armoredKey } = user;
-
-        Key.create(armoredKey)
-          .then(key => {
-            dispatch(storeUser(user, notes, key))
-            if (window.location.pathname.replace(/\//g, '') === 'login') {
-              return history.replace('/notes')
-            }
-          })
-          .catch(err => {
-            console.error(err);
-            localforage.clear();
-            return history.replace('/login');})
-      })
-  } 
-}
-
-export const updateUser = (data) => {
-  return {type: UPDATE_USER, data}
-}
-
 export const storeUser = (user) => {
   return dispatch => {
     localforage.setItem('user', user)
@@ -76,17 +45,6 @@ export const unlock = (passphrase) => {
   }
 } 
 
-export const disconnect = () => {
-  return dispatch => {
-    localforage.clear()
-      .then(() => dispatch(action))
-      .catch(err => {
-        console.error(err);
-        dispatch({type: LOG_OUT});
-      })
-  }
-}
-
 export const userPanelToggle = () => {
   return {type: USER_PANEL_TOGGLE}
 }
@@ -98,6 +56,17 @@ export const logout = () => {
         console.log('User has been removed from local storage.')
         dispatch({type: LOG_OUT})
         history.push('/login/')
+      })
+  }
+}
+
+export const disconnect = () => {
+  return dispatch => {
+    localforage.clear()
+      .then(() => dispatch(action))
+      .catch(err => {
+        console.error(err);
+        dispatch({type: LOG_OUT});
       })
   }
 }
