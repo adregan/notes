@@ -454,6 +454,19 @@ button {
     margin: 0 auto;
     padding: 2rem 0;
     width: 75%;
+    p {
+      margin: 0;
+    }
+  }
+  &__prompt {
+    border-radius: $radius;
+    border: .1rem solid $primary-color;
+    display: block;
+    font-style: normal;
+    height: 2.5rem;
+    margin:.5rem auto;
+    padding: .5rem;
+    width: 90%;
   }
   &__buttons {
     align-items: center;

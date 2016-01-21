@@ -34,8 +34,11 @@ export class Message extends React.Component {
     return (
       <article className={`popup popup--${type}`}>
         <h1 className="popup__title">{title}</h1>
-        <p className="popup__body">{body}</p>
-        {hasPrompt && <input type={promptType} onChange={(e) => {this.setState({prompt: e.target.value})}} className="popup__prompt" />}
+        <section className="popup__body">
+          <p>{body}</p>
+          {hasPrompt && <input type={promptType} onChange={(e) => {this.setState({prompt: e.target.value})}} className="popup__prompt" />}
+        </section>
+
         <div className="popup__buttons">
           <button onClick={ok} className="popup__button popup__button--ok">{action.label}</button>
           {hasCancel && <button onClick={() => dispatch(dismiss())} className="popup__button">Cancel</button>}
