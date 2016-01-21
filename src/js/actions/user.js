@@ -60,6 +60,14 @@ export const logout = () => {
   }
 }
 
+export const deleteAccount = () => {
+  return (dispatch, getState) => {
+    let {notesStore} = getState();
+    console.log(notesStore)
+    dispatch(logout())
+  }
+}
+
 export const disconnect = () => {
   return dispatch => {
     localforage.clear()
