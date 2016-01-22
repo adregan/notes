@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE, LOADED_NOTES, FETCHING_NOTES, LOCK_NOTES } from '../actions/notes';
+import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE, LOADED_NOTES, FETCHING_NOTES, LOCK_NOTES, UNLOCKED_NOTES } from '../actions/notes';
 import { STORE_USER, LOG_OUT } from '../actions/user';
 import { LOGIN_SUCCESS } from '../actions/login';
 import localforage from 'localforage';
@@ -18,6 +18,8 @@ export const notes = (state = Immutable.List(), action) => {
       return state.clear();
     case LOCK_NOTES:
       return action.notes
+    case UNLOCKED_NOTES:
+      return action.notes;
     default:
       return state;
   }
@@ -31,6 +33,8 @@ export const notesStatus = (state = 'NO_NOTES', action) => {
       return LOADED_NOTES
     case LOG_OUT:
       return 'NO_NOTES'
+    case UNLOCKED_NOTES:
+      return LOADED_NOTES
     default:
       return state
   }

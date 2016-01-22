@@ -20,7 +20,10 @@ key = {
 
 */
 
-const key = (state = {}, action) => {
+// TODO: because the state is a plain object, equality checks aren't
+// registering changes in the store so components aren't updating
+// temporarily adding a keyStatus until we can reevaluate key structure (post tests) 
+export const key = (state = {manager: null, ring: null}, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return action.key;
