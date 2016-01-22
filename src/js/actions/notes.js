@@ -13,6 +13,7 @@ export const FETCHING_NOTES = 'FETCHING_NOTES';
 export const LOADED_NOTES = 'LOADED_NOTES';
 export const SAVE_ALL = 'SAVE_ALL';
 export const LOCK_NOTES = 'LOCK_NOTES';
+export const UNLOCKED_NOTES = 'UNLOCKED_NOTES';
 
 /*ACTION CREATORS*/
 export const fetchingNotes = () => {
@@ -192,6 +193,36 @@ export const lockNotes = () => {
     notes = notes.map(n => n.set('saved', true).set('decrypted', Immutable.Map()))
     console.log('Locked Notes')
     dispatch({type: LOCK_NOTES, notes})
+  }
+}
+
+
+const decrypt = (note, key) => {
+  return new Promise((resolve, reject) => {
+    let {id, content} = note.toJS();
+    key.decrypt(content)
+      .then(decrypted => {
+
+        let decryptedNote = Immutable.Map({
+          decrypted: Immutable.Map(decrypted)
+        })
+
+        return resolve(note.merge(decryptedNote))
+      })
+  })
+}
+
+export const unlockNotes = () => {
+  return (dispatch, getState) => {
+    let {key, notes} = getState();
+
+    let decryptedNotes = Promise.all(
+      notes.map(note => {return decrypt(note, key)})
+    ).then(notes => {
+      let decryptedNotes = Immutable.List(notes);
+      return dispatch({type: UNLOCKED_NOTES, notes: decryptedNotes})
+    }) 
+
   }
 }
 

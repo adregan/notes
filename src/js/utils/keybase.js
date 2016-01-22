@@ -51,9 +51,24 @@ const Key = {
     if (!this.ring) {throw new Error('Cannot decrypt, missing keyring')}
     return new Promise((resolve, reject) => {
       let keyfetch = this.ring;
-      unbox({armored: message, keyfetch}, (err, literals) => {
+      kbpgp.unbox({armored: message, keyfetch}, (err, literals) => {
         if (err) {return reject(err)}
-        return resolve(literals[0].toString())
+        let message = literals[0].toString().split('\n')
+
+        let title = {title: message.slice(0, 1)[0]}
+
+        let dates = message.slice(message.length - 3, message.length - 1).map(date => {
+          let split = date.split(':');
+          let key = split[0]
+          let value = split.slice(1).join(':')
+          return {[key]: value.replace(' ', '')}
+        }).reduce((x, y) => Object.assign({}, x, y))
+
+        let body = {body: message.slice(2, message.length - 3).join('\n')}
+
+        let decrypted = Object.assign({}, title, body, dates)
+
+        return resolve(decrypted)
       })
     })
   }
