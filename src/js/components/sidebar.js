@@ -2,6 +2,7 @@ import React from 'react';
 import Notes from './notes';
 import { createSearch } from '../actions/search';
 import { addNote } from '../actions/notes';
+import { lock } from '../actions/user';
 import { connect } from 'react-redux';
 import Logo from '../components/logo';
 import history from '../routes/history';
@@ -13,7 +14,7 @@ const Sidebar = ({ dispatch, notesStatus, search }) => {
       <header className="header">
         <button
           className="header__button header__button--decrypt" 
-          onClick={e => console.log('DECRYPT HERE')}>Decrypt</button>
+          onClick={e => dispatch(lock())}>Decrypt</button>
           <Logo color="dark" className="header__logo" />
         <button 
           className="header__button header__button--create" 

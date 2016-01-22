@@ -50,8 +50,8 @@ export class Message extends React.Component {
 
         <div className="popup__buttons">
           <button onClick={ok} className="popup__button popup__button--ok">{action.label}</button>
-          {compromise && <button onClick={compromise} className="popup__button">{action.compromiseLabel}</button>}
           {hasCancel && <button onClick={() => dispatch(dismiss())} className="popup__button">Cancel</button>}
+          {compromise && <button onClick={compromise} className="popup__button popup__button--compromise">{action.compromiseLabel}</button>}
         </div>
       </article>
     );

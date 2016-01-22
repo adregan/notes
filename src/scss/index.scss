@@ -522,6 +522,9 @@ button {
       border-color: $primary-color;
       color: white;
     }
+    &--compromise {
+      margin-right: 2rem;
+    }
   }
   &--error {
     .popup__title{

@@ -11,6 +11,8 @@ export const CLOSE_NOTE = 'CLOSE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const FETCHING_NOTES = 'FETCHING_NOTES';
 export const LOADED_NOTES = 'LOADED_NOTES';
+export const SAVE_ALL = 'SAVE_ALL';
+export const LOCK_NOTES = 'LOCK_NOTES';
 
 /*ACTION CREATORS*/
 export const fetchingNotes = () => {
@@ -111,11 +113,18 @@ export const updateNote = (id, {title, body, saved, content, updated}) => {
   }
 }
 
-export const saveAll = () => {
+export const saveAll = (lock = false) => {
   return (dispatch, getState) => {
     let { notes } = getState();
-    notes.filter(note => !note.get('saved'))
-         .forEach(note => {dispatch(saveNote(note.get('id')))})
+
+    if (lock) {
+      notes.forEach(note => {dispatch(saveAndLockNote(note.get('id')))})
+    }
+    else {
+      notes.filter(note => !note.get('saved'))
+           .forEach(note => {dispatch(saveNote(note.get('id')))})
+    }
+
 
     console.log('Saved all the unsaved notes');
   }
@@ -139,6 +148,50 @@ export const saveNote = (id) => {
         })
       })
       .catch(err => console.error(err))
+  }
+}
+
+export const saveAndLockNote = (id) => {
+  return (dispatch, getState) => {
+    const {key, notes, notesStore} = getState();
+    const index = notes.findIndex(note => note.get('id') === id);
+    const note = notes.get(index);
+
+    if (note.saved) {
+      let update = Immutable.Map({
+        saved: true,
+        decrypted: Immutable.Map(),
+        content: note.get('content'),
+        id
+      })
+      return dispatch({ type: UPDATE_NOTE, index, update });
+    }
+
+    const title = note.getIn(['decrypted', 'title']);
+    const body = note.getIn(['decrypted', 'body']);
+    const created = note.getIn(['decrypted', 'created']);
+    const updated = date.now();
+
+    key.encrypt({title, body, created, updated})
+      .then(content => {
+        notesStore.setItem(id, content).then(() => {
+          console.log('Successfully Saved Note');
+          let update = Immutable.Map({
+            saved: true, decrypted: Immutable.Map(), id, content
+          })
+          dispatch({ type: UPDATE_NOTE, index, update });
+        })
+      })
+      .catch(err => console.error(err))
+  }
+}
+
+export const lockNotes = (callback) => {
+  return (dispatch, getState) => {
+    let { notes } = getState();
+    notes = notes.map(n => n.set('saved', true).set('decrypted', Immutable.Map()))
+    console.log('Locked Notes')
+    dispatch({type: LOCK_NOTES, notes})
   }
 }
 

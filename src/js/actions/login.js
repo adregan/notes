@@ -12,7 +12,6 @@ import localforage from 'localforage';
 export const LOGIN_ATTEMPT = 'LOGIN_ATTEMPT';
 export const LOGIN_FAILED = 'LOGGED_FAILED';
 export const LOGIN_SUCCESS = 'LOGGED_SUCCESS';
-export const LOG_OUT = 'LOG_OUT';
 
 /*ACTION CREATORS*/
 export const loginAttempt = () => {
