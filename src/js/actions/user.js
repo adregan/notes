@@ -5,7 +5,7 @@ import history from '../routes/history';
 import localforage from 'localforage';
 import Key from '../utils/keybase';
 import {addMessage} from './messages';
-import {lockNotes, saveAll} from './notes';
+import {lockNotes, saveAll, unlockNotes} from './notes';
 
 /*ACTION TYPES*/
 export const LOGGING_IN = 'LOGGING_IN'
@@ -55,6 +55,23 @@ export const lock = () => {
   }
 }
 
+export const unlock = () => {
+  return (dispatch, getState) => {
+    return dispatch(addMessage({
+      title: 'Please enter your passphrase.',
+      body: 'In order to unlock your key and notes, please enter your passphrase.',
+      type: 'message',
+      action: {
+        type: 'secretPrompt',
+        label: 'Unlock',
+        after: unlockKey,
+      }
+
+    }))
+  }
+} 
+
+
 export const lockWithSave = () => {
   return dispatch => {
     console.log('Locking with save')
@@ -82,12 +99,15 @@ export const lockKey = () => {
   }
 }
 
-export const unlock = (passphrase) => {
+export const unlockKey = (passphrase) => {
+  console.log('Unlocking key');
   return (dispatch, getState) => {
     let {key} = getState();
     key.unlock(passphrase)
       .then(key => {
-        return dispatch({type: UNLOCK_KEY, key});
+        console.log('Unlocked key');
+        dispatch({type: UNLOCK_KEY, key});
+        dispatch(unlockNotes())
       })
       .catch(err => {
         console.error(err);
@@ -98,7 +118,7 @@ export const unlock = (passphrase) => {
         }))
       })
   }
-} 
+}
 
 export const userPanelToggle = () => {
   return {type: USER_PANEL_TOGGLE}
