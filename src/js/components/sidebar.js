@@ -2,20 +2,19 @@ import React from 'react';
 import Notes from './notes';
 import { createSearch } from '../actions/search';
 import { addNote } from '../actions/notes';
-import { lock } from '../actions/user';
 import { connect } from 'react-redux';
-import Logo from '../components/logo';
+import KeyManager from './keyManager';
+import Logo from './logo';
 import history from '../routes/history';
 
-const Sidebar = ({ dispatch, notesStatus, search }) => {
+const Sidebar = ({ dispatch, notesStatus, search, keyStatus}) => {
   let searchTerm = search.get('term');
+
   return (
     <aside className="sidebar">
       <header className="header">
-        <button
-          className="header__button header__button--decrypt" 
-          onClick={e => dispatch(lock())}>Decrypt</button>
-          <Logo color="dark" className="header__logo" />
+        <KeyManager dispatch={dispatch} keyStatus={keyStatus} />
+        <Logo color="dark" className="header__logo" />
         <button 
           className="header__button header__button--create" 
           onClick={e => dispatch(addNote('Untitled'))}>Create</button>
@@ -37,7 +36,8 @@ const Sidebar = ({ dispatch, notesStatus, search }) => {
 function select(state) {
   return {
     notesStatus: state.notesStatus,
-    search: state.search
+    search: state.search,
+    keyStatus: state.keyStatus
   };
 }
 

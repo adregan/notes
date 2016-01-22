@@ -29,10 +29,26 @@ const key = (state = {}, action) => {
     case LOCK_KEY: 
       return action.key;
     case LOG_OUT:
-      return {}
+      return {manager: null, ring: null}
     default:
       return state;
   }
 }
 
-export default key;
+export const keyStatus = (state='LOCKED', action) => {
+  switch (action.type) {
+    case LOGIN_SUCCESS:
+      if (action.key.ring) {
+        return 'UNLOCKED';
+      }
+      return 'LOCKED';
+    case UNLOCK_KEY:
+      return 'UNLOCKED';
+    case LOCK_KEY: 
+      return 'LOCKED';
+    case LOG_OUT:
+      return 'LOCKED'
+    default:
+      return state;
+  }
+}

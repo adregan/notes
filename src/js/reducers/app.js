@@ -4,7 +4,7 @@ import { user, userPanel} from './user';
 import search from './search';
 import currentNote from './currentNote';
 import messages from './messages';
-import key from './key';
+import { key, keyStatus } from './key';
 import loginStatus from './login'
 
 const notesApp = combineReducers({
@@ -17,6 +17,7 @@ const notesApp = combineReducers({
   currentNote,
   messages,
   key,
+  keyStatus,
   loginStatus
 });
 
