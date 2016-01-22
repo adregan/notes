@@ -19,20 +19,26 @@ const Settings = ({user, dispatch}) => {
           <h1 className="title">Settings</h1>
           <CloseButton light={true} onClose={() => history.push('/notes/')} />
         </header>
-        <dl className="settings__list">
-          <dt>Sync Notes</dt>
-          <dd className="settings__coming-soon">Coming Soon</dd>
+        <ul className="settings__list">
+          <li className="setting">
+            <h2 className="setting__title">Sync Notes</h2>
+            <p className="setting__coming-soon">Coming Soon</p>
+          </li>
+          <li className="setting">
+            <h2 className="setting__title">Export Notes</h2>
+            <p className="setting__coming-soon">Coming Soon</p>
+          </li>
+          <li className="setting">
+            <h2 className="setting__title">Delete Accout</h2>
+            <div className="setting__description">
+              <p>When you delete your account, the notes stored on your device and your account information will be removed.</p>
+              <p>If you'd like to delete your account: 
+              <button onClick={() => dispatch(addMessage(confirmDelete))}
+                className="setting__button">Delete</button></p>
+            </div>
+          </li>
 
-          <dt>Export Notes</dt>
-          <dd className="settings__coming-soon">Coming Soon</dd>
-
-          <dt>Delete Accout</dt>
-          <dd>
-            <button onClick={() => dispatch(addMessage(confirmDelete))}
-              className="settings__button">Delete</button>
-          </dd>
-
-        </dl>
+        </ul>
       </section>
     </article>
   );

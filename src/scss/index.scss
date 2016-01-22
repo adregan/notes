@@ -138,8 +138,16 @@ button {
   background-color: white;
   box-shadow: $shadow;
   height: 80vh;
-  overflow: scroll;
   width: 70%;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: space-between;
+    margin: 0 auto;
+    overflow: scroll;
+    width: 80%;
+  }
   &__header {
     align-items: center;
     background-color: $primary-color;
@@ -160,6 +168,28 @@ button {
       height: 1.5rem;
       width: 1.5rem;
     }
+  }
+}
+
+.setting {
+  display: flex;
+  padding: 2rem 0;
+  &__title {
+    align-self: flex-start;
+    font-size: 1rem;
+    font-style: italic;
+    width: 25%;
+  }
+  &__description, &__coming-soon {
+    width: 75%;
+  }
+  &__button {
+    background: $primary-color;
+    border: none;
+    border-radius: .3rem;
+    color: white;
+    margin: 0 .5rem;
+    padding: .5rem 1rem;
   }
 }
 
@@ -475,12 +505,13 @@ button {
   max-width: 30rem;
   width: 90%;
   &__title {
-    background-color: lighten($ok-blue, 40%);
-    border-bottom: .1rem solid $ok-blue;
+    background-color: $primary-color;
+    color: white;
     font-size: 1.2rem;
     font-style: italic;
+    font-weight: normal;
     margin: 0;
-    padding: 1rem;
+    padding: .6rem;
     text-align: center;
   }
   &__body {
@@ -528,8 +559,7 @@ button {
   }
   &--error {
     .popup__title{
-      background-color: lighten($error-red, 40%);
-      border-bottom-color: $error-red;
+      color: $error-red;
     }
   }
 

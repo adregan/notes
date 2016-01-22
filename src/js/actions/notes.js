@@ -186,7 +186,7 @@ export const saveAndLockNote = (id) => {
   }
 }
 
-export const lockNotes = (callback) => {
+export const lockNotes = () => {
   return (dispatch, getState) => {
     let { notes } = getState();
     notes = notes.map(n => n.set('saved', true).set('decrypted', Immutable.Map()))
