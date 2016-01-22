@@ -38,7 +38,7 @@ const Key = {
     })
   },
   encrypt: function({title, body, created, updated}) {
-    let msg = `${title}\n\n${body}\n\ncreated: ${created}\nupdated: ${updated}\n`;
+    let msg = `${title}\n\n${body}\n\ncreated: ${created}\nupdated: ${updated}`;
     let encrypt_for = this.manager;
     return new Promise((resolve, reject) => {
       kbpgp.box({msg, encrypt_for}, (err, result_string, result_buffer) => {
