@@ -136,6 +136,41 @@ button {
   }
 }
 
+.encryption-viewer {
+  background-color: white;
+  box-shadow: $shadow;
+  height: 70vh;
+  &__content {
+    overflow: scroll;
+    margin: 1rem 2rem;
+  }
+  &__export-button {
+    display: block;
+    margin: .5rem 2rem;
+  }
+  &__header {
+    align-items: center;
+    background-color: $primary-color;
+    color: white;
+    font-style: italic;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 2rem;
+    width: 100%;
+    .title {
+      flex-grow: 1;
+      font-size: 1.2rem;
+      font-weight: normal;
+      text-align: center;
+    }
+    .close-button {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+}
+
 .settings {
   background-color: white;
   box-shadow: $shadow;
@@ -260,8 +295,20 @@ button {
   &--rename:before {
     background-image: url('/static/rename.svg');
   }
+  &--export:before {
+    mask: url('/static/export.svg') no-repeat 100% 100%;
+    background-color: $primary-color;
+    top: .25rem;
+  }
   &--delete:before {
     background-image: url('/static/delete.svg');
+  }
+  &--disabled {
+    cursor: default;
+    color: $light-primary;
+  }
+  &--disabled:before {
+    background-color: $light-primary;
   }
   &:focus {
     outline: none;
@@ -298,7 +345,7 @@ button {
 }
 
 .user {
-  background-color: white;
+  background-color: $faint-primary;
   background-image: url('smile.svg');
   background-size: 100% 100%;
   border: 1px solid white;
