@@ -5,8 +5,6 @@ import localforage from 'localforage';
 import Key from '../utils/keybase';
 import uuid from 'node-uuid';
 
-import history from '../routes/history';
-
 export const createDemoUser = (passphrase) => {
   return dispatch => {
     dispatch(loginAttempt())
