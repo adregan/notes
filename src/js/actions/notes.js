@@ -2,6 +2,7 @@ import Immutable from 'immutable';
 import uuid from 'node-uuid';
 import * as date from '../utils/date';
 import localforage from 'localforage';
+import { addMessage } from './messages';
 
 /*ACTION TYPES*/
 export const ADD_NOTE = 'ADD_NOTE';
@@ -83,6 +84,22 @@ export const selectNote = (id) => {
 
 export const closeNote = () => {
   return {type: CLOSE_NOTE}
+}
+
+export const renameNote = (id) => {
+  return dispatch => {
+    const message = {
+      title: 'Rename Note',
+      body: '',
+      type: 'message',
+      action: {
+        type: 'prompt',
+        after: (title) => dispatch(updateNote(id, {title})),
+        label: 'Save'
+      }
+    }
+    dispatch(addMessage(message))
+  }
 }
 
 export const updateNote = (id, {title, body, saved, content, updated}) => {
