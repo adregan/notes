@@ -1,7 +1,7 @@
 import React from 'react';
 import TitleEditor from './titleEditor';
 import BodyEditor from './bodyEditor';
-import { updateNote, saveNote, closeNote} from '../actions/notes';
+import { updateNote, saveNote, closeNote, renameNote, deleteNote } from '../actions/notes';
 import CloseButton from './closeButton';
 
 const Editor = ({currentNote, dispatch}) => {
@@ -15,17 +15,26 @@ const Editor = ({currentNote, dispatch}) => {
   let encrypted = currentNote.get('content');
 
   return (
-    <form className="editor"
-      onSubmit={(e) => {e.preventDefault(); dispatch(saveNote(id))}}>
+    <form className="editor" onSubmit={(e) => {e.preventDefault(); dispatch(saveNote(id))}}>
       
       <div className="editor__header">
         <h2 className="note-title">{title}</h2>
-        <CloseButton text={false} light={true}
-          onClose={(e) => {e.preventDefault(); dispatch(closeNote())}} />
+        <CloseButton text={false} light={true} onClose={(e) => {e.preventDefault(); dispatch(closeNote())}} />
       </div>
 
-      <BodyEditor className="editor__body" value={body}
-        onChange={(body) => dispatch(updateNote(id, {body}))} />
+      <div className="editor__controls">
+        <button className="editor-button editor-button--save" type="submit">
+          Save
+        </button>
+        <button className="editor-button editor-button--rename" onClick={e => {e.preventDefault(); dispatch(renameNote(id))}}>
+          Rename...
+        </button>
+        <button className="editor-button editor-button--delete" onClick={e => {e.preventDefault(); dispatch(deleteNote(id))}}>
+          Delete
+        </button>
+      </div>
+
+      <BodyEditor className="editor__body" value={body} onChange={(body) => dispatch(updateNote(id, {body}))} />
     </form>
   );
 }
