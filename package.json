@@ -6,11 +6,11 @@
   "scripts": {
     "test": "mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch",
-    "directories": "mkdir -p dist/static dist/notes dist/login dist/settings",
+    "directories": "mkdir -p dist/static dist/notes dist/login dist/settings dist/demo",
     "prebuild": "npm run directories",
     "predev": "npm run directories",
     "build:js": "browserify -t babelify src/js/index.js | uglifyjs > dist/static/index.js",
-    "build:html": "echo dist dist/login dist/notes dist/settings | xargs -n 1 cp src/html/index.html",
+    "build:html": "echo dist dist/login dist/notes dist/settings dist/demo | xargs -n 1 cp src/html/index.html",
     "build:css": " sassc --sourcemap --style compressed src/scss/index.scss | postcss --use autoprefixer > dist/static/index.css",
     "build:assets": "cp -r src/assets/* dist/static",
     "build": "npm run build:js; npm run build:html; npm run build:css; npm run build:assets",
