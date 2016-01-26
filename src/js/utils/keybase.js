@@ -71,7 +71,28 @@ const Key = {
         return resolve(decrypted)
       })
     })
+  },
+  demo: function(passphrase) {
+    return new Promise((resolve, reject) => {
+      kbpgp.KeyManager.generate_rsa({userid: 'Demo User'}, (err, manager) => {
+        if (err) {reject(err)}
+        manager.sign({}, err => {
+          if (err) {reject(err)}
+
+          this.manager = manager;
+          let ring = new kbpgp.keyring.KeyRing();
+          ring.add_key_manager(this.manager);
+          this.ring = ring;
+
+          manager.export_private({p3skb: true, passphrase}, (err, armoredKey) => {
+            if (err) {reject(err)}
+            return resolve({key: this, armoredKey});
+          })
+        })
+      });
+    })
   }
+
 }
 
 export default Key;

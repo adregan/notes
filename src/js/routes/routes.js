@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Route, IndexRoute } from 'react-router';
 import Root from './root';
 import Login from './login';
+import Demo from './demo';
 import NotesApp from './notesApp';
 import Settings from './settings';
 import localforage from 'localforage';
@@ -29,6 +30,7 @@ const routes = (
     <Route path='notes' onEnter={checkForPreviousSession} component={NotesApp}>
       <Route path='/settings' component={Settings} />
     </Route>
+    <Route path='demo' component={Demo} />
   </Route>
 );
 
