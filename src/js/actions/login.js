@@ -21,7 +21,7 @@ export const loginAttempt = () => {
 export const loginSuccess = (user, key, renew = false) => {
   return dispatch => {
     !renew && dispatch(storeUser(user));
-    dispatch(fetchNotes(user.username));
+    dispatch(fetchNotes(user.username, key));
     dispatch({
       type: LOGIN_SUCCESS,
       user: Immutable.Map(user),

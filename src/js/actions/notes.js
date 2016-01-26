@@ -20,38 +20,37 @@ export const UNLOCKED_NOTES = 'UNLOCKED_NOTES';
 export const fetchingNotes = () => {
   return {type: FETCHING_NOTES}
 }
-export const fetchNotes = (username) => {
+export const fetchNotes = (username, key) => {
   return dispatch => {
     dispatch(fetchingNotes())
     let notes = Immutable.List();
     let decrypted = Immutable.Map();
 
-    const notesStore = localforage.createInstance({
+    const store = localforage.createInstance({
       name: username
-    });
+    })
 
-    notesStore.length((err, number) => {
+    store.length((err, number) => {
       if (!number) {
-        return dispatch({
-          type: LOADED_NOTES,
-          store: notesStore,
-          notes 
-        })
+        return dispatch({type: LOADED_NOTES, store, notes})
+      }
+    })
+
+    store.iterate((content, id, i) => {
+      notes = notes.push(
+        Immutable.Map({saved: true, id, content, decrypted}));
+    })
+    .then(() => {
+      if (!key.ring) {
+        return dispatch({type: LOADED_NOTES, store, notes})
       }
       else {
-        notesStore.iterate((content, id, i) => {
-          let note = Immutable.Map({
-            saved: true, id, content, decrypted
-          })
-          notes = notes.push(note);
-        })
-        .then(() => {
-          return dispatch({
-            type: LOADED_NOTES,
-            store: notesStore,
-            notes 
-          })
-        })
+        Promise.all(
+          notes.map(note => {return decrypt(note, key)})
+        ).then(notes => {
+          let decryptedNotes = Immutable.List(notes);
+          return dispatch({type: LOADED_NOTES, notes: decryptedNotes, store})
+        }) 
       }
     })
   }
@@ -219,11 +218,9 @@ const decrypt = (note, key) => {
     let {id, content} = note.toJS();
     key.decrypt(content)
       .then(decrypted => {
-
         let decryptedNote = Immutable.Map({
           decrypted: Immutable.Map(decrypted)
         })
-
         return resolve(note.merge(decryptedNote))
       })
   })
