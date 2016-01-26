@@ -3,7 +3,7 @@ import { api } from '../../../config';
 import Key from '../utils/keybase';
 import history from '../routes/history';
 import fetch from '../utils/fetch';
-import {addMessage} from './messages';
+import { addMessage } from './messages';
 import { storeUser } from './user';
 import { fetchNotes } from './notes';
 import localforage from 'localforage';
