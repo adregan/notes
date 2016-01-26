@@ -245,8 +245,26 @@ export const unlockNotes = () => {
 
 export const deleteNote = (id) => {
   return (dispatch, getState) => {
-    let {notes} = getState();
+    const {notes, notesStore} = getState();
     const index = notes.findIndex(note => note.get('id') === id);
-    return dispatch({ type: DELETE_NOTE, index });
+    const message = {
+      title: 'Are you sure?',
+      body: 'Delete this note?',
+      action: {
+        type: 'confirm',
+        after: () => { return {type: DELETE_NOTE, index, id}},
+        label: 'Delete'
+      }
+    }
+    notesStore.removeItem(id, (err) => {
+      if (err) {
+        console.error(err)
+        return dispatch(addMessage({
+          title: 'Uh Oh. Something went wrong',
+          body: 'There was an error deleting this note.'
+        }))
+      }
+      return dispatch(addMessage(message));
+    })
   }
 }
