@@ -214,72 +214,63 @@ button {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding: .4rem;
+    padding: 0 0 .8rem;
     .note-title {
       font-size: 1rem;
       font-style: italic;
       font-weight: normal;
       margin: 0;
     }
-/*    align-items: center;
-    background: #333;
-    border-bottom: .1rem solid $light-primary;
-    border-top-right-radius: $radius;
-    background-color: white;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: .5rem 3rem 0;
-    position: relative;
-    text-align: center;
-    width: 100%; 
-*/  }
-  &__title, &__body {
-    display: block;
-    max-width: 50rem;
-    padding: 1rem;
-    width: 70%;
-    &:focus {
-    outline: none;
+    button{
+      margin: 0 1rem;
     }
-  }
-  &__title {
-    border: none;
-    flex-grow: 3;
-    font-size: 1.2rem;
-    padding: 1.2rem 1rem;
-    height: 100%;
   }
   &__body {
     border: none;
+    display: block;
     font-size: 1.2rem;
     flex-grow: 9;
+    max-width: 50rem;
     overflow: scroll;
+    padding: 1rem;
     resize: none;
-  }
-  &__buttons {
-    display: flex;
-    flex-grow: 1;
-    margin-right: 10rem;
-  }
-  button{
-    margin: 0 1rem;
-  }
-  &__save-button {
-    background-color: transparent;
-    border: none;
-    position: relative;
-    &:before {
-      background-image: url('/static/save.svg');
-      background-size: 100% 100%;
-      content: '';
-      height: 1.2rem;
-      position: absolute; left: -1rem;
-      width: 1.2rem;
+    width: 90%;
+    &:focus {
+      outline: none;
     }
   }
+  &__controls {
+    border-bottom: .1rem solid $primary-color;
+    display: flex;
+    padding: .2rem 0 .2rem 1rem;
+  }
+}
 
+.editor-button {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  margin: 0 2rem 0 1rem;
+  position: relative;
+  &--save:before {
+    background-image: url('/static/save.svg');
+  }
+  &--rename:before {
+    background-image: url('/static/rename.svg');
+  }
+  &--delete:before {
+    background-image: url('/static/delete.svg');
+  }
+  &:focus {
+    outline: none;
+  }
+  &:before {
+    background-size: 100% 100%;
+    content: '';
+    height: 1.2rem;
+    position: absolute; left: -1rem;
+    width: 1.2rem;
+  }
 }
 
 .no-note {
