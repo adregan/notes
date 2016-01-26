@@ -2,7 +2,7 @@ import React from 'react';
 import TitleEditor from './titleEditor';
 import BodyEditor from './bodyEditor';
 import { updateNote, saveNote, closeNote} from '../actions/notes';
-import CloseButton from './closeButton'
+import CloseButton from './closeButton';
 
 const Editor = ({currentNote, dispatch}) => {
   if (currentNote.isEmpty()) {
@@ -19,13 +19,9 @@ const Editor = ({currentNote, dispatch}) => {
       onSubmit={(e) => {e.preventDefault(); dispatch(saveNote(id))}}>
       
       <div className="editor__header">
-        <TitleEditor className="editor__title"  value={title} limit={50}
-          onChange={(title) => dispatch(updateNote(id, {title}))}/>
-        <div className="editor__buttons">
-          <button type="submit" className="editor__save-button">Save</button>
-          <CloseButton text={true} 
-            onClose={(e) => {e.preventDefault(); dispatch(closeNote())}} />
-        </div>
+        <h2 className="note-title">{title}</h2>
+        <CloseButton text={false} light={true}
+          onClose={(e) => {e.preventDefault(); dispatch(closeNote())}} />
       </div>
 
       <BodyEditor className="editor__body" value={body}
