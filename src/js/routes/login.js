@@ -16,7 +16,7 @@ const Login = ({dispatch}) => {
       </article>
       <ul className="footer">
         <li>By <a href="mailto:duncanregan+notes@gmail.com">Duncan Regan</a></li>
-        <li><a href="https://github.com/adregan/notes/blob/master/README.md#about">About</a></li>
+        <li><a href="https://github.com/adregan/notes#about">About</a></li>
         <li><a href="https://github.com/adregan/notes/">Github</a></li>
       </ul>
     </div>

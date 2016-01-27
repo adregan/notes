@@ -292,7 +292,7 @@ button {
   &__controls {
     border-bottom: .1rem solid $primary-color;
     display: flex;
-    padding: .2rem 0 .2rem 1rem;
+    padding: .2rem 0 .2rem;
   }
 }
 
@@ -300,9 +300,9 @@ button {
   background-color: transparent;
   border: none;
   display: flex;
-  margin: 0 2rem 0 1rem;
+  margin: 0 1rem;
   position: relative;
-  &--save:before {
+/*  &--save:before {
     background-image: url('/static/save.svg');
   }
   &--rename:before {
@@ -316,24 +316,25 @@ button {
   &--delete:before {
     background-image: url('/static/delete.svg');
   }
+*/  
   &--disabled {
     cursor: default;
     color: $light-primary;
   }
-  &--disabled:before {
+/*  &--disabled:before {
     background-color: $light-primary;
   }
-  &:focus {
+*/  &:focus {
     outline: none;
   }
-  &:before {
+/*  &:before {
     background-size: 100% 100%;
     content: '';
     height: 1.2rem;
     position: absolute; left: -1rem;
     width: 1.2rem;
   }
-}
+*/}
 
 .no-note {
   align-items: center;
