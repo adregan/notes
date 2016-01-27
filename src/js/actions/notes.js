@@ -94,7 +94,7 @@ export const renameNote = (id) => {
       action: {
         type: 'prompt',
         after: (title) => dispatch(updateNote(id, {title})),
-        label: 'Save'
+        label: 'Rename'
       }
     }
     dispatch(addMessage(message))
