@@ -99,6 +99,19 @@ button {
   }
 }
 
+.footer {
+  color: white;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 3rem 0 0 0;
+  padding: 0;
+  li {
+    flex-grow: 1;
+  }
+  a {color: white}
+}
+
 .notes-app {
   background-color: white;
   border-radius: $radius;
@@ -345,7 +358,7 @@ button {
 }
 
 .user {
-  background-color: $faint-primary;
+  background-color: white;
   background-image: url('smile.svg');
   background-size: 100% 100%;
   border: 1px solid white;

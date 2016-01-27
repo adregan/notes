@@ -10,10 +10,15 @@ const Login = ({dispatch}) => {
     <div>
       <Logo color="light" className="login-logo"/>
       <article className="login">
-        <p>You must have a Keybase.io account to use this app.</p>
+        <p>You must have a <a href="https://keybase.io">Keybase.io</a> account to use this app.</p>
         <p>However, you can <a href='/demo' onClick={e => {e.preventDefault(); history.push('/demo/')}}>demo it here</a>.</p>
         <LoginForm />
       </article>
+      <ul className="footer">
+        <li>By <a href="mailto:duncanregan+notes@gmail.com">Duncan Regan</a></li>
+        <li><a href="https://github.com/adregan/notes/blob/master/README.md#about">About</a></li>
+        <li><a href="https://github.com/adregan/notes/">Github</a></li>
+      </ul>
     </div>
   );
 }
