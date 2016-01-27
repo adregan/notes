@@ -6,6 +6,7 @@ Notes is an application that puts encryption first. As such, it provides a test 
 
 Feature Roadmap:
 - Auto Save
+- Mobile Layout
 - Cloud Sync
 - Exporting notes
 - User accounts
