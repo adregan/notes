@@ -12,6 +12,7 @@ The name is super generic, I agree, and it doesn't convey anything about these n
 
 - Test Coverage
 - Auto Save
+- Sorting features
 - Mobile Layout
 - Cloud Sync
 - Exporting notes
