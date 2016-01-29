@@ -6,7 +6,7 @@ import { checkForCurrentSession } from '../actions/user';
 class Root extends React.Component {
   componentDidMount() {
     window.onbeforeunload = (e) => {
-      if (this.props.notes.filter(n => n.get('unsaved')).count()){
+      if (this.props.notes.filter(n => !n.get('saved')).count()){
         return 'You have unsaved changes. If you leave, your changes will be lost.';
       }
     }
