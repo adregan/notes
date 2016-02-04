@@ -93,7 +93,7 @@ export const renameNote = (id) => {
       type: 'message',
       action: {
         type: 'prompt',
-        after: (title) => dispatch(updateNote(id, {title})),
+        after: (title) => dispatch(updateNote(id, {title}, () => dispatch(saveNote(id)))),
         label: 'Rename'
       }
     }
@@ -101,7 +101,7 @@ export const renameNote = (id) => {
   }
 }
 
-export const updateNote = (id, {title, body, saved, content, updated}) => {
+export const updateNote = (id, {title, body, saved, content, updated}, cb) => {
   return (dispatch, getState) => {
     let {notes} = getState();
     const index = notes.findIndex(note => note.get('id') === id);
@@ -125,6 +125,10 @@ export const updateNote = (id, {title, body, saved, content, updated}) => {
       }
       return next;
     }, changes);
+
+    if (cb) {
+      cb();
+    }
 
     return dispatch({ type: UPDATE_NOTE, index, update });
   }
