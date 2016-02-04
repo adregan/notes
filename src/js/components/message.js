@@ -30,6 +30,9 @@ export class Message extends React.Component {
     }
     else if (action.type === 'prompt' || action.type === 'secretPrompt') {
       ok = () => {
+        if (!this.state.prompt.length) {
+          return;
+        }
         dispatch(action.after(this.state.prompt));
         dispatch(dismiss());
       }
