@@ -11,7 +11,6 @@ The name is super generic, I agree, and it doesn't convey anything about these n
 ## Feature Roadmap
 
 - Test Coverage
-- Auto Save
 - Sorting features
 - Mobile Layout
 - Cloud Sync
