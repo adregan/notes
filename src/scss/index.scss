@@ -317,6 +317,9 @@ button {
     background-image: url('/static/delete.svg');
   }
 */  
+  &--save {
+    margin-right: 1.9rem;
+  }
   &--disabled {
     cursor: default;
     color: $light-primary;

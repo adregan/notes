@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { updateNote } from '../actions/notes';
+import { connect } from 'react-redux';
 
-const BodyEditor = ({value, onChange, className}) => {
+const BodyEditor = ({id, value, autoSave, className, dispatch}) => {
   return (
     <textarea
       value={value}
-      onChange={e => onChange(e.target.value)}
+      onChange={e => {
+        dispatch(updateNote(id, {body: e.target.value}));
+        autoSave();
+      }}
       className={className} />
   );
 }
 
-export default BodyEditor;
+export default connect()(BodyEditor);

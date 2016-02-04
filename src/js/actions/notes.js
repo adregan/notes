@@ -60,7 +60,7 @@ export const addNote = () => {
   const now = date.now();
   const note = Immutable.Map({
     id: uuid.v4(),
-    saved: false,
+    saved: true,
     content: '',
     decrypted: Immutable.Map({
       title: 'Untitled',
